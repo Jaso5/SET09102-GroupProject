@@ -11,15 +11,16 @@
 - Environmental Scientist
   - Manage sensor accounts and configure settings: Add setting menu for each sensor, add fake settings
   - View and analyse historical environmental data: Graph the data
-  - Use a map to view real-time sensor statuses and alerts geographically: Map with sensors on it
+  - Jacob: Use a map to view real-time sensor statuses and alerts geographically: Map with sensors on it
+  - James: Generate comprehensive reports on environmental trends
 - Operation Manager
-  - Monitor the operational status of sensors: Add battery level to map
+  - Jacob: Monitor the operational status of sensors: Add battery level to map
   - Schedule maintenance and ensure timely checks: Battery low alerts
-  - Address and report sensor malfunctions or anomalies:  Add inspection date + reminders to each sensor
+  - James: Address and report sensor malfunctions or anomalies:  Add inspection date + reminders to each sensor
 - Administrator
-  - Manage user access and roles within the application: Database accounts for each user
+  - James: Manage user access and roles within the application: Database accounts for each user
   - Maintain high levels of system security and data protection: Minimum required permissions on database
-  - Oversee data storage and implement backup strategies: Backup button which copies database file
+  - Jacob: Oversee data storage and implement backup strategies: Backup button which copies database file
 
 ## Timescale
 
@@ -28,9 +29,10 @@
   - Brush up on MAUI
 
 - Week 2
-  - Shove input data into database
+  - Shove input data into database, design for needed features
   - Build groundwork for app
   - Design UI (Wireframes etc.)
+  - Everyone: Create issues/UML/etc. for our tasks
 
 - Week 3
   - Complete tasks

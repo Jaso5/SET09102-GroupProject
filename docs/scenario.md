@@ -25,8 +25,8 @@ As an Operations Manager I want to
 
 - Monitor the operational status of sensors. <-- Add battery level to map
 - Schedule maintenance and ensure timely checks. <-- Battery low alerts
-- Verify the accuracy and integrity of collected data. <-- Graph the data with colours for things that may be anomalies
-- Address and report sensor malfunctions or anomalies.
+- Verify the accuracy and integrity of collected data.
+- Address and report sensor malfunctions or anomalies. <-- Add inspection date + reminders to each sensor
 
 As an Administrator I want to
 
