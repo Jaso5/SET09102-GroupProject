@@ -4,6 +4,7 @@
 
 - Use <https://zube.io/> to handle task lists
 - Weekly meeting Friday
+- Git Flow <https://danielkummer.github.io/git-flow-cheatsheet/>
 
 ## Timescale
 
