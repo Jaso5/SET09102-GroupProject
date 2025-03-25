@@ -13,7 +13,7 @@
   - View and analyse historical environmental data: Graph the data
   - Jacob: Use a map to view real-time sensor statuses and alerts geographically: Map with sensors on it
   - Dan: Generate comprehensive reports on environmental trends
-  -Jabed:Receive real-time alerts on threshold breaches, displayed on an interactive map.
+  -Jabed: Receive real-time alerts on threshold breaches, displayed on an interactive map.
 - Operation Manager
   - Jacob: Monitor the operational status of sensors: Add battery level to map
   - Dan: Schedule maintenance and ensure timely checks: Battery low alerts
