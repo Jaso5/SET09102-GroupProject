@@ -13,14 +13,17 @@
   - View and analyse historical environmental data: Graph the data
   - Jacob: Use a map to view real-time sensor statuses and alerts geographically: Map with sensors on it
   - Dan: Generate comprehensive reports on environmental trends
+  -Jabed:Receive real-time alerts on threshold breaches, displayed on an interactive map.
 - Operation Manager
   - Jacob: Monitor the operational status of sensors: Add battery level to map
   - Dan: Schedule maintenance and ensure timely checks: Battery low alerts
   - James: Address and report sensor malfunctions or anomalies:  Add inspection date + reminders to each sensor
+  - Jabed: Verify the accuracy and integrity of collected data.
 - Administrator
   - James: Manage user access and roles within the application: Database accounts for each user
   - Dan: Maintain high levels of system security and data protection: Minimum required permissions on database
   - Jacob: Oversee data storage and implement backup strategies: Backup button which copies database file
+  - Jabed: Update sensor configurations and firmware.
 
 ## Timescale
 
