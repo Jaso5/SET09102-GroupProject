@@ -1,0 +1,30 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table Readings {
+  id integer [primary key]
+  
+  timestamp timestamp [not null]
+  value float
+
+  sensor integer [ref: > Sensors.id, not null]
+}
+
+Table Sensors {
+  id integer [primary key]
+
+  category string
+
+  quantity string
+  symbol string
+  unit string
+  description string
+
+  frequency int
+  
+  safe_level float
+  
+  reference string
+  sensor string
+  URL string
+}
