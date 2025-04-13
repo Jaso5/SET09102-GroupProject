@@ -5,6 +5,13 @@
 *.userosscache
 *.sln.docstates
 
+environmentMonitoring/bin/
+environmentMonitoring/obj/
+environmentMonitoring.Database/obj/
+environmentMonitoring.Database/bin/
+environmentMonitoring.Database/appsettings.json
+.vscode
+
 # User-specific files (Mono)
 mono_crash.*
 

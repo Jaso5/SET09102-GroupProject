@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
+using environmentMonitoring.Database.Data;
+
 
 namespace environmentMonitoring;
 
@@ -15,6 +17,8 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
 
+			builder.Services.AddDbContext<EnvironmentAppDbContext>();
+
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
@@ -22,3 +26,5 @@ public static class MauiProgram
 		return builder.Build();
 	}
 }
+
+
