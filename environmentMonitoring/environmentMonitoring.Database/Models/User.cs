@@ -19,10 +19,11 @@ public class User
     public string email { get; set; }
     [Required]
     [DataType(DataType.Password)]
-    public string Password { get; set; }
+    public string password { get; set; }
 
     // foreign key to Role table
     public int role_Id { get; set; }
-    public Role Role { get; set; }
+    [ForeignKey("role_Id")]
+    public Role Role { get; set; } = null!;
 
 }

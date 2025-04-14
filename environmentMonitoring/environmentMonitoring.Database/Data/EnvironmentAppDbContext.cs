@@ -16,7 +16,7 @@ public class EnvironmentAppDbContext : DbContext
      {
         var a = Assembly.GetExecutingAssembly();
         var resources = a.GetManifestResourceNames();
-        using var stream = a.GetManifestResourceStream("Notes.Database.appsettings.json");
+        using var stream = a.GetManifestResourceStream("environmentMonitoring.Database.appsettings.json");
         
         var config = new ConfigurationBuilder()
             .AddJsonStream(stream)
@@ -30,5 +30,15 @@ public class EnvironmentAppDbContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<Role> Roles { get; set; }
 
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<User>()
+            .HasOne(e => e.Role)
+            .WithMany(e => e.Users)
+            .HasForeignKey(e => e.role_Id)
+            .OnDelete(DeleteBehavior.Cascade);
+    }
+
+   
 
 }

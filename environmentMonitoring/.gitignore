@@ -10,6 +10,8 @@ environmentMonitoring/obj/
 environmentMonitoring.Database/obj/
 environmentMonitoring.Database/bin/
 environmentMonitoring.Database/appsettings.json
+environmentMonitoring.Migrations/obj/
+environmentMonitoring.Migrations/bin/
 .vscode
 
 # User-specific files (Mono)

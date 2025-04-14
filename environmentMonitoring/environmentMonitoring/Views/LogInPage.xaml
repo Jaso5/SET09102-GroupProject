@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:environmentMonitoring.ViewModels"
+             x:Class="environmentMonitoring.Views.LogInPage"
+             Title="LogInPage">
+    <VerticalStackLayout Spacing="10" Margin="5">
+        <Label 
+            Text="Log In"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Label 
+            Text="Email:"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Entry x:Name="emailEntry"
+            Placeholder="Enter Email..."
+            Text="{Binding email}"
+            HeightRequest="100" />
+        <Label 
+            Text="Password"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Entry x:Name="passwordEntry"
+            Placeholder="Enter Password..."
+            IsPassword="True"
+            Text="{Binding password}"
+            HeightRequest="100" />
+
+        <Button x:Name="loginButton"
+            Text="Log In"
+            Command="{Binding LoginCommand}"
+            BackgroundColor="#FF10B7D4"
+            TextColor="White" 
+            HeightRequest="100" />
+    </VerticalStackLayout>
+</ContentPage>
