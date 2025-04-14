@@ -17,6 +17,11 @@ public partial class LoginViewModel : ObservableObject
     public string email;
     public string password;
 
+    public LoginViewModel(EnvironmentAppDbContext dbContext)
+    {
+        _context = dbContext;
+    }
+
     
 
     [RelayCommand]
