@@ -14,8 +14,13 @@ public partial class LoginViewModel : ObservableObject
 {
     private User _user;
     private EnvironmentAppDbContext _context;
+
+    [ObservableProperty]
     public string email;
+    
+    [ObservableProperty]
     public string password;
+    
 
     public LoginViewModel(EnvironmentAppDbContext dbContext)
     {
@@ -24,20 +29,33 @@ public partial class LoginViewModel : ObservableObject
 
     
 
+   
+
     [RelayCommand]
     private async Task Login()
     {
-        if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+        if (string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(Password))
         {
             await Application.Current.MainPage.DisplayAlert("Fields Cannot be empty", "Please enter username and password", "OK");
             return;
         }
 
-        _user = await _context.Users.FirstOrDefaultAsync(u => u.email == email && u.password == password);
+        await _context.Users
+        .Include(u => u.first_name)
+        .Include(u => u.surname)
+        .Include(u => u.Role) // Include the Role navigation property
+        .FirstOrDefaultAsync(u => u.email == Email && u.password == Password);
 
         if (_user != null)
         {
             // Navigate to the home page
+            await SecureStorage.SetAsync("hasAuth", "true");
+            await SecureStorage.SetAsync("userId", _user.user_Id.ToString());
+            await SecureStorage.SetAsync("userRole", _user.Role.role_type);
+            await SecureStorage.SetAsync("userName", _user.first_name + " " + _user.surname);
+            
+            await Shell.Current.GoToAsync("//HomePage");
+
             
         }
         else
@@ -45,6 +63,8 @@ public partial class LoginViewModel : ObservableObject
             await Application.Current.MainPage.DisplayAlert("Please check your credentials", "Invalid username or password", "OK");
         }
     }
+
+
 
 
 }

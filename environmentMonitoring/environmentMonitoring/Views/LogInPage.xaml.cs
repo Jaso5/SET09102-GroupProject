@@ -3,9 +3,9 @@ using environmentMonitoring.ViewModels;
 
 public partial class LogInPage : ContentPage
 {
-	public LogInPage()
+	public LogInPage(LoginViewModel LoginViewModel)
 	{
-		this.BindingContext = new LoginViewModel();
+		this.BindingContext = LoginViewModel;
 		InitializeComponent();
 	}
 }

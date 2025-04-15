@@ -3,35 +3,43 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:environmentMonitoring.ViewModels"
              x:Class="environmentMonitoring.Views.LogInPage"
-             Title="LogInPage">
-    <VerticalStackLayout Spacing="10" Margin="5">
+             Title="LogInPage"
+             Shell.NavBarIsVisible="false">
+    <VerticalStackLayout Spacing="10" Margin="5" VerticalOptions="Center">
         <Label 
             Text="Log In"
+            FontSize="32"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
         <Label 
             Text="Email:"
+            FontSize="20"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
         <Entry x:Name="emailEntry"
             Placeholder="Enter Email..."
-            Text="{Binding email}"
-            HeightRequest="100" />
+            Text="{Binding Email}"
+            HeightRequest="40"
+            Margin="20,0,20,0" />
         <Label 
-            Text="Password"
+            Text="Password:"
+            FontSize="20"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
         <Entry x:Name="passwordEntry"
             Placeholder="Enter Password..."
             IsPassword="True"
-            Text="{Binding password}"
-            HeightRequest="100" />
+            Text="{Binding Password}"
+            HeightRequest="40"
+            Margin="20,0,20,0" />
 
         <Button x:Name="loginButton"
-            Text="Log In"
+            Text="LOGIN"
             Command="{Binding LoginCommand}"
             BackgroundColor="#FF10B7D4"
             TextColor="White" 
-            HeightRequest="100" />
+            HeightRequest="40"
+            Margin="20,0,20,0" />
+            
     </VerticalStackLayout>
 </ContentPage>

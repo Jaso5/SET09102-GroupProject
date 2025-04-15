@@ -7,11 +7,13 @@
     Shell.FlyoutBehavior="Disabled"
     Title="environmentMonitoring">
 
+    
+    <ShellContent
+        Title="Log In"
+        ContentTemplate="{DataTemplate views:LogInPage}"
+        Route="LogInPage" />
+    
     <TabBar>
-        <ShellContent
-            Title="Log In"
-            ContentTemplate="{DataTemplate views:LogInPage}"
-            Route="LogInPage" />
         <ShellContent
             Title="Home Page"
             ContentTemplate="{DataTemplate views:HomePage}"
