@@ -40,14 +40,14 @@ public partial class LoginViewModel : ObservableObject
     {
         if (string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(Password))
         {
-            await Application.Current.MainPage.DisplayAlert("Fields Cannot be empty", "Please enter username and password", "OK");
+            await _diaglogService.ShowAlertAsync("Fields Cannot be empty", "Please enter username and password", "OK");
             return;
         }
 
-        await _context.Users
+         _user = await _context.Users
         .Include(u => u.first_name)
         .Include(u => u.surname)
-        .Include(u => u.Role) // Include the Role navigation property
+        .Include(u => u.Role)
         .FirstOrDefaultAsync(u => u.email == Email && u.password == Password);
 
         if (_user != null)
