@@ -37,6 +37,18 @@ public class EnvironmentAppDbContext : DbContext
             .WithMany(e => e.Users)
             .HasForeignKey(e => e.role_Id)
             .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<VirtualSensor>()
+            .HasOne(e => e.RealSensor)
+            .WithMany(e => e.VirtualSensor)
+            .HasForeignKey(e => e.r_sensor_Id)
+            .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<VirtualSensor>()
+            .HasOne(e => e.Quantity)
+            .WithMany(e => e.VirtualSensor)
+            .HasForeignKey(e => e.quantity_Id)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 
    

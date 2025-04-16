@@ -31,9 +31,6 @@ public partial class LoginViewModel : ObservableObject
         
     }
 
-    
-
-   
 
     [RelayCommand]
     private async Task Login()
