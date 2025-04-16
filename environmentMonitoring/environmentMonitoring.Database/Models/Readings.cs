@@ -18,4 +18,6 @@ public class Readings
     public int v_sensor_id { get; set; }
     [ForeignKey("v_sensor_id")]
     public VirtualSensor VirtualSensor { get; set; } = null!;
+
+    public List<Anomalies> Anomalies { get; set; } = new List<Anomalies>();
 }

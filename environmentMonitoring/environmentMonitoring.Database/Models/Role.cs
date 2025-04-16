@@ -4,15 +4,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace environmentMonitoring.Database.Models;
 
-[Table("roles")]
+[Table("Roles")]
 [PrimaryKey(nameof(role_Id))]
 public class Role
 {
      public int role_Id { get; set; }
     [Required]
     public string role_type { get; set; }
-    [Required]
-    public string permission { get; set; }
 
     public List<User> Users { get; set; }  = new List<User>();
 

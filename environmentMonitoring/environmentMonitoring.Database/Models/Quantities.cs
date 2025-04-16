@@ -19,10 +19,10 @@ public class Quantities
     public string description { get; set; }
     [Required]
     public float safe_level { get; set; }
-    [Required]
+    
     public float min_threshold { get; set; }
-    [Required]
+    
     public float max_threshold { get; set; }
 
-    public List<VirtualSensor> VirtualSensors { get; set; }  = new List<VirtualSensor>();
+    public List<VirtualSensor> VirtualSensor { get; set; }  = new List<VirtualSensor>();
 }

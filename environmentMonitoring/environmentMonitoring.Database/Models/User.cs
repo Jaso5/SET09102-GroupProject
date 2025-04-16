@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace environmentMonitoring.Database.Models;
 
-[Table("users")]
+[Table("Users")]
 [PrimaryKey(nameof(user_Id))]
 public class User
 {

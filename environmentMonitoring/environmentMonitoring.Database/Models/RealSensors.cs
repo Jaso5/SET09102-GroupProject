@@ -14,7 +14,7 @@ public class RealSensor
     [Required]
     public float lon { get; set; }
     [Required]
-    public int frequency { get; set; }
+    public float frequency { get; set; }
 
     public List<VirtualSensor> VirtualSensor { get; set; }  = new List<VirtualSensor>();
 }
