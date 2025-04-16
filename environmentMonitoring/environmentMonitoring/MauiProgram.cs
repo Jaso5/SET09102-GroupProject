@@ -2,6 +2,7 @@
 using environmentMonitoring.Database.Data;
 using environmentMonitoring.Views;
 using environmentMonitoring.ViewModels;
+using environmentMonitoring.Services;
 
 
 namespace environmentMonitoring;
@@ -26,6 +27,8 @@ public static class MauiProgram
 
 			builder.Services.AddSingleton<HomePage>();
 			builder.Services.AddTransient<HomeViewModel>();
+
+			builder.Services.AddSingleton<IDiaglogService, DiaglogService>();
 
 #if DEBUG
 		builder.Logging.AddDebug();

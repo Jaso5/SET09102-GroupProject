@@ -7,12 +7,14 @@ using environmentMonitoring.Database.Models;
 using environmentMonitoring.Views;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using environmentMonitoring.Services;
 
 namespace environmentMonitoring.ViewModels;
 
 public partial class LoginViewModel : ObservableObject
 {
     private User _user;
+    private readonly IDiaglogService _diaglogService;
     private EnvironmentAppDbContext _context;
 
     [ObservableProperty]
@@ -25,6 +27,8 @@ public partial class LoginViewModel : ObservableObject
     public LoginViewModel(EnvironmentAppDbContext dbContext)
     {
         _context = dbContext;
+        _diaglogService = new DiaglogService();
+        
     }
 
     
@@ -60,7 +64,7 @@ public partial class LoginViewModel : ObservableObject
         }
         else
         {
-            await Application.Current.MainPage.DisplayAlert("Please check your credentials", "Invalid username or password", "OK");
+            await _diaglogService.ShowAlertAsync("Please check your credentials", "Invalid username or password", "OK");
         }
     }
 
