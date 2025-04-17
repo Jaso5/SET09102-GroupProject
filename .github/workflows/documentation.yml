@@ -1,55 +1,52 @@
- name: Documentation 
+name: Documentation
 
- on:
-   push:
-     branches:
-       - main
+on:
+  push:
+    branches:
+      - main
 
- jobs:
-   generate:
-     runs-on: ubuntu-latest 
+jobs:
+  generate:
+    runs-on: ubuntu-latest
 
-   permissions:
-    pages: write
-    id-token: write
+    permissions:
+      pages: write
+      id-token: write
 
     steps:
-     - name: Checkout code
-       uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-     - name: Install Doxygen
-       run: sudo apt-get install doxygen -y
+      - name: Install Doxygen
+        run: sudo apt-get install doxygen -y
 
-     - name: Generate Doxyfile
-       run: doxygen -g
+      - name: Generate Doxyfile
+        run: doxygen -g
 
-     - name: Generate Doxygen Documentation
-       run: doxygen .
+      - name: Generate Doxygen Documentation
+        run: doxygen .
 
-     - name: Upload static files as artifact
-       uses: actions/upload-pages-artifact@v3
-       with:
-         path: html
-         
-    deploy:
-       needs: generate
-       runs-on: ubuntu-latest
+      - name: Upload static files as artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: html
 
-       permissions:
-         page: write
-         id-token: write
+  deploy:
+    needs: generate
+    runs-on: ubuntu-latest
 
-       environment:
-        name: github-pages
-        url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      pages: write
+      id-token: write
 
-       steps:
-        - name: Deploy to Github Pages
-          id: deployment
-          uses: actions/deploy-pages@v4
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
-        - name: Output Page URL
-          run: echo "Github Pages URL: ${{ steps.deployment.outputs.page_url }}"
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
 
-      
-      
+      - name: Output Page URL
+        run: echo "GitHub Pages URL: ${{ steps.deployment.outputs.page_url }}"
