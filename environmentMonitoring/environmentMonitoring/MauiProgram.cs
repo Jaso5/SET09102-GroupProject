@@ -30,6 +30,16 @@ public static class MauiProgram
 
 			builder.Services.AddSingleton<IDiaglogService, DiaglogService>();
 
+			builder.Services.AddSingleton<IReadDataService, UserService>();
+			builder.Services.AddSingleton<IUpdateDataService, UserService>();
+			builder.Services.AddSingleton<IValidationService, UserService>();
+
+
+			builder.Services.AddSingleton<IReadDataService, SensorService>();
+			builder.Services.AddSingleton<IUpdateDataService, SensorService>();
+			
+			
+
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif

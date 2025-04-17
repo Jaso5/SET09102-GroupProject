@@ -13,24 +13,22 @@ namespace environmentMonitoring.ViewModels;
 
 public partial class LoginViewModel : ObservableObject
 {
-    private User _user;
+    private User? _user;
     private readonly IDiaglogService _diaglogService;
-    private EnvironmentAppDbContext _context;
+    private readonly IValidationService _validationService;
 
     [ObservableProperty]
-    public string email;
+    public string? email;
     
     [ObservableProperty]
-    public string password;
+    public string? password;
     
 
-    public LoginViewModel(EnvironmentAppDbContext dbContext)
+    public LoginViewModel(IDiaglogService diaglogService, IValidationService validationService)
     {
-        _context = dbContext;
-        _diaglogService = new DiaglogService();
-        
+        _validationService = validationService;
+        _diaglogService = diaglogService;
     }
-
 
     [RelayCommand]
     private async Task Login()
@@ -41,26 +39,25 @@ public partial class LoginViewModel : ObservableObject
             return;
         }
 
-         var user = await _context.Users
-        .Include(u => u.Role)
-        .FirstOrDefaultAsync(u => u.email == Email);
+        try {
+            _user = await _validationService.CredentialsCheck(Email, Password);
         
-        if (user == null)
-        {
-            await _diaglogService.ShowAlertAsync("User not found", "Please check your credentials", "OK");
-            return;
-        }
-
-        if (user != null && user.password == Password) 
-        {
-            _user = user;
-            // Navigate to the home page
+            if (_user == null)
+            {
+                await _diaglogService.ShowAlertAsync("User not found", "Please check your credentials", "OK");
+                return;
+            }
+   
+                
             await SecureStorage.SetAsync("hasAuth", "true");
             await SecureStorage.SetAsync("userId", _user.user_Id.ToString());
             await SecureStorage.SetAsync("userRole", _user.Role.role_type);
             await SecureStorage.SetAsync("userName", _user.first_name + " " + _user.surname);
+                
+                await Shell.Current.GoToAsync("//HomePage");  
             
-            await Shell.Current.GoToAsync("//HomePage");  
+        } catch (Exception) {
+            await _diaglogService.ShowAlertAsync("Error", "Login error, please try again", "OK");
         }
     }
 
