@@ -31,7 +31,7 @@
        with:
          path: html
          
-     deploy:
+    deploy:
        needs: generate
        runs-on: ubuntu-latest
 
@@ -39,11 +39,11 @@
          page: write
          id-token: write
 
-      environment:
+       environment:
         name: github-pages
         url: ${{ steps.deployment.outputs.page_url }}
 
-      steps:
+       steps:
         - name: Deploy to Github Pages
           id: deployment
           uses: actions/deploy-pages@v4
