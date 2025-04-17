@@ -37,6 +37,7 @@ public class EnvironmentAppDbContext : DbContext
     public DbSet<Reports> Reports { get; set; }
     public DbSet<VirtualSensor> VirtualSensors { get; set; }
     public DbSet<Permission> Permissions { get; set; }
+    public DbSet<RolePermissions> RolePermissions { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -90,8 +91,61 @@ public class EnvironmentAppDbContext : DbContext
             .HasKey(rp => new { rp.role_Id, rp.permission_Id });
 
 
+            modelBuilder.Entity<Role>().HasData(
+                new Role { role_Id = 1, role_type = "Admin" },
+                new Role { role_Id = 2, role_type = "Environment Scientist" },
+                new Role { role_Id = 3, role_type = "Operations Manager" }
+            );
+
+            modelBuilder.Entity<Permission>().HasData(
+                new Permission { permission_Id = 1, name = "CreateUsers", description = "create a new user account" },
+                new Permission { permission_Id = 2, name = "ReadUsers", description = "Read a users account details" },
+                new Permission { permission_Id = 3, name = "UpdateUsers", description = "Update a users account details" },
+                new Permission { permission_Id = 4, name = "DeleteUsers", description = "Delete a users account" },
+                new Permission { permission_Id = 5, name = "CreateSensors", description = "create a new sensor account" },
+                new Permission { permission_Id = 6, name = "ReadSensors", description = "Read a sensors account details" },
+                new Permission { permission_Id = 7, name = "UpdateSensors", description = "Update a sensors account details" },
+                new Permission { permission_Id = 8, name = "DeleteSensors", description = "Delete a sensors account" },
+                new Permission { permission_Id = 9, name = "ManageUserRoles", description = "assign roles to users" },
+                new Permission { permission_Id = 10, name = "SetRolePermissions", description = "Set role permissions" },
+                new Permission { permission_Id = 11, name = "CreateIncidentReport", description = "Create incident report" },
+                new Permission { permission_Id = 12, name = "ReadIncidentReport", description = "Read incident report" },
+                new Permission { permission_Id = 13, name = "UpdateIncidentReport", description = "Update incident report" },
+                new Permission { permission_Id = 14, name = "DeleteIncidentReport", description = "Delete incident report" }
+            );
+
+             modelBuilder.Entity<RolePermissions>().HasData(
+                new RolePermissions { role_Id = 1, permission_Id = 1 },
+                new RolePermissions { role_Id = 1, permission_Id = 2 },
+                new RolePermissions { role_Id = 1, permission_Id = 3 },
+                new RolePermissions { role_Id = 1, permission_Id = 4 },
+                new RolePermissions { role_Id = 1, permission_Id = 5 },
+                new RolePermissions { role_Id = 1, permission_Id = 6 },
+                new RolePermissions { role_Id = 1, permission_Id = 7 },
+                new RolePermissions { role_Id = 1, permission_Id = 8 },
+                new RolePermissions { role_Id = 1, permission_Id = 9 },
+                new RolePermissions { role_Id = 1, permission_Id = 10 },
+                new RolePermissions { role_Id = 1, permission_Id = 11 },
+                new RolePermissions { role_Id = 1, permission_Id = 12 },
+                new RolePermissions { role_Id = 1, permission_Id = 13 },
+                new RolePermissions { role_Id = 1, permission_Id = 14 },
+                new RolePermissions { role_Id = 2, permission_Id = 2 },
+                new RolePermissions { role_Id = 2, permission_Id = 5 },
+                new RolePermissions { role_Id = 2, permission_Id = 6 },
+                new RolePermissions { role_Id = 2, permission_Id = 7 },
+                new RolePermissions { role_Id = 2, permission_Id = 8 },
+                new RolePermissions { role_Id = 2, permission_Id = 11 },
+                new RolePermissions { role_Id = 2, permission_Id = 12 },
+                new RolePermissions { role_Id = 2, permission_Id = 13 },
+                new RolePermissions { role_Id = 2, permission_Id = 14 },
+                new RolePermissions { role_Id = 3, permission_Id = 2 },
+                new RolePermissions { role_Id = 3, permission_Id = 6 },
+                new RolePermissions { role_Id = 3, permission_Id = 11 }
+            );
+
+
     }
 
-   
+    
 
 }

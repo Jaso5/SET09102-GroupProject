@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace environmentMonitoring.Database.Migrations
 {
     /// <inheritdoc />
@@ -11,6 +13,20 @@ namespace environmentMonitoring.Database.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Permission",
+                columns: table => new
+                {
+                    permission_Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    description = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Permission", x => x.permission_Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Quantities",
                 columns: table => new
@@ -38,7 +54,8 @@ namespace environmentMonitoring.Database.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     lat = table.Column<float>(type: "real", nullable: false),
                     lon = table.Column<float>(type: "real", nullable: false),
-                    frequency = table.Column<float>(type: "real", nullable: false)
+                    frequency = table.Column<float>(type: "real", nullable: false),
+                    status = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -85,6 +102,30 @@ namespace environmentMonitoring.Database.Migrations
                         column: x => x.r_sensor_Id,
                         principalTable: "RealSensors",
                         principalColumn: "r_sensor_Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RolePermissions",
+                columns: table => new
+                {
+                    role_Id = table.Column<int>(type: "int", nullable: false),
+                    permission_Id = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RolePermissions", x => new { x.role_Id, x.permission_Id });
+                    table.ForeignKey(
+                        name: "FK_RolePermissions_Permission_permission_Id",
+                        column: x => x.permission_Id,
+                        principalTable: "Permission",
+                        principalColumn: "permission_Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_RolePermissions_Roles_role_Id",
+                        column: x => x.role_Id,
+                        principalTable: "Roles",
+                        principalColumn: "role_Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -155,28 +196,102 @@ namespace environmentMonitoring.Database.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Anomalies",
+                name: "IncidentReports",
                 columns: table => new
                 {
-                    anomaly_Id = table.Column<int>(type: "int", nullable: false)
+                    incident_Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    message = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    reading_Id = table.Column<int>(type: "int", nullable: false)
+                    type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    status = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    next_steps = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    reading_Id = table.Column<int>(type: "int", nullable: true),
+                    r_sensor_Id = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Anomalies", x => x.anomaly_Id);
+                    table.PrimaryKey("PK_IncidentReports", x => x.incident_Id);
                     table.ForeignKey(
-                        name: "FK_Anomalies_Readings_reading_Id",
+                        name: "FK_IncidentReports_Readings_reading_Id",
                         column: x => x.reading_Id,
                         principalTable: "Readings",
                         principalColumn: "reading_Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_IncidentReports_RealSensors_reading_Id",
+                        column: x => x.reading_Id,
+                        principalTable: "RealSensors",
+                        principalColumn: "r_sensor_Id");
+                });
+
+            migrationBuilder.InsertData(
+                table: "Permission",
+                columns: new[] { "permission_Id", "description", "name" },
+                values: new object[,]
+                {
+                    { 1, "create a new user account", "CreateUsers" },
+                    { 2, "Read a users account details", "ReadUsers" },
+                    { 3, "Update a users account details", "UpdateUsers" },
+                    { 4, "Delete a users account", "DeleteUsers" },
+                    { 5, "create a new sensor account", "CreateSensors" },
+                    { 6, "Read a sensors account details", "ReadSensors" },
+                    { 7, "Update a sensors account details", "UpdateSensors" },
+                    { 8, "Delete a sensors account", "DeleteSensors" },
+                    { 9, "assign roles to users", "ManageUserRoles" },
+                    { 10, "Set role permissions", "SetRolePermissions" },
+                    { 11, "Create incident report", "CreateIncidentReport" },
+                    { 12, "Read incident report", "ReadIncidentReport" },
+                    { 13, "Update incident report", "UpdateIncidentReport" },
+                    { 14, "Delete incident report", "DeleteIncidentReport" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Roles",
+                columns: new[] { "role_Id", "role_type" },
+                values: new object[,]
+                {
+                    { 1, "Admin" },
+                    { 2, "Environment Scientist" },
+                    { 3, "Operations Manager" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "RolePermissions",
+                columns: new[] { "permission_Id", "role_Id" },
+                values: new object[,]
+                {
+                    { 1, 1 },
+                    { 2, 1 },
+                    { 3, 1 },
+                    { 4, 1 },
+                    { 5, 1 },
+                    { 6, 1 },
+                    { 7, 1 },
+                    { 8, 1 },
+                    { 9, 1 },
+                    { 10, 1 },
+                    { 11, 1 },
+                    { 12, 1 },
+                    { 13, 1 },
+                    { 14, 1 },
+                    { 2, 2 },
+                    { 5, 2 },
+                    { 6, 2 },
+                    { 7, 2 },
+                    { 8, 2 },
+                    { 11, 2 },
+                    { 12, 2 },
+                    { 13, 2 },
+                    { 14, 2 },
+                    { 2, 3 },
+                    { 6, 3 },
+                    { 11, 3 }
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Anomalies_reading_Id",
-                table: "Anomalies",
+                name: "IX_IncidentReports_reading_Id",
+                table: "IncidentReports",
                 column: "reading_Id");
 
             migrationBuilder.CreateIndex(
@@ -188,6 +303,11 @@ namespace environmentMonitoring.Database.Migrations
                 name: "IX_Reports_v_sensor_id",
                 table: "Reports",
                 column: "v_sensor_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RolePermissions_permission_Id",
+                table: "RolePermissions",
+                column: "permission_Id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_role_Id",
@@ -209,16 +329,22 @@ namespace environmentMonitoring.Database.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Anomalies");
+                name: "IncidentReports");
 
             migrationBuilder.DropTable(
                 name: "Reports");
+
+            migrationBuilder.DropTable(
+                name: "RolePermissions");
 
             migrationBuilder.DropTable(
                 name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Readings");
+
+            migrationBuilder.DropTable(
+                name: "Permission");
 
             migrationBuilder.DropTable(
                 name: "Roles");

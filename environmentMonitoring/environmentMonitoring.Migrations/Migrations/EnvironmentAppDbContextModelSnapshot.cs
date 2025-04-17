@@ -77,6 +77,92 @@ namespace environmentMonitoring.Database.Migrations
                     b.HasKey("permission_Id");
 
                     b.ToTable("Permission");
+
+                    b.HasData(
+                        new
+                        {
+                            permission_Id = 1,
+                            description = "create a new user account",
+                            name = "CreateUsers"
+                        },
+                        new
+                        {
+                            permission_Id = 2,
+                            description = "Read a users account details",
+                            name = "ReadUsers"
+                        },
+                        new
+                        {
+                            permission_Id = 3,
+                            description = "Update a users account details",
+                            name = "UpdateUsers"
+                        },
+                        new
+                        {
+                            permission_Id = 4,
+                            description = "Delete a users account",
+                            name = "DeleteUsers"
+                        },
+                        new
+                        {
+                            permission_Id = 5,
+                            description = "create a new sensor account",
+                            name = "CreateSensors"
+                        },
+                        new
+                        {
+                            permission_Id = 6,
+                            description = "Read a sensors account details",
+                            name = "ReadSensors"
+                        },
+                        new
+                        {
+                            permission_Id = 7,
+                            description = "Update a sensors account details",
+                            name = "UpdateSensors"
+                        },
+                        new
+                        {
+                            permission_Id = 8,
+                            description = "Delete a sensors account",
+                            name = "DeleteSensors"
+                        },
+                        new
+                        {
+                            permission_Id = 9,
+                            description = "assign roles to users",
+                            name = "ManageUserRoles"
+                        },
+                        new
+                        {
+                            permission_Id = 10,
+                            description = "Set role permissions",
+                            name = "SetRolePermissions"
+                        },
+                        new
+                        {
+                            permission_Id = 11,
+                            description = "Create incident report",
+                            name = "CreateIncidentReport"
+                        },
+                        new
+                        {
+                            permission_Id = 12,
+                            description = "Read incident report",
+                            name = "ReadIncidentReport"
+                        },
+                        new
+                        {
+                            permission_Id = 13,
+                            description = "Update incident report",
+                            name = "UpdateIncidentReport"
+                        },
+                        new
+                        {
+                            permission_Id = 14,
+                            description = "Delete incident report",
+                            name = "DeleteIncidentReport"
+                        });
                 });
 
             modelBuilder.Entity("environmentMonitoring.Database.Models.Quantities", b =>
@@ -211,6 +297,23 @@ namespace environmentMonitoring.Database.Migrations
                     b.HasKey("role_Id");
 
                     b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            role_Id = 1,
+                            role_type = "Admin"
+                        },
+                        new
+                        {
+                            role_Id = 2,
+                            role_type = "Environment Scientist"
+                        },
+                        new
+                        {
+                            role_Id = 3,
+                            role_type = "Operations Manager"
+                        });
                 });
 
             modelBuilder.Entity("environmentMonitoring.Database.Models.RolePermissions", b =>
@@ -226,6 +329,138 @@ namespace environmentMonitoring.Database.Migrations
                     b.HasIndex("permission_Id");
 
                     b.ToTable("RolePermissions");
+
+                    b.HasData(
+                        new
+                        {
+                            role_Id = 1,
+                            permission_Id = 1
+                        },
+                        new
+                        {
+                            role_Id = 1,
+                            permission_Id = 2
+                        },
+                        new
+                        {
+                            role_Id = 1,
+                            permission_Id = 3
+                        },
+                        new
+                        {
+                            role_Id = 1,
+                            permission_Id = 4
+                        },
+                        new
+                        {
+                            role_Id = 1,
+                            permission_Id = 5
+                        },
+                        new
+                        {
+                            role_Id = 1,
+                            permission_Id = 6
+                        },
+                        new
+                        {
+                            role_Id = 1,
+                            permission_Id = 7
+                        },
+                        new
+                        {
+                            role_Id = 1,
+                            permission_Id = 8
+                        },
+                        new
+                        {
+                            role_Id = 1,
+                            permission_Id = 9
+                        },
+                        new
+                        {
+                            role_Id = 1,
+                            permission_Id = 10
+                        },
+                        new
+                        {
+                            role_Id = 1,
+                            permission_Id = 11
+                        },
+                        new
+                        {
+                            role_Id = 1,
+                            permission_Id = 12
+                        },
+                        new
+                        {
+                            role_Id = 1,
+                            permission_Id = 13
+                        },
+                        new
+                        {
+                            role_Id = 1,
+                            permission_Id = 14
+                        },
+                        new
+                        {
+                            role_Id = 2,
+                            permission_Id = 2
+                        },
+                        new
+                        {
+                            role_Id = 2,
+                            permission_Id = 5
+                        },
+                        new
+                        {
+                            role_Id = 2,
+                            permission_Id = 6
+                        },
+                        new
+                        {
+                            role_Id = 2,
+                            permission_Id = 7
+                        },
+                        new
+                        {
+                            role_Id = 2,
+                            permission_Id = 8
+                        },
+                        new
+                        {
+                            role_Id = 2,
+                            permission_Id = 11
+                        },
+                        new
+                        {
+                            role_Id = 2,
+                            permission_Id = 12
+                        },
+                        new
+                        {
+                            role_Id = 2,
+                            permission_Id = 13
+                        },
+                        new
+                        {
+                            role_Id = 2,
+                            permission_Id = 14
+                        },
+                        new
+                        {
+                            role_Id = 3,
+                            permission_Id = 2
+                        },
+                        new
+                        {
+                            role_Id = 3,
+                            permission_Id = 6
+                        },
+                        new
+                        {
+                            role_Id = 3,
+                            permission_Id = 11
+                        });
                 });
 
             modelBuilder.Entity("environmentMonitoring.Database.Models.User", b =>
