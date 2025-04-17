@@ -14,6 +14,6 @@ public class Role
 
     public List<User> Users { get; set; }  = new List<User>();
 
-     public List<Permissions> Permissions { get; set; }  = new List<Permissions>();
+     public List<RolePermissions> RolePermissions { get; set; }  = new List<RolePermissions>();
 
 }

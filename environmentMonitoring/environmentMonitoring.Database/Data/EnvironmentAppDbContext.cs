@@ -36,6 +36,7 @@ public class EnvironmentAppDbContext : DbContext
     public DbSet<RealSensor> RealSensors { get; set; }
     public DbSet<Reports> Reports { get; set; }
     public DbSet<VirtualSensor> VirtualSensors { get; set; }
+    public DbSet<Permission> Permissions { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -74,6 +75,19 @@ public class EnvironmentAppDbContext : DbContext
             .WithMany(e => e.Reports)
             .HasForeignKey(e => e.v_sensor_id)
             .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<RolePermissions>()
+            .HasOne(rp => rp.Role)
+            .WithMany(r => r.RolePermissions)
+            .HasForeignKey(rp => rp.role_Id);
+
+            modelBuilder.Entity<RolePermissions>()
+            .HasOne(rp => rp.Permissions)
+            .WithMany(p => p.RolePermissions)
+            .HasForeignKey(rp => rp.permission_Id);
+
+            modelBuilder.Entity<RolePermissions>()
+            .HasKey(rp => new { rp.role_Id, rp.permission_Id });
 
 
     }

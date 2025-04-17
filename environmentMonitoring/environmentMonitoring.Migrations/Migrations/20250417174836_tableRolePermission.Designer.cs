@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using environmentMonitoring.Database.Data;
 
@@ -11,9 +12,11 @@ using environmentMonitoring.Database.Data;
 namespace environmentMonitoring.Database.Migrations
 {
     [DbContext(typeof(EnvironmentAppDbContext))]
-    partial class EnvironmentAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250417174836_tableRolePermission")]
+    partial class tableRolePermission
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
