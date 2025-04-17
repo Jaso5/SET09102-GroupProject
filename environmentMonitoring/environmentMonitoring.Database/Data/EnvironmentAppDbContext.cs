@@ -30,7 +30,7 @@ public class EnvironmentAppDbContext : DbContext
 
     public DbSet<User> Users { get; set; }
     public DbSet<Role> Roles { get; set; }
-    public DbSet<Anomalies> Anomalies { get; set; }
+    public DbSet<IncidentReports> IncidentReports { get; set; }
     public DbSet<Quantities> Quantities { get; set; }
     public DbSet<Readings> Readings { get; set; }
     public DbSet<RealSensor> RealSensors { get; set; }
@@ -63,9 +63,9 @@ public class EnvironmentAppDbContext : DbContext
             .HasForeignKey(e => e.v_sensor_id)
             .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<Anomalies>()
+            modelBuilder.Entity<IncidentReports>()
             .HasOne(e => e.Reading)
-            .WithMany(e => e.Anomalies)
+            .WithMany(e => e.IncidentReports)
             .HasForeignKey(e => e.reading_Id)
             .OnDelete(DeleteBehavior.Cascade);
 

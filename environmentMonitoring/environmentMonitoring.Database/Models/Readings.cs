@@ -19,5 +19,5 @@ public class Readings
     [ForeignKey("v_sensor_id")]
     public VirtualSensor VirtualSensor { get; set; } = null!;
 
-    public List<Anomalies> Anomalies { get; set; } = new List<Anomalies>();
+    public List<IncidentReports> IncidentReports { get; set; } = new List<IncidentReports>();
 }

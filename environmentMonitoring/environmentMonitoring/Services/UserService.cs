@@ -2,7 +2,9 @@ using System;
 
 namespace environmentMonitoring.Services;
 
-public class UserService
+public class UserService: IReadDataService, IUpdateDataService
 {
+    
+
 
 }

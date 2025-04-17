@@ -41,27 +41,26 @@ public partial class LoginViewModel : ObservableObject
             return;
         }
 
-         _user = await _context.Users
-        .Include(u => u.first_name)
-        .Include(u => u.surname)
+         var user = await _context.Users
         .Include(u => u.Role)
-        .FirstOrDefaultAsync(u => u.email == Email && u.password == Password);
-
-        if (_user != null)
+        .FirstOrDefaultAsync(u => u.email == Email);
+        
+        if (user == null)
         {
+            await _diaglogService.ShowAlertAsync("User not found", "Please check your credentials", "OK");
+            return;
+        }
+
+        if (user != null && user.password == Password) 
+        {
+            _user = user;
             // Navigate to the home page
             await SecureStorage.SetAsync("hasAuth", "true");
             await SecureStorage.SetAsync("userId", _user.user_Id.ToString());
             await SecureStorage.SetAsync("userRole", _user.Role.role_type);
             await SecureStorage.SetAsync("userName", _user.first_name + " " + _user.surname);
             
-            await Shell.Current.GoToAsync("//HomePage");
-
-            
-        }
-        else
-        {
-            await _diaglogService.ShowAlertAsync("Please check your credentials", "Invalid username or password", "OK");
+            await Shell.Current.GoToAsync("//HomePage");  
         }
     }
 
