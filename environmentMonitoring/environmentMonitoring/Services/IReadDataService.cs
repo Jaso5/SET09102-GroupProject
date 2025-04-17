@@ -4,5 +4,5 @@ namespace environmentMonitoring.Services;
 
 public interface IReadDataService
 {
-
+    
 }
