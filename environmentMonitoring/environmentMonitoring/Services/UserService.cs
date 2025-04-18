@@ -4,6 +4,9 @@ using environmentMonitoring.Database.Data;
 using Microsoft.EntityFrameworkCore;
 using BCrypt.Net;
 
+
+ using System.Diagnostics;
+
 namespace environmentMonitoring.Services;
 
 public class UserService: IReadDataService, IUpdateDataService, IValidationService
@@ -19,18 +22,24 @@ public class UserService: IReadDataService, IUpdateDataService, IValidationServi
     {
          var user = await _context.Users
         .Include(u => u.Role)
+        .ThenInclude(r => r.RolePermissions)
+        .ThenInclude(rp => rp.Permissions)
         .FirstOrDefaultAsync(u => u.email == email);
 
         bool passwordVerified = BCrypt.Net.BCrypt.Verify(password, user.password);
 
          if (user != null && passwordVerified) 
          {
+
             return user;
+            
          }
 
          return null;
         
     }
+
+
 
 
 }

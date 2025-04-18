@@ -16,6 +16,8 @@ public partial class LoginViewModel : ObservableObject
     private User? _user;
     private readonly IDiaglogService _diaglogService;
     private readonly IValidationService _validationService;
+    private readonly IUserSessionService _userSessionService;
+
 
     [ObservableProperty]
     public string? email;
@@ -24,8 +26,9 @@ public partial class LoginViewModel : ObservableObject
     public string? password;
     
 
-    public LoginViewModel(IDiaglogService diaglogService, IValidationService validationService)
+    public LoginViewModel(IDiaglogService diaglogService, IValidationService validationService, IUserSessionService userSessionService)
     {
+        _userSessionService = userSessionService;
         _validationService = validationService;
         _diaglogService = diaglogService;
     }
@@ -48,11 +51,11 @@ public partial class LoginViewModel : ObservableObject
                 return;
             }
    
-                
-            await SecureStorage.SetAsync("hasAuth", "true");
-            await SecureStorage.SetAsync("userId", _user.user_Id.ToString());
-            await SecureStorage.SetAsync("userRole", _user.Role.role_type);
-            await SecureStorage.SetAsync("userName", _user.first_name + " " + _user.surname);
+                _userSessionService.setUserSession(
+                    _user.user_Id,
+                    _user.Role.role_type,
+                    _user.first_name + " " + _user.surname,
+                    _user.Role.RolePermissions.Select(rp => rp.Permissions.name).ToList());
                 
                 await Shell.Current.GoToAsync("//HomePage");  
             

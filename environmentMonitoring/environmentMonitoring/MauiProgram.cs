@@ -21,24 +21,23 @@ public static class MauiProgram
 			});
 
 			builder.Services.AddDbContext<EnvironmentAppDbContext>();
-
-			builder.Services.AddSingleton<LogInPage>();
-			builder.Services.AddTransient<LoginViewModel>();
-
-			builder.Services.AddSingleton<HomePage>();
-			builder.Services.AddTransient<HomeViewModel>();
-
 			builder.Services.AddSingleton<IDiaglogService, DiaglogService>();
 
 			builder.Services.AddSingleton<IReadDataService, UserService>();
 			builder.Services.AddSingleton<IUpdateDataService, UserService>();
 			builder.Services.AddSingleton<IValidationService, UserService>();
 
+			builder.Services.AddSingleton<IUserSessionService, UserSessionService>();
+
 
 			builder.Services.AddSingleton<IReadDataService, SensorService>();
 			builder.Services.AddSingleton<IUpdateDataService, SensorService>();
-			
-			
+
+			builder.Services.AddSingleton<LogInPage>();
+			builder.Services.AddTransient<LoginViewModel>();
+
+			builder.Services.AddSingleton<HomePage>();
+			builder.Services.AddTransient<HomeViewModel>();	
 
 #if DEBUG
 		builder.Logging.AddDebug();
