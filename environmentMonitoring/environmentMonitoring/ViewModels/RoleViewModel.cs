@@ -9,10 +9,14 @@ using environmentMonitoring.Services;
 
 namespace environmentMonitoring.ViewModels;
 
+/*! Role View Model class handles the validation and 
+ *  calls CRUD operations for roles from the role permissions service class
+ */
+
 public partial class RoleViewModel: ObservableObject, IQueryAttributable
 {
     private environmentMonitoring.Database.Models.Role _role;
-    private readonly EnvironmentAppDbContext _context;
+    private readonly RolePermissionService _rpService;
 
     public string role_type
     {
@@ -28,22 +32,26 @@ public partial class RoleViewModel: ObservableObject, IQueryAttributable
     }
 
     public int role_Id => _role.role_Id;
-    
 
-    public RoleViewModel(EnvironmentAppDbContext context)
+    public RoleViewModel(RolePermissionService service)
     {
-        _context = context;
-        _role = new Role();
+        _rpService = service;
+        _role = new Role(); 
     }
 
-    public RoleViewModel(EnvironmentAppDbContext context, Role role)
+
+    public RoleViewModel(RolePermissionService rolePermissionService, Role role)
     {
-        _context = context;
+        
+        _rpService = rolePermissionService;
         _role = role;
     }
 
 
-
+    /*! Save method validates the role type and checks if it already exists in the database
+     *  If the role doesn't exists it creates a new role and saves it to the database
+     *  @throws Exception if there is an issue when attempting to save the role
+     */
     [RelayCommand]
     private async Task Save()
     {
@@ -52,33 +60,32 @@ public partial class RoleViewModel: ObservableObject, IQueryAttributable
             await Shell.Current.DisplayAlert("Field Empty", "Pleaser enter a role name.", "OK");
             return;
         }
-        else if(_role.role_Id == 0 && RoleExists() || _role.role_Id != 0 && RoleExists())
+        else if(_role.role_Id == 0 && _rpService.RoleExists(_role) || _role.role_Id != 0 && _rpService.RoleExists(_role))
         {
             await Shell.Current.DisplayAlert("Role Exists", "Please enter a different role name.", "OK");
             return;
         }
         else
         {
-            bool create = await Shell.Current.DisplayAlert("Confirm", "Are you sure you want to create this role?", "Yes", "No");
-            if (!create) return;
-                try {
-                    if (_role.role_Id == 0)
+            bool createUpdate = await Shell.Current.DisplayAlert("Confirm", "Are you sure?", "Yes", "No");
+                if (!createUpdate) return;
+                    try {
+                        if (_role.role_Id == 0)
+                        {
+                            _rpService.CreateRole(_role);
+                            await Shell.Current.GoToAsync($"..?saved={_role.role_Id}");
+                        }
+                        await Shell.Current.GoToAsync($"..?saved={_role.role_Id}");
+                    } catch (Exception)
                     {
-                        _context.Roles.Add(_role);
+                        await Shell.Current.DisplayAlert("Error", "Roles cannot be created or updated at this time", "OK");
                     }
-                    else if (_role.role_Id != 0)
-                    {
-                        _context.Roles.Update(_role); 
-                    }
-                    _context.SaveChanges();
-                    await Shell.Current.GoToAsync($"..?saved={_role.role_Id}");
-                } catch (Exception)
-                {
-                    await Shell.Current.DisplayAlert("Error", "Roles cannot be created or updated at this time", "OK");
-                }
         }
     }
 
+    /*! Delete method checks that the role exists before attempting to delete it
+     *  @throws Exception if there is an issue when attempting to delete the role
+     */
     [RelayCommand]
     private async Task Delete()
     {
@@ -86,33 +93,31 @@ public partial class RoleViewModel: ObservableObject, IQueryAttributable
             bool confirmation = await Shell.Current.DisplayAlert("Confirm", "Are you sure you want to delete this role?", "Yes", "No");
             if (!confirmation) return;
                 try {
-                    _context.Remove(_role);
-                    _context.SaveChanges();
+                    _rpService.DeleteRole(_role);
                     await Shell.Current.GoToAsync($"..?deleted={_role.role_Id}");
                 } catch (Exception) {
                     await Shell.Current.DisplayAlert("Error", "An error occurred while deleting the role.", "OK");
                 }
         }
         else {
-            await Shell.Current.DisplayAlert("Error", "can't delete an empty role", "OK");
+            await Shell.Current.DisplayAlert("Error", "can't delete a role that hasn't been created", "OK");
         }
     }
 
-
-
-
-    private bool RoleExists()
-    {
-        return _context.Roles.Any(r => r.role_type == role_type && r.role_Id != _role.role_Id);
-    }
-      
-
-
+     /*! IQueryAttributable.ApplyQueryAttributes method retrieves the role from the database using an ID passed in the query
+     *  If no ID is passed in the query, a new role is created
+     *  @param query The query dictionary containing the ID of the role to be retrieved
+     *  @throws Exception if there is an issue when attempting to retrieve the role
+     */ 
     void IQueryAttributable.ApplyQueryAttributes(IDictionary<string, object> query)
     {
         if (query.ContainsKey("load"))
         {
-            _role = _context.Roles.Single(r => r.role_Id == int.Parse(query["load"].ToString()));
+            try {
+                _role = _rpService.GetRoleById(int.Parse(query["load"].ToString()));
+            } catch (Exception) {
+                Shell.Current.DisplayAlert("Error", "Unable to retrieve the role at this time.", "OK");
+            }
         }
         else
         {
@@ -121,17 +126,30 @@ public partial class RoleViewModel: ObservableObject, IQueryAttributable
         RefreshProperties();
     }
 
+    /*! Reload method attempts to update the current roles roles properties by re-pulling it from the database
+     *  @throws Exception if there is an issue when attempting to retrieve the role
+     */ 
      public void Reload()
     {
-        _context.Entry(_role).Reload();
-        RefreshProperties();
+        try {
+            _rpService.ReloadRole(_role);
+            RefreshProperties();
+        } catch (Exception) {
+                Shell.Current.DisplayAlert("Error", "Unable to  the role at this time..", "OK");
+            }
     }
 
+    /*! RefreshProperties method refreshes the properties of the role to ensure they are up to date
+    *  
+    */
      private void RefreshProperties()
     {
         OnPropertyChanged(nameof(role_type));
     }
 
+    /*! NavigateToPermissions method navigates the user to a new page to manage the roles permissions
+     *  If the role hasn't been created yet, an alert is displayed to the user
+     */ 
     [RelayCommand]
     private async Task NavigateToPermissions()
     {

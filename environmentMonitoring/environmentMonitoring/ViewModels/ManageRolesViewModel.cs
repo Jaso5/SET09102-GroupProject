@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using environmentMonitoring.Database.Data;
+using environmentMonitoring.Services;
 
 namespace environmentMonitoring.ViewModels;
 
@@ -16,15 +17,13 @@ public partial class ManageRolesViewModel : IQueryAttributable
     public ObservableCollection<ViewModels.RoleViewModel> roleList { get; }
     public ICommand NewCommand { get; }
     public ICommand SelectRoleCommand { get; }
+    private readonly RolePermissionService _rpService;
 
-    private readonly EnvironmentAppDbContext _context;
-
-    public ManageRolesViewModel(EnvironmentAppDbContext context)
+    public ManageRolesViewModel(RolePermissionService rolePermissionService)
     {
-        _context = context;
-
-        // unhandled sql exception when database isn't open - connection
-        roleList = new ObservableCollection<ViewModels.RoleViewModel>(_context.Roles.ToList().Select(r => new RoleViewModel(_context, r)));
+        _rpService = rolePermissionService;
+        
+        roleList = new ObservableCollection<ViewModels.RoleViewModel>(_rpService.GetRoleList().Select(r => new RoleViewModel(_rpService, r)));
         
         NewCommand = new AsyncRelayCommand(NewRoleAsync);
         SelectRoleCommand = new AsyncRelayCommand<ViewModels.RoleViewModel>(SelectRoleAsync);
@@ -53,8 +52,7 @@ public partial class ManageRolesViewModel : IQueryAttributable
             string roleId = query["deleted"].ToString();
             RoleViewModel matchedRole = roleList.Where((r) => r.role_Id == int.Parse(roleId)).FirstOrDefault();
 
-        
-            // If note exists, delete it
+    
             if (matchedRole != null)
                 roleList.Remove(matchedRole);
         }
@@ -63,17 +61,21 @@ public partial class ManageRolesViewModel : IQueryAttributable
             string roleId = query["saved"].ToString();
             RoleViewModel matchedRole = roleList.Where((r) => r.role_Id == int.Parse(roleId)).FirstOrDefault();
 
-        
-            // If note is found, update it
             if (matchedRole != null)
             {
                 matchedRole.Reload();
                 roleList.Move(roleList.IndexOf(matchedRole), 0);
             }
-        
-            // If note isn't found, it's new; add it.
-            else
-                 roleList.Insert(0, new RoleViewModel(_context, _context.Roles.Single(r => r.role_Id == int.Parse(roleId))));
+            else 
+            {
+                try {
+                    var role = _rpService.GetRoleById(int.Parse(roleId));
+                    roleList.Insert(0, new RoleViewModel(_rpService, role));
+                } catch (Exception) {
+                    Shell.Current.DisplayAlert("Error", "Error when trying to update list.", "OK");
+                    Shell.Current.GoToAsync($"..");
+                }
+            }
 
 
         }

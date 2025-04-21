@@ -38,14 +38,18 @@ public partial class ManageRolePermissionsViewModel: ObservableObject, IQueryAtt
     }
 
     private async Task populateLists() {
+         try {
+            PermissionList = new ObservableCollection<ViewModels.PermissionViewModel>(_context.Permissions.ToList().Select(p => new PermissionViewModel(_context, p, _role.role_Id)));
 
-        PermissionList = new ObservableCollection<ViewModels.PermissionViewModel>(_context.Permissions.ToList().Select(p => new PermissionViewModel(_context, p, _role.role_Id)));
-
-        CurrentPermissions = new ObservableCollection<ViewModels.PermissionViewModel>(_context.RolePermissions
-        .Include(r => r.Permissions)
-        .Where(r => r.role_Id == _role.role_Id)
-        .ToList()
-        .Select(p => new PermissionViewModel(_context, p.Permissions, _role.role_Id)));
+            CurrentPermissions = new ObservableCollection<ViewModels.PermissionViewModel>(_context.RolePermissions
+            .Include(r => r.Permissions)
+            .Where(r => r.role_Id == _role.role_Id)
+            .ToList()
+            .Select(p => new PermissionViewModel(_context, p.Permissions, _role.role_Id)));
+           
+        } catch (Exception) {
+                await Shell.Current.GoToAsync($"..");
+            }
     }
 
     private async Task ListCompare() {
@@ -75,10 +79,14 @@ public partial class ManageRolePermissionsViewModel: ObservableObject, IQueryAtt
     {
         if (query.ContainsKey("load"))
         {
-            _role = _context.Roles.Single(r => r.role_Id == int.Parse(query["load"].ToString()));
-            Role_type = _role.role_type;
+            try {
+                _role = _context.Roles.Single(r => r.role_Id == int.Parse(query["load"].ToString()));
+                Role_type = _role.role_type;
 
-            InitLists();
+                InitLists();
+            } catch (Exception) {
+                Shell.Current.DisplayAlert("Error", "An error occurred while loading the role.", "OK");
+            }
             
         }
     }
