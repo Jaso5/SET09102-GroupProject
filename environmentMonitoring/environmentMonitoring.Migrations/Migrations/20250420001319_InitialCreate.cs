@@ -230,20 +230,20 @@ namespace environmentMonitoring.Database.Migrations
                 columns: new[] { "permission_Id", "description", "name" },
                 values: new object[,]
                 {
-                    { 1, "create a new user account", "CreateUsers" },
-                    { 2, "Read a users account details", "ReadUsers" },
-                    { 3, "Update a users account details", "UpdateUsers" },
-                    { 4, "Delete a users account", "DeleteUsers" },
-                    { 5, "create a new sensor account", "CreateSensors" },
-                    { 6, "Read a sensors account details", "ReadSensors" },
-                    { 7, "Update a sensors account details", "UpdateSensors" },
-                    { 8, "Delete a sensors account", "DeleteSensors" },
-                    { 9, "assign roles to users", "ManageUserRoles" },
-                    { 10, "Set role permissions", "SetRolePermissions" },
-                    { 11, "Create incident report", "CreateIncidentReport" },
-                    { 12, "Read incident report", "ReadIncidentReport" },
-                    { 13, "Update incident report", "UpdateIncidentReport" },
-                    { 14, "Delete incident report", "DeleteIncidentReport" }
+                    { 1, "create user", "CreateUsers" },
+                    { 2, "read users", "ReadUsers" },
+                    { 3, "update users", "UpdateUsers" },
+                    { 4, "delete users", "DeleteUsers" },
+                    { 5, "create sensor", "CreateSensors" },
+                    { 6, "read sensors", "ReadSensors" },
+                    { 7, "update sensors", "UpdateSensors" },
+                    { 8, "delete sensor", "DeleteSensors" },
+                    { 9, "assign roles", "ManageUserRoles" },
+                    { 10, "set role permissions", "SetRolePermissions" },
+                    { 11, "create incident report", "CreateIncidentReport" },
+                    { 12, "read incident report", "ReadIncidentReport" },
+                    { 13, "update incident report", "UpdateIncidentReport" },
+                    { 14, "delete incident report", "DeleteIncidentReport" }
                 });
 
             migrationBuilder.InsertData(

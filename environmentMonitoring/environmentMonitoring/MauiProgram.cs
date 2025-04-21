@@ -33,11 +33,27 @@ public static class MauiProgram
 			builder.Services.AddSingleton<IReadDataService, SensorService>();
 			builder.Services.AddSingleton<IUpdateDataService, SensorService>();
 
-			builder.Services.AddSingleton<LogInPage>();
-			builder.Services.AddTransient<LoginViewModel>();
+			builder.Services.AddSingleton<RolePermissionService, RolePermissionService>();
 
-			builder.Services.AddSingleton<HomePage>();
-			builder.Services.AddTransient<HomeViewModel>();	
+
+			builder.Services.AddSingleton<LoginViewModel>();
+			builder.Services.AddTransient<LogInPage>();
+
+			builder.Services.AddSingleton<HomeViewModel>();
+			builder.Services.AddTransient<HomePage>();	
+
+			builder.Services.AddSingleton<AdminPanelViewModel>();
+			builder.Services.AddTransient<AdminPanelPage>();
+
+			builder.Services.AddSingleton<ManageRolesViewModel>();
+			builder.Services.AddTransient<ManageRolesPage>();
+
+			builder.Services.AddSingleton<RoleViewModel>();
+			builder.Services.AddTransient<RolePage>();
+
+			builder.Services.AddSingleton<ManageRolePermissionsViewModel>();
+			builder.Services.AddSingleton<PermissionViewModel>();
+			builder.Services.AddTransient<ManageRolePermissionsPage>();
 
 #if DEBUG
 		builder.Logging.AddDebug();

@@ -26,9 +26,7 @@ public class UserService: IReadDataService, IUpdateDataService, IValidationServi
         .ThenInclude(rp => rp.Permissions)
         .FirstOrDefaultAsync(u => u.email == email);
 
-        bool passwordVerified = BCrypt.Net.BCrypt.Verify(password, user.password);
-
-         if (user != null && passwordVerified) 
+         if (user != null || !BCrypt.Net.BCrypt.Verify(password, user.password)) 
          {
 
             return user;

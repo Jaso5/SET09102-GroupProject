@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using environmentMonitoring.Database.Data;
 
@@ -11,9 +12,11 @@ using environmentMonitoring.Database.Data;
 namespace environmentMonitoring.Database.Migrations
 {
     [DbContext(typeof(EnvironmentAppDbContext))]
-    partial class EnvironmentAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250420001319_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,85 +85,85 @@ namespace environmentMonitoring.Database.Migrations
                         new
                         {
                             permission_Id = 1,
-                            description = "create a new user account",
+                            description = "create user",
                             name = "CreateUsers"
                         },
                         new
                         {
                             permission_Id = 2,
-                            description = "Read a users account details",
+                            description = "read users",
                             name = "ReadUsers"
                         },
                         new
                         {
                             permission_Id = 3,
-                            description = "Update a users account details",
+                            description = "update users",
                             name = "UpdateUsers"
                         },
                         new
                         {
                             permission_Id = 4,
-                            description = "Delete a users account",
+                            description = "delete users",
                             name = "DeleteUsers"
                         },
                         new
                         {
                             permission_Id = 5,
-                            description = "create a new sensor account",
+                            description = "create sensor",
                             name = "CreateSensors"
                         },
                         new
                         {
                             permission_Id = 6,
-                            description = "Read a sensors account details",
+                            description = "read sensors",
                             name = "ReadSensors"
                         },
                         new
                         {
                             permission_Id = 7,
-                            description = "Update a sensors account details",
+                            description = "update sensors",
                             name = "UpdateSensors"
                         },
                         new
                         {
                             permission_Id = 8,
-                            description = "Delete a sensors account",
+                            description = "delete sensor",
                             name = "DeleteSensors"
                         },
                         new
                         {
                             permission_Id = 9,
-                            description = "assign roles to users",
+                            description = "assign roles",
                             name = "ManageUserRoles"
                         },
                         new
                         {
                             permission_Id = 10,
-                            description = "Set role permissions",
+                            description = "set role permissions",
                             name = "SetRolePermissions"
                         },
                         new
                         {
                             permission_Id = 11,
-                            description = "Create incident report",
+                            description = "create incident report",
                             name = "CreateIncidentReport"
                         },
                         new
                         {
                             permission_Id = 12,
-                            description = "Read incident report",
+                            description = "read incident report",
                             name = "ReadIncidentReport"
                         },
                         new
                         {
                             permission_Id = 13,
-                            description = "Update incident report",
+                            description = "update incident report",
                             name = "UpdateIncidentReport"
                         },
                         new
                         {
                             permission_Id = 14,
-                            description = "Delete incident report",
+                            description = "delete incident report",
                             name = "DeleteIncidentReport"
                         });
                 });
