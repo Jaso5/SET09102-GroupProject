@@ -1,5 +1,6 @@
-namespace environmentMonitoring.Views;
 using environmentMonitoring.ViewModels;
+
+namespace environmentMonitoring.Views;
 
 public partial class HomePage : ContentPage
 {

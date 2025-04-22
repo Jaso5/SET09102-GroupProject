@@ -3,14 +3,12 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace environmentMonitoring.ViewModels;
 
-public partial class HomeViewModel
+public partial class AdminPanelViewModel
 {
-
     [RelayCommand]
-    private async Task NavigateToAdminPanel()
+    private async Task NavigateToManageRoles()
     {
         // Navigate to the admin panel page
-        await Shell.Current.GoToAsync("///AdminPanelPage");
+        await Shell.Current.GoToAsync("///ManageRolesPage");
     }
-
 }

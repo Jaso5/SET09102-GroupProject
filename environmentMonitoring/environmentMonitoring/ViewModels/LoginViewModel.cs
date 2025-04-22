@@ -57,7 +57,7 @@ public partial class LoginViewModel : ObservableObject
                     _user.first_name + " " + _user.surname,
                     _user.Role.RolePermissions.Select(rp => rp.Permissions.name).ToList());
                 
-                await Shell.Current.GoToAsync("//HomePage");  
+                await Shell.Current.GoToAsync("///HomePage");  
             
         } catch (Exception) {
             await _diaglogService.ShowAlertAsync("Error", "Login error, please try again", "OK");

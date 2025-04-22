@@ -8,17 +8,42 @@
     Title="environmentMonitoring">
 
     
+
+    <ShellContent
+        Title="Admin panel"
+        ContentTemplate="{DataTemplate views:AdminPanelPage}"
+        Route="AdminPanelPage" />
+
     <ShellContent
         Title="Log In"
         ContentTemplate="{DataTemplate views:LogInPage}"
         Route="LogInPage" />
+
+    <ShellContent
+        Title="Manage Roles"
+        ContentTemplate="{DataTemplate views:ManageRolesPage}"
+        Route="ManageRolesPage" />
+
+    <ShellContent
+        Title="Manage Roles Permissions"
+        ContentTemplate="{DataTemplate views:ManageRolePermissionsPage}"
+        Route="ManageRolePermissionsPage" />
+
+    <ShellContent
+        Title="Role"
+        ContentTemplate="{DataTemplate views:RolePage}"
+        Route="RolePage" />
+        
+        
     
     <TabBar>
-        <ShellContent
+        <Tab>
+            <ShellContent
             Title="Home Page"
             ContentTemplate="{DataTemplate views:HomePage}"
             Route="HomePage" />
-
+        </Tab>
+        
     </TabBar>
 
 </Shell>
