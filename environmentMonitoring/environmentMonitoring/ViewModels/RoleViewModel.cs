@@ -16,7 +16,7 @@ namespace environmentMonitoring.ViewModels;
 
 public partial class RoleViewModel: ObservableObject, IQueryAttributable
 {
-    private environmentMonitoring.Database.Models.Role _role;
+    private Role _role;
     private readonly RolePermissionService _rpService;
 
     public string role_type

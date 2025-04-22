@@ -13,5 +13,7 @@ public partial class AppShell : Shell
         Routing.RegisterRoute("RolePage", typeof(RolePage));
         Routing.RegisterRoute("ManageRolePermissionsPage", typeof(ManageRolePermissionsPage));
         Routing.RegisterRoute("ManageRolesPage", typeof(ManageRolesPage));
+		Routing.RegisterRoute("ListUsersForRoleAssignmentPage", typeof(ListUsersForRoleAssignmentPage));
+		Routing.RegisterRoute("AssignRolePage", typeof(AssignRolePage));
 	}
 }

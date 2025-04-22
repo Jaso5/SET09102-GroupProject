@@ -3,6 +3,7 @@ using environmentMonitoring.Database.Models;
 using environmentMonitoring.Database.Data;
 using Microsoft.EntityFrameworkCore;
 using BCrypt.Net;
+using System.Diagnostics;
 
 
  using System.Diagnostics;
@@ -17,6 +18,18 @@ public class UserService: IReadDataService, IUpdateDataService, IValidationServi
     public UserService(EnvironmentAppDbContext context)
     {
         _context = context;
+    }
+
+    public List<User> GetUserList()
+    {
+        try {
+        return _context.Users
+            .Include(u => u.Role)
+            .ToList();
+        } catch (Exception) {
+            Debug.WriteLine("Didn't throw exception");
+            throw new Exception("Error retrieving user list");
+        }
     }
     public async Task<User?> CredentialsCheck(String email, string password)
     {

@@ -18,6 +18,8 @@ public partial class ManageRolesViewModel : IQueryAttributable
 
     public ObservableCollection<ViewModels.RoleViewModel> roleList { get; }
     public ICommand NewCommand { get; }
+
+    public ICommand BackCommand { get; }
     public ICommand SelectRoleCommand { get; }
     private readonly RolePermissionService _rpService;
 
@@ -27,8 +29,18 @@ public partial class ManageRolesViewModel : IQueryAttributable
         
         roleList = new ObservableCollection<ViewModels.RoleViewModel>(_rpService.GetRoleList().Select(r => new RoleViewModel(_rpService, r)));
         
+        BackCommand = new AsyncRelayCommand(BackAsync);
         NewCommand = new AsyncRelayCommand(NewRoleAsync);
         SelectRoleCommand = new AsyncRelayCommand<ViewModels.RoleViewModel>(SelectRoleAsync);
+    }
+
+    private async Task BackAsync()
+    {
+        try {
+            await Shell.Current.GoToAsync(nameof(Views.AdminPanelPage));
+        } catch (Exception) {
+            await Shell.Current.DisplayAlert("Error", "Navigation Error.", "OK");
+        }
     }
 
     /*! NewRoleAsync method navigates to the role page to create a new role

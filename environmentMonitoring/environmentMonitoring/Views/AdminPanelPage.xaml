@@ -3,19 +3,27 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:environmentMonitoring.ViewModels"
              x:Class="environmentMonitoring.Views.AdminPanelPage"
-             Title="AdminPanelPage"
-             Shell.NavBarIsVisible="false">
+             Title="Admin Panel">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Back" Command="{Binding BackCommand}"/>
+    </ContentPage.ToolbarItems>
+
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
         <Button x:Name="ManageRolesButton"
             Text="Manage Roles"
             Command="{Binding NavigateToManageRolesCommand}"
             BackgroundColor="#FF10B7D4"
             TextColor="White" 
             HeightRequest="40"
-            Margin="20,0,20,0" />
+            Margin="20,20,20,0" />
+
+        <Button x:Name="AssignRolesButton"
+            Text="Assign Roles"
+            Command="{Binding NavigateToListUsersAssignRoleCommand}"
+            BackgroundColor="#FF10B7D4"
+            TextColor="White" 
+            HeightRequest="40"
+            Margin="20,20,20,0" />
     </VerticalStackLayout>
 </ContentPage>

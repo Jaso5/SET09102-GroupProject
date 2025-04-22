@@ -7,8 +7,11 @@
              NavigatedTo="ContentPage_NavigatedTo">
 
     <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Back" Command="{Binding BackCommand}"/>
         <ToolbarItem Text="Add Role" Command="{Binding NewCommand}"/>
     </ContentPage.ToolbarItems>
+
+    
     
     <CollectionView x:Name="roleList"
                     ItemsSource="{Binding roleList}"
