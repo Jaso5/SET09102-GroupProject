@@ -20,6 +20,26 @@ public class UserService: IReadDataService, IUpdateDataService, IValidationServi
         _context = context;
     }
 
+    public User GetUserById(int userId) {
+        try {
+            return _context.Users.Single(u => u.user_Id == userId);
+        } catch (Exception) {
+            throw new Exception("Error retrieving user");
+        }
+    }
+
+    public void UpdateUserRole(User user)
+    {
+        try {
+            _context.Users.Update(user);
+            _context.SaveChanges();
+        } catch (Exception) {
+            throw new Exception("Error updating users role");
+        }
+    }
+
+
+
     public List<User> GetUserList()
     {
         try {
@@ -27,7 +47,6 @@ public class UserService: IReadDataService, IUpdateDataService, IValidationServi
             .Include(u => u.Role)
             .ToList();
         } catch (Exception) {
-            Debug.WriteLine("Didn't throw exception");
             throw new Exception("Error retrieving user list");
         }
     }

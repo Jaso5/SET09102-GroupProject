@@ -31,7 +31,7 @@ public partial class ManageRolesViewModel : IQueryAttributable
         
         BackCommand = new AsyncRelayCommand(BackAsync);
         NewCommand = new AsyncRelayCommand(NewRoleAsync);
-        SelectRoleCommand = new AsyncRelayCommand<ViewModels.RoleViewModel>(SelectRoleAsync);
+        SelectRoleCommand = new AsyncRelayCommand<RoleViewModel>(SelectRoleAsync);
     }
 
     private async Task BackAsync()

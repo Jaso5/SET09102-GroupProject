@@ -56,6 +56,8 @@ public static class MauiProgram
 			builder.Services.AddSingleton<UserViewModel>();
 			builder.Services.AddSingleton<ListUsersForRoleAssignmentViewModel>();
 
+			builder.Services.AddSingleton<AssignRoleViewModel>();
+			
 			builder.Services.AddTransient<ListUsersForRoleAssignmentPage>();
 			builder.Services.AddTransient<AssignRolePage>();
 

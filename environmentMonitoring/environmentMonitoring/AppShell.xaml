@@ -38,13 +38,12 @@
         Title="ListUsersForRoleAssignmentPage"
         ContentTemplate="{DataTemplate views:ListUsersForRoleAssignmentPage}"
         Route="ListUsersForRoleAssignmentPage" />
+        
     <ShellContent
         Title="AssignRolePage"
         ContentTemplate="{DataTemplate views:AssignRolePage}"
         Route="AssignRolePage" />
         
-        
-    
     <TabBar>
         <Tab>
             <ShellContent

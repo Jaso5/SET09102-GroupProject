@@ -1,4 +1,5 @@
 using System;
+using CommunityToolkit.Mvvm.Input;
 using environmentMonitoring.Database.Models;
 using environmentMonitoring.ViewModels;
 using environmentMonitoring.Services;
@@ -12,28 +13,36 @@ public class ListUsersForRoleAssignmentViewModel
 {
 
     private readonly UserService _uService;
-    public ObservableCollection<UserViewModel> userList { get; }
-    //public ICommand SelectRoleCommand { get; }
+    private ObservableCollection<UserViewModel> _userList { get; }
+    public ICommand SelectUserCommand { get; }
+    public ICommand BackCommand { get; }
+
 
     public ListUsersForRoleAssignmentViewModel(UserService userService)
     {
         _uService = userService;
-        userList = new ObservableCollection<UserViewModel>(_uService.GetUserList().Select(u => new UserViewModel(_uService, u)));
-        //SelectRoleCommand = new AsyncRelayCommand<UserViewModel>(SelectUserAsync);
-        Debug.WriteLine(userList.Count);
+        _userList = new ObservableCollection<UserViewModel>(_uService.GetUserList().Select(u => new UserViewModel(_uService, u)));
+        SelectUserCommand = new AsyncRelayCommand<UserViewModel>(SelectUserAsync);
+        BackCommand = new AsyncRelayCommand(BackAsync);
     }
 
     private async Task SelectUserAsync(UserViewModel user)
     {
         try {
-            await Shell.Current.GoToAsync(nameof(Views.AssignRolePage));
-            {
-                
-            }
+            await Shell.Current.GoToAsync($"{nameof(Views.AssignRolePage)}?userId={user.userId}");
         } catch (Exception) {
             await Shell.Current.DisplayAlert("Error", "Navigation Error.", "OK");
         }
 
+    }
+
+    private async Task BackAsync()
+    {
+        try {
+            await Shell.Current.GoToAsync(nameof(Views.AdminPanelPage));
+        } catch (Exception) {
+            await Shell.Current.DisplayAlert("Error", "Navigation Error.", "OK");
+        }
     }
 
 }

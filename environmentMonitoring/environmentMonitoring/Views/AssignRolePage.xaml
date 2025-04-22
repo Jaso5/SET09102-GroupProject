@@ -2,11 +2,33 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="environmentMonitoring.Views.AssignRolePage"
-             Title="AssignRolePage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="Assign Role">
+    
+    
+        <ContentPage.ToolbarItems>
+            <ToolbarItem Text="Back" Command="{Binding BackCommand}"/>
+        </ContentPage.ToolbarItems>
+
+    
+    
+    <CollectionView x:Name="roleList"
+                    ItemsSource="{Binding roleList}"
+                    Margin="20"
+                    SelectionMode="Single"
+                    SelectionChangedCommand="{Binding SelectRoleCommand}"
+                    SelectionChangedCommandParameter="{Binding Source={RelativeSource Self}, Path=SelectedItem}">
+        
+        <CollectionView.ItemsLayout>
+            <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
+        </CollectionView.ItemsLayout>
+    
+        
+        <CollectionView.ItemTemplate>
+            <DataTemplate>
+                <StackLayout>
+                        <Label Text="{Binding role_type}" FontSize="20"/>
+                </StackLayout>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
 </ContentPage>

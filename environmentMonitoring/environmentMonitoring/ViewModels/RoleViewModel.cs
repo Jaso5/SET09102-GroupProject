@@ -16,8 +16,8 @@ namespace environmentMonitoring.ViewModels;
 
 public partial class RoleViewModel: ObservableObject, IQueryAttributable
 {
-    private Role _role;
-    private readonly RolePermissionService _rpService;
+    public Role _role;
+    private readonly RolePermissionService? _rpService;
 
     public string role_type
     {
@@ -33,6 +33,11 @@ public partial class RoleViewModel: ObservableObject, IQueryAttributable
     }
 
     public int role_Id => _role.role_Id;
+
+    public RoleViewModel(Role role)
+    {
+        _role = role;
+    }
 
     public RoleViewModel(RolePermissionService rolePermissionService)
     {
@@ -124,7 +129,7 @@ public partial class RoleViewModel: ObservableObject, IQueryAttributable
             try {
                 _role = _rpService.GetRoleById(int.Parse(query["load"].ToString()));
             } catch (Exception) {
-                Shell.Current.DisplayAlert("Error", "Unable to retrieve the role at this time.", "OK");
+                Shell.Current.DisplayAlert("Error", "Unable to retrieve the role.", "OK");
                 return;
             }
         }
