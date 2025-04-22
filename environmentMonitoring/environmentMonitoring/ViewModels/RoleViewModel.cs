@@ -11,6 +11,7 @@ namespace environmentMonitoring.ViewModels;
 
 /*! Role View Model class handles the validation and 
  *  calls CRUD operations for roles from the role permissions service class
+ *  This view model is used in an observable list, each being a single role object
  */
 
 public partial class RoleViewModel: ObservableObject, IQueryAttributable
@@ -33,9 +34,9 @@ public partial class RoleViewModel: ObservableObject, IQueryAttributable
 
     public int role_Id => _role.role_Id;
 
-    public RoleViewModel(RolePermissionService service)
+    public RoleViewModel(RolePermissionService rolePermissionService)
     {
-        _rpService = service;
+        _rpService = rolePermissionService;
         _role = new Role(); 
     }
 
@@ -50,7 +51,7 @@ public partial class RoleViewModel: ObservableObject, IQueryAttributable
 
     /*! Save method validates the role type and checks if it already exists in the database
      *  If the role doesn't exists it creates a new role and saves it to the database
-     *  @throws Exception if there is an issue when attempting to save the role
+     *  Displays error message if there is an issue when attempting to save the role
      */
     [RelayCommand]
     private async Task Save()
@@ -73,18 +74,18 @@ public partial class RoleViewModel: ObservableObject, IQueryAttributable
                         if (_role.role_Id == 0)
                         {
                             _rpService.CreateRole(_role);
-                            await Shell.Current.GoToAsync($"..?saved={_role.role_Id}");
                         }
                         await Shell.Current.GoToAsync($"..?saved={_role.role_Id}");
                     } catch (Exception)
                     {
                         await Shell.Current.DisplayAlert("Error", "Roles cannot be created or updated at this time", "OK");
+                        return;
                     }
         }
     }
 
     /*! Delete method checks that the role exists before attempting to delete it
-     *  @throws Exception if there is an issue when attempting to delete the role
+     *  Displays error message if there is an issue when attempting to delete the role
      */
     [RelayCommand]
     private async Task Delete()
@@ -94,20 +95,27 @@ public partial class RoleViewModel: ObservableObject, IQueryAttributable
             if (!confirmation) return;
                 try {
                     _rpService.DeleteRole(_role);
+                } catch (Exception) {
+                    await Shell.Current.DisplayAlert("Error", "There was an error while deleting the role.", "OK");
+                    return;
+                }
+
+                try {
                     await Shell.Current.GoToAsync($"..?deleted={_role.role_Id}");
                 } catch (Exception) {
-                    await Shell.Current.DisplayAlert("Error", "An error occurred while deleting the role.", "OK");
+                    await Shell.Current.DisplayAlert("Error", "Role deleted, error during navigation. Please refresh roles page.", "OK");
+                    return;
                 }
         }
         else {
-            await Shell.Current.DisplayAlert("Error", "can't delete a role that hasn't been created", "OK");
+            await Shell.Current.DisplayAlert("Error", "Role hasn't been created", "OK");
         }
     }
 
      /*! IQueryAttributable.ApplyQueryAttributes method retrieves the role from the database using an ID passed in the query
      *  If no ID is passed in the query, a new role is created
      *  @param query The query dictionary containing the ID of the role to be retrieved
-     *  @throws Exception if there is an issue when attempting to retrieve the role
+     *  Displays error message if there is an issue when attempting to retrieve the role
      */ 
     void IQueryAttributable.ApplyQueryAttributes(IDictionary<string, object> query)
     {
@@ -117,6 +125,7 @@ public partial class RoleViewModel: ObservableObject, IQueryAttributable
                 _role = _rpService.GetRoleById(int.Parse(query["load"].ToString()));
             } catch (Exception) {
                 Shell.Current.DisplayAlert("Error", "Unable to retrieve the role at this time.", "OK");
+                return;
             }
         }
         else
@@ -127,7 +136,7 @@ public partial class RoleViewModel: ObservableObject, IQueryAttributable
     }
 
     /*! Reload method attempts to update the current roles roles properties by re-pulling it from the database
-     *  @throws Exception if there is an issue when attempting to retrieve the role
+     *  Displays error message if there is an issue when attempting to retrieve the role
      */ 
      public void Reload()
     {
@@ -135,7 +144,8 @@ public partial class RoleViewModel: ObservableObject, IQueryAttributable
             _rpService.ReloadRole(_role);
             RefreshProperties();
         } catch (Exception) {
-                Shell.Current.DisplayAlert("Error", "Unable to  the role at this time..", "OK");
+                Shell.Current.DisplayAlert("Error", "Unable to update the page at this time..", "OK");
+                return;
             }
     }
 
@@ -158,9 +168,13 @@ public partial class RoleViewModel: ObservableObject, IQueryAttributable
             await Shell.Current.DisplayAlert("Role hasn't been created", "Please save the role before managing permissions.", "OK");
             return;
         }
-
-        await Shell.Current.GoToAsync($"{nameof(Views.ManageRolePermissionsPage)}?load={_role.role_Id}");
-        
+        try {
+            await Shell.Current.GoToAsync($"{nameof(Views.ManageRolePermissionsPage)}?load={_role.role_Id}");
+        }
+        catch (Exception) {
+            await Shell.Current.DisplayAlert("Error", "Unable to navigate to the permissions page.", "OK");
+            return;
+        }
     }
 
 }

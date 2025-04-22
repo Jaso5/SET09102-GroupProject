@@ -2,7 +2,7 @@ using System;
 using environmentMonitoring.ViewModels;
 using environmentMonitoring.Database.Data;
 using environmentMonitoring.Database.Models;
-using Microsoft.IdentityModel.Tokens;
+using Microsoft.EntityFrameworkCore;
 
 namespace environmentMonitoring.Services;
 
@@ -111,9 +111,83 @@ public class RolePermissionService
         }
     }
 
+    public RolePermissions GetRolePermissionById(int roleId, int permissionId)
+    {
+        try {
+            return _context.RolePermissions.Single(r => r.role_Id == roleId && r.permission_Id == permissionId);
+        } catch (Exception) {
+            throw new Exception("Error retrieving role permission");
+        }
+    }
 
+    /*! AddPermission method add a new column to the RolePermissions table
+     *  giving the role the permission
+     *  @param Takes a RolePermission object as a parameter 
+     *  @throws Exception if there is an issue when trying to update teh database
+     */
+    public void AddPermission(RolePermissions permission) {
+        try {
+            _context.RolePermissions.Add(permission);
+            _context.SaveChanges();
+        } catch (Exception) {
+            throw new Exception("Error adding permission");
+        }
+    }
 
+    /*! RemovePermission method removes a column from the RolePermissions table
+     *  removing the permission from the role
+     *  @param Takes a RolePermission object as a parameter 
+     *  @throws Exception if there is an issue when trying to update teh database
+     */
+    public void RemovePermission(RolePermissions permission) {
+        try {
+            _context.RolePermissions.Remove(permission);
+            _context.SaveChanges();
+        } catch (Exception) {
+            throw new Exception("Error removing permission");
+        }
+    }
 
-     
+    /*! GetPermissionsList method retrieves a list of all permissions in the database 
+     *  @throws Exception if there is an issue during retrieval
+     *  @return Returns a list of permissions
+     */
+    public List<Permission> GetPermissionsList()
+    {
+        try {
+            return _context.Permissions.ToList();
+        } catch (Exception) {
+            throw new Exception("Error retrieving permissions list");
+        }
+    }
+
+    /*! GetRolesCurrentPermissions method retrieves a list of all current permissions a specified role has
+     *  @param Takes a role ID as a parameter
+     *  @throws Exception if there is an issue during retrieval
+     *  @return Returns a list of current permissions for the specified role
+     */
+    public List<RolePermissions> GetRolesCurrentPermissions(int role_Id) {
+        try {
+            return _context.RolePermissions
+            .Include(r => r.Permissions)
+            .Where(r => r.role_Id == role_Id)
+            .ToList();
+        } catch (Exception) {
+            throw new Exception("Error retrieving role permissions");
+        }
+    }
+
+    /*! RoleHasPermission method queries the database for a match
+     *  @throws Exception if there is an issue during the check
+     *  @return Returns true if the role has the permission, false otherwise
+     */
+    public bool RoleHasPermission(int roleId, int permission_id)
+    {   
+        try {
+            return _context.RolePermissions.Any(r => r.permission_Id == permission_id && r.role_Id == roleId);
+        } catch (Exception) {
+            throw new Exception("Error checking role permissions");
+        }
+    }
 
 }
