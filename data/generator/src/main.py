@@ -2,6 +2,7 @@ from pyodbc import connect, Cursor, ProgrammingError
 from datetime import datetime
 import json
 
+# Helper for inserting into a database, return the PK of the inserted value
 def ins(cur: Cursor, sql: str) -> int:
     try:
         cur.execute(sql)
@@ -139,8 +140,6 @@ def parse_metadata() -> list[VirtualSensor]:
     for line in file:
         (category, quantity, symbol, unit, description, frequency,
          safe_level, ref, sensor, url) = line.rstrip('\n').split(',')
-        
-        # print(f"Safe level: {safe_level}")
 
         l.append(VirtualSensor(category, quantity, symbol, unit, description,
                  frequency, safe_level, ref, sensor, url))
@@ -151,10 +150,8 @@ def parse_readings(sensors: list[VirtualSensor], path: str, date_format: str, ho
     file = open(path)
     
     SEP = ","
-
     (lat, lon, *_) = file.readline().rstrip("\n").rstrip(SEP).split(SEP)
     (_, *values) =   file.readline().rstrip("\n").rstrip(SEP).split(SEP) # Header
-
 
     target_sensors: list[VirtualSensor] = []
 
