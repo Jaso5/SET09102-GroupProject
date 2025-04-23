@@ -42,7 +42,10 @@ public static class MauiProgram
 			builder.Services.AddTransient<LogInPage>();
 
 			builder.Services.AddSingleton<HomeViewModel>();
-			builder.Services.AddTransient<HomePage>();	
+			builder.Services.AddTransient<HomePage>();
+
+		    builder.Services.AddSingleton<AccountViewModel>();
+		    builder.Services.AddTransient<AccountPage>();
 
 			builder.Services.AddSingleton<AdminPanelViewModel>();
 			builder.Services.AddTransient<AdminPanelPage>();
@@ -52,6 +55,12 @@ public static class MauiProgram
 
 			builder.Services.AddSingleton<RoleViewModel>();
 			builder.Services.AddTransient<RolePage>();
+
+		    builder.Services.AddSingleton<SensorViewModel>();
+			builder.Services.AddTransient<SensorPage>();
+
+			builder.Services.AddSingleton<SensorListViewModel>();
+			builder.Services.AddTransient<SensorListPage>();
 
 			builder.Services.AddSingleton<UserViewModel>();
 			builder.Services.AddSingleton<ListUsersForRoleAssignmentViewModel>();
