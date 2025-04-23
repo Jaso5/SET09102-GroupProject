@@ -83,8 +83,8 @@ namespace environmentMonitoring.Database.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     catergory = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     reference = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    sensor_type = table.Column<float>(type: "real", nullable: false),
-                    url = table.Column<float>(type: "real", nullable: false),
+                    sensor_type = table.Column<float>(type: "nvarchar(max)", nullable: false),
+                    url = table.Column<float>(type: "nvarchar(max)", nullable: false),
                     r_sensor_Id = table.Column<int>(type: "int", nullable: false),
                     quantity_id = table.Column<int>(type: "int", nullable: false)
                 },
