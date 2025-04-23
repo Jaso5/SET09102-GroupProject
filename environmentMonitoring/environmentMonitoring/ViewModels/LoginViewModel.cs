@@ -50,12 +50,13 @@ public partial class LoginViewModel : ObservableObject
                 await _diaglogService.ShowAlertAsync("User not found", "Please check your credentials", "OK");
                 return;
             }
+
+            await SecureStorage.SetAsync("userId", _user.user_Id.ToString());
+            await SecureStorage.SetAsync("userRoleId", _user.role_Id.ToString());
+            await SecureStorage.SetAsync("userRole", _user.Role.role_type.ToString());
+
    
-                _userSessionService.setUserSession(
-                    _user.user_Id,
-                    _user.Role.role_type,
-                    _user.first_name + " " + _user.surname,
-                    _user.Role.RolePermissions.Select(rp => rp.Permissions.name).ToList());
+                
                 
                 await Shell.Current.GoToAsync("///HomePage");  
             
