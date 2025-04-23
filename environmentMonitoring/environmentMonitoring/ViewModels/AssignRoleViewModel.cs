@@ -1,4 +1,3 @@
-using System;
 using CommunityToolkit.Mvvm.Input;
 using environmentMonitoring.Services;
 using System.Collections.ObjectModel;
@@ -6,6 +5,11 @@ using System.Windows.Input;
 using environmentMonitoring.Database.Models;
 
 namespace environmentMonitoring.ViewModels;
+
+/*! AssignRoleViewModel class handles the assigning of roles to users 
+ *  
+ *  
+ */
 
 public class AssignRoleViewModel: IQueryAttributable
 {
@@ -30,6 +34,10 @@ public class AssignRoleViewModel: IQueryAttributable
 
     }
 
+    /*! BackAsync navigates to the ListUsersForRoleAssignmentPage
+    *  Display an error message if there is an issue during navigation
+    *  
+    */
     private async Task BackAsync()
     {
         try {
@@ -39,15 +47,19 @@ public class AssignRoleViewModel: IQueryAttributable
         }
     }
 
+    /*! SelectRoleAsync selects the users new role, ask for confirmation and then attempts to assign the new role
+    *  if confirmed
+    *  Displays an error message if there is an issues updating the role
+    */
     private async Task SelectRoleAsync(RoleViewModel role)
     {
         bool confirmation = await Shell.Current.DisplayAlert("Confirm", "Are you sure you want to update users role?", "Yes", "No");
             if (role != null && confirmation) {
                 try {
-                    _user.Role = role._role;
+                    var newRole = _rpService.GetRoleById(role.roleId);
+                    _user.Role = newRole;
                     _userService.UpdateUserRole(_user);
-                    await Shell.Current.GoToAsync("///ListUsersForRoleAssignmentPage");
-                    
+                    await Shell.Current.GoToAsync("///ListUsersForRoleAssignmentPage?refresh=true");
                 } catch (Exception) {
                     await Shell.Current.DisplayAlert("Error", "Error when updating users role.", "OK");
                 }

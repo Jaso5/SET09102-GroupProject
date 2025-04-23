@@ -1,8 +1,11 @@
-using System;
 using CommunityToolkit.Mvvm.Input;
 using System.Windows.Input;
 
 namespace environmentMonitoring.ViewModels;
+
+/*! AdminPanelViewModel navigates to various Admin only locations
+     *
+     */ 
 
 public partial class AdminPanelViewModel
 {
@@ -17,10 +20,10 @@ public partial class AdminPanelViewModel
     [RelayCommand]
     private async Task NavigateToManageRoles()
     {
-        
         await Shell.Current.GoToAsync("///ManageRolesPage");
     }
 
+     
     [RelayCommand]
     private async Task NavigateToListUsersAssignRole()
     {

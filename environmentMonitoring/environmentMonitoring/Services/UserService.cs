@@ -1,14 +1,14 @@
-using System;
 using environmentMonitoring.Database.Models;
 using environmentMonitoring.Database.Data;
 using Microsoft.EntityFrameworkCore;
 using BCrypt.Net;
-using System.Diagnostics;
 
-
- using System.Diagnostics;
 
 namespace environmentMonitoring.Services;
+
+/*! UserService is responsible for handling user specific services, from validation 
+     *  to retrieving and updating users information.
+     */
 
 public class UserService: IReadDataService, IUpdateDataService, IValidationService
 {
@@ -20,6 +20,11 @@ public class UserService: IReadDataService, IUpdateDataService, IValidationServi
         _context = context;
     }
 
+    /*! GetUserById method retrieves a single user by ID
+     *  @param Takes a user ID as a parameter
+     *  @throws Exception if there is an issue during retrieval
+     *  @return Returns the user 
+     */
     public User GetUserById(int userId) {
         try {
             return _context.Users.Single(u => u.user_Id == userId);
@@ -28,6 +33,10 @@ public class UserService: IReadDataService, IUpdateDataService, IValidationServi
         }
     }
 
+    /*! UpdateUserRole method updates a user role
+     *  @param Takes a user object as a parameter
+     *  @throws Exception if there is an issue during the update
+     */
     public void UpdateUserRole(User user)
     {
         try {
@@ -39,7 +48,10 @@ public class UserService: IReadDataService, IUpdateDataService, IValidationServi
     }
 
 
-
+    /*! GetUserList method retrieves a list of all users
+     *  @throws Exception if there is an issue during retrieval
+     *  @return Returns a list of all users
+     */
     public List<User> GetUserList()
     {
         try {
@@ -50,6 +62,8 @@ public class UserService: IReadDataService, IUpdateDataService, IValidationServi
             throw new Exception("Error retrieving user list");
         }
     }
+
+
     public async Task<User?> CredentialsCheck(String email, string password)
     {
          var user = await _context.Users

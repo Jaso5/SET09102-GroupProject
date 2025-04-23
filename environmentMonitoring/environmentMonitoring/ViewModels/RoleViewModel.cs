@@ -1,10 +1,6 @@
-using System;
 using environmentMonitoring.Database.Models;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
-using System.Windows.Input;
-using environmentMonitoring.Database.Data;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 using environmentMonitoring.Services;
 
 namespace environmentMonitoring.ViewModels;
@@ -16,10 +12,10 @@ namespace environmentMonitoring.ViewModels;
 
 public partial class RoleViewModel: ObservableObject, IQueryAttributable
 {
-    public Role _role;
+    private Role _role;
     private readonly RolePermissionService? _rpService;
 
-    public string role_type
+    public string roleType
     {
         get => _role.role_type;
         set
@@ -32,7 +28,7 @@ public partial class RoleViewModel: ObservableObject, IQueryAttributable
         }
     }
 
-    public int role_Id => _role.role_Id;
+    public int roleId => _role.role_Id;
 
     public RoleViewModel(Role role)
     {
@@ -61,7 +57,7 @@ public partial class RoleViewModel: ObservableObject, IQueryAttributable
     [RelayCommand]
     private async Task Save()
     {
-        if (string.IsNullOrWhiteSpace(role_type))
+        if (string.IsNullOrWhiteSpace(roleType))
         {
             await Shell.Current.DisplayAlert("Field Empty", "Pleaser enter a role name.", "OK");
             return;
@@ -95,7 +91,7 @@ public partial class RoleViewModel: ObservableObject, IQueryAttributable
     [RelayCommand]
     private async Task Delete()
     {
-        if (role_Id != 0) {
+        if (roleId != 0) {
             bool confirmation = await Shell.Current.DisplayAlert("Confirm", "Are you sure you want to delete this role?", "Yes", "No");
             if (!confirmation) return;
                 try {
@@ -159,7 +155,7 @@ public partial class RoleViewModel: ObservableObject, IQueryAttributable
     */
      private void RefreshProperties()
     {
-        OnPropertyChanged(nameof(role_type));
+        OnPropertyChanged(nameof(roleType));
     }
 
     /*! NavigateToPermissions method navigates the user to a new page to manage the roles permissions

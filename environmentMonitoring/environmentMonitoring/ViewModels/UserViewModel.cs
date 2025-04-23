@@ -7,9 +7,12 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace environmentMonitoring.ViewModels;
 
+/*! The user view model is used to hold data on the user
+     *  
+     */ 
+
 public class UserViewModel
 {
-    //private readonly RolePermissionService _rpService;
     private readonly UserService _userService;
     private User _user;
 
@@ -20,10 +23,7 @@ public class UserViewModel
     public int roleId => _user.role_Id;
     public string roleType => _user.Role.role_type;
 
-    public UserViewModel(RolePermissionService rolePermissionService) 
-    {
-        //_rpService = rolePermissionService;
-    }
+    
 
     public UserViewModel(UserService userService, User user) 
     {

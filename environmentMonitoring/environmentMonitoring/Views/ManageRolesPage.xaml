@@ -28,7 +28,7 @@
         <CollectionView.ItemTemplate>
             <DataTemplate>
                 <StackLayout>
-                        <Label Text="{Binding role_type}" FontSize="20"/>
+                        <Label Text="{Binding roleType}" FontSize="20"/>
                 </StackLayout>
             </DataTemplate>
         </CollectionView.ItemTemplate>

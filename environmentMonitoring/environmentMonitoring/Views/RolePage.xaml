@@ -7,7 +7,7 @@
     <VerticalStackLayout>
         <Entry x:Name="roleNameEntry"
                 Placeholder="Enter role name"
-                Text="{Binding role_type}"
+                Text="{Binding roleType}"
                 FontSize="22"
                 Margin="20,0,20,0"
                 FontAutoScalingEnabled="True"
