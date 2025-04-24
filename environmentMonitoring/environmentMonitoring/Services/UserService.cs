@@ -10,6 +10,10 @@ namespace environmentMonitoring.Services;
      *  to retrieving and updating users information.
      */
 
+/*! UserService is responsible for handling user specific services, from validation 
+     *  to retrieving and updating users information.
+     */
+
 public class UserService: IReadDataService, IUpdateDataService, IValidationService
 {
 
@@ -70,7 +74,7 @@ public class UserService: IReadDataService, IUpdateDataService, IValidationServi
         .Include(u => u.Role)
         .FirstOrDefaultAsync(u => u.email == email);
 
-         if (user != null && !BCrypt.Net.BCrypt.Verify(password, user.password)) 
+         if (user != null || !BCrypt.Net.BCrypt.Verify(password, user.password)) 
          {
             return user;
          }

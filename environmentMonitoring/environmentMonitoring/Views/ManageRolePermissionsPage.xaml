@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:environmentMonitoring.ViewModels"
+             x:Class="environmentMonitoring.Views.ManageRolePermissionsPage"
+             Title="Manage Roles Permissions">
+        <ScrollView Margin="20">
+            <VerticalStackLayout>
+                
+                <Label Text="{Binding RoleType}" 
+                    FontSize="20"
+                    HorizontalTextAlignment="Center" 
+                    Margin="20,0,20,0"/>
+
+                <CollectionView x:Name="permissionList"
+                    ItemsSource="{Binding PermissionList}"
+                    Margin="20">
+                
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="1" />
+                    </CollectionView.ItemsLayout>
+            
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border
+                                BackgroundColor="White"
+                                StrokeShape="Rectangle 20,20,20,20"
+                                StrokeThickness="1"
+                                Padding="5"
+                                Margin="20,20,20,0">
+                                <StackLayout>
+
+                                    <Label 
+                                        Text="{Binding description}" 
+                                        FontSize="20"
+                                        HorizontalTextAlignment="Center"
+                                        Margin="0, 0, 0, 10"/>
+                                
+                                    <Grid ColumnDefinitions="*,*" ColumnSpacing="4">
+                                        
+                                        <Button Grid.Column="0"
+                                            Text="Add"
+                                            Command="{Binding AddPermissionCommand}"
+                                            BackgroundColor="#FF10B7D4"
+                                            TextColor="White" 
+                                            HeightRequest="40"
+                                            IsEnabled="{Binding NoPermission}"
+                                            Margin="20,0,20,0"/> 
+
+                                        <Button Grid.Column="1"
+                                            Text="Remove"
+                                            Command="{Binding RemovePermissionCommand}"
+                                            BackgroundColor="#FF10B7D4"
+                                            TextColor="White" 
+                                            HeightRequest="40"
+                                            IsEnabled="{Binding HasPermission}"
+                                            Margin="20,0,20,0"/>
+                                    </Grid>
+                                </StackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView> 
+            </VerticalStackLayout> 
+        </ScrollView>
+</ContentPage>

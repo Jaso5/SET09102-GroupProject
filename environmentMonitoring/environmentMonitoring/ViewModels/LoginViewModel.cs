@@ -58,7 +58,7 @@ public partial class LoginViewModel : ObservableObject
    
                 
                 
-                await Shell.Current.GoToAsync("//HomePage");  
+                await Shell.Current.GoToAsync("///HomePage");  
             
         } catch (Exception) {
             await _diaglogService.ShowAlertAsync("Error", "Login error, please try again", "OK");

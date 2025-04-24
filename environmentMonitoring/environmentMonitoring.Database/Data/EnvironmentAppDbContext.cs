@@ -41,53 +41,81 @@ public class EnvironmentAppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+
         modelBuilder.Entity<User>()
             .HasOne(e => e.Role)
             .WithMany(e => e.Users)
             .HasForeignKey(e => e.role_Id)
             .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<VirtualSensor>()
+        modelBuilder.Entity<VirtualSensor>()
             .HasOne(e => e.RealSensor)
             .WithMany(e => e.VirtualSensor)
             .HasForeignKey(e => e.r_sensor_Id)
             .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<VirtualSensor>()
+        modelBuilder.Entity<VirtualSensor>()
             .HasOne(e => e.Quantity)
             .WithMany(e => e.VirtualSensor)
             .HasForeignKey(e => e.quantity_id)
             .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<Readings>()
+        modelBuilder.Entity<Readings>()
             .HasOne(e => e.VirtualSensor)
             .WithMany(e => e.Readings)
             .HasForeignKey(e => e.v_sensor_id)
             .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<IncidentReports>()
+        modelBuilder.Entity<IncidentReports>()
             .HasOne(e => e.Reading)
             .WithMany(e => e.IncidentReports)
             .HasForeignKey(e => e.reading_Id)
             .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<Reports>()
+        modelBuilder.Entity<Reports>()
             .HasOne(e => e.VirtualSensor)
             .WithMany(e => e.Reports)
             .HasForeignKey(e => e.v_sensor_id)
             .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<RolePermissions>()
+        modelBuilder.Entity<RolePermissions>()
             .HasOne(rp => rp.Role)
             .WithMany(r => r.RolePermissions)
             .HasForeignKey(rp => rp.role_Id);
 
-            modelBuilder.Entity<RolePermissions>()
+        modelBuilder.Entity<RolePermissions>()
             .HasOne(rp => rp.Permissions)
             .WithMany(p => p.RolePermissions)
             .HasForeignKey(rp => rp.permission_Id);
 
-            modelBuilder.Entity<RolePermissions>()
+        modelBuilder.Entity<User>()
+            .HasKey(e => e.user_Id);
+
+        modelBuilder.Entity<RealSensor>()
+            .HasKey(e => e.r_sensor_Id);
+
+        modelBuilder.Entity<VirtualSensor>()
+            .HasKey(e => e.v_sensor_Id);
+
+        modelBuilder.Entity<Quantities>()
+            .HasKey(e => e.quantity_Id);
+
+        modelBuilder.Entity<IncidentReports>()
+            .HasKey(e => e.incident_Id);
+
+        modelBuilder.Entity<Reports>()
+            .HasKey(e => e.report_Id);
+
+        modelBuilder.Entity<Permission>()
+            .HasKey(e => e.permission_Id);
+
+        modelBuilder.Entity<Role>()
+            .HasKey(e => e.role_Id);
+
+        modelBuilder.Entity<Readings>()
+            .HasKey(e => e.reading_Id);
+
+        modelBuilder.Entity<RolePermissions>()
             .HasKey(rp => new { rp.role_Id, rp.permission_Id });
 
 
@@ -98,20 +126,20 @@ public class EnvironmentAppDbContext : DbContext
             );
 
             modelBuilder.Entity<Permission>().HasData(
-                new Permission { permission_Id = 1, name = "CreateUsers", description = "create a new user account" },
-                new Permission { permission_Id = 2, name = "ReadUsers", description = "Read a users account details" },
-                new Permission { permission_Id = 3, name = "UpdateUsers", description = "Update a users account details" },
-                new Permission { permission_Id = 4, name = "DeleteUsers", description = "Delete a users account" },
-                new Permission { permission_Id = 5, name = "CreateSensors", description = "create a new sensor account" },
-                new Permission { permission_Id = 6, name = "ReadSensors", description = "Read a sensors account details" },
-                new Permission { permission_Id = 7, name = "UpdateSensors", description = "Update a sensors account details" },
-                new Permission { permission_Id = 8, name = "DeleteSensors", description = "Delete a sensors account" },
-                new Permission { permission_Id = 9, name = "ManageUserRoles", description = "assign roles to users" },
-                new Permission { permission_Id = 10, name = "SetRolePermissions", description = "Set role permissions" },
-                new Permission { permission_Id = 11, name = "CreateIncidentReport", description = "Create incident report" },
-                new Permission { permission_Id = 12, name = "ReadIncidentReport", description = "Read incident report" },
-                new Permission { permission_Id = 13, name = "UpdateIncidentReport", description = "Update incident report" },
-                new Permission { permission_Id = 14, name = "DeleteIncidentReport", description = "Delete incident report" }
+                new Permission { permission_Id = 1, name = "CreateUsers", description = "create user" },
+                new Permission { permission_Id = 2, name = "ReadUsers", description = "read users" },
+                new Permission { permission_Id = 3, name = "UpdateUsers", description = "update users" },
+                new Permission { permission_Id = 4, name = "DeleteUsers", description = "delete users" },
+                new Permission { permission_Id = 5, name = "CreateSensors", description = "create sensor" },
+                new Permission { permission_Id = 6, name = "ReadSensors", description = "read sensors" },
+                new Permission { permission_Id = 7, name = "UpdateSensors", description = "update sensors" },
+                new Permission { permission_Id = 8, name = "DeleteSensors", description = "delete sensor" },
+                new Permission { permission_Id = 9, name = "ManageUserRoles", description = "assign roles" },
+                new Permission { permission_Id = 10, name = "SetRolePermissions", description = "set role permissions" },
+                new Permission { permission_Id = 11, name = "CreateIncidentReport", description = "create incident report" },
+                new Permission { permission_Id = 12, name = "ReadIncidentReport", description = "read incident report" },
+                new Permission { permission_Id = 13, name = "UpdateIncidentReport", description = "update incident report" },
+                new Permission { permission_Id = 14, name = "DeleteIncidentReport", description = "delete incident report" }
             );
 
              modelBuilder.Entity<RolePermissions>().HasData(

@@ -7,7 +7,7 @@ public class UserSessionService : IUserSessionService
     public int? userId { get; set; }
     public string? role { get; set; }
     public string? username { get; set; }
-    public List<string?> permissions { get; set; }
+    public List<string?>? permissions { get; set; }
 
     public void setUserSession(int userId, string role, string username, List<string?> permissions)
     {
@@ -17,9 +17,17 @@ public class UserSessionService : IUserSessionService
         this.permissions = permissions;
     }
 
+    public void getRole(string role)
+    {
+        this.role = role;
+    }
+
     public bool hasPermission(string permissionName)
     {
-        return permissions.Contains(permissionName);
+        if (permissions != null) {
+            return permissions.Contains(permissionName);
+        }
+        return false;
     }
 
     public void clearUserSession()

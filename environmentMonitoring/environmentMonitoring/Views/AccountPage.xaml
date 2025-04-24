@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:environmentMonitoring.ViewModels"
+             x:Class="environmentMonitoring.Views.AccountPage"
+             Title="AccountPage">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Back" Command="{Binding BackCommand}"/>
+    </ContentPage.ToolbarItems>
+    
+    <VerticalStackLayout>
+        <Label 
+            Text="Welcome to Account Page"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+    </VerticalStackLayout>
+</ContentPage>

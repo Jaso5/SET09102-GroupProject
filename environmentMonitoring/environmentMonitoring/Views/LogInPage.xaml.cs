@@ -1,5 +1,7 @@
-namespace environmentMonitoring.Views;
 using environmentMonitoring.ViewModels;
+
+namespace environmentMonitoring.Views;
+
 
 public partial class LogInPage : ContentPage
 {
