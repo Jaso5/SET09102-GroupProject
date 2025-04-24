@@ -2,12 +2,13 @@ using Microsoft.UI.Xaml;
 
 namespace environmentMonitoring.WinUI;
 
-public partial class App : MauiWinUIApplication
+public partial class MauiProgram : MauiWinUIApplication
 {
-    public App()
+    public MauiProgram()
     {
         this.InitializeComponent();
     }
 
     protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
+
 }
