@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="environmentMonitoring.SensorConfigPage"
+             Title="Sensor Configuration">
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="15">
+            <Label Text="Sensor Configuration" 
+                   FontSize="24" 
+                   HorizontalOptions="Center" />
+
+            <Entry x:Name="SensorIdEntry" 
+                   Placeholder="Sensor ID" />
+
+            <Entry x:Name="LocationEntry" 
+                   Placeholder="Location" />
+
+            <Entry x:Name="ModelEntry" 
+                   Placeholder="Model" />
+
+            <Entry x:Name="BrandEntry" 
+                   Placeholder="Brand" />
+
+            <Entry x:Name="FunctionalityEntry" 
+                   Placeholder="Functionality" />
+
+            <DatePicker x:Name="LastMaintainedDatePicker" 
+                        Date="{x:Static sys:DateTime.Now}" 
+                        Format="d" />
+
+            <Button Text="Save Configuration" 
+                    Clicked="OnSaveConfigurationClicked" />
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
