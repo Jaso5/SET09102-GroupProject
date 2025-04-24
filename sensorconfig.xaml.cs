@@ -15,13 +15,6 @@ namespace environmentMonitoring
             DatabaseHelper.InitializeDatabase(); // Initialize the database when the page is loaded
         }
 
-        public Entry SensorIdEntry { get; private set; }
-        public Entry LocationEntry { get; private set; }
-        public Entry ModelEntry { get; private set; }
-        public Entry BrandEntry { get; private set; }
-        public Entry FunctionalityEntry { get; private set; }
-        public DatePicker LastMaintainedDatePicker { get; private set; }
-
         private async void OnSaveConfigurationClicked(object sender, EventArgs e)
         {
             // Retrieve data from the input fields

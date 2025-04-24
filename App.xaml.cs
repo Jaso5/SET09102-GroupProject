@@ -1,11 +1,15 @@
-﻿namespace environmentMonitoring;
+﻿using Microsoft.Maui.Controls;
 
-public partial class App : Application
+namespace environmentMonitoring
 {
-	public App()
-	{
-		InitializeComponent();
+    public partial class App : Application
+    {
+        public App()
+        {
+            InitializeComponent();
 
-		MainPage = new AppShell();
-	}
+            // Set SensorConfigPage as the main page
+            MainPage = new SensorConfigPage();
+        }
+    }
 }
