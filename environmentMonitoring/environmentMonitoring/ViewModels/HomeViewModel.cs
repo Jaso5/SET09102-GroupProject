@@ -15,26 +15,33 @@ public partial class HomeViewModel
     [RelayCommand]
     private async Task NavigateToAdminPanel()
     {
-        int roleId = Preferences.Get("role_id", 0); // Default to 0 (non-admin)
+        // Pull the user's role from:
+        // Preferences - Local, non-encrypted value
+        // SecureStorage - Encrypted value
+        int roleIdFromPrefs = Preferences.Get("role_id", 0);
+        string roleIdFromStorage = await SecureStorage.GetAsync("userRoleId");
 
-        // If user is admin(roleId = 1) allow to pass to the page
-        if (roleId == 1)
+        // Check both sources for the admin(1 value)
+        if (roleIdFromPrefs == 1 || roleIdFromStorage == "1")
         {
             try
             {
+                // Directs to the Admin Panel Page
                 await Shell.Current.GoToAsync("///AdminPanelPage");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                await Shell.Current.DisplayAlert("Error", "Error during navigation", "OK");
+                // Display error if navigation is wrong or doesn't exist
+                await Shell.Current.DisplayAlert("Error", $"Navigation error: {ex.Message}", "OK");
             }
         }
-        // If user role is anything else shoot out a error message
         else
         {
+            // Display error if user doesn't have the correct permissions
             await Shell.Current.DisplayAlert("Access Denied", "You must be an admin to access this page.", "OK");
         }
     }
+
 
     // Navigation to Account Page
     [RelayCommand]
