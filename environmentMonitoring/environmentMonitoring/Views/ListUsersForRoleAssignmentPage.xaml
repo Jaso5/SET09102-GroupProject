@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:environmentMonitoring.ViewModels"
+             x:Class="environmentMonitoring.Views.ListUsersForRoleAssignmentPage"
+             Title="User List">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Back" Command="{Binding BackCommand}"/>
+    </ContentPage.ToolbarItems>
+    
+        <ScrollView  Margin="20">
+            <CollectionView x:Name="userList"
+                        ItemsSource="{Binding userList}"
+                        Margin="20"
+                        SelectionMode="Single"
+                        SelectionChangedCommand="{Binding SelectUserCommand}"
+                        SelectionChangedCommandParameter="{Binding Source={RelativeSource Self}, Path=SelectedItem}">
+            
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
+            </CollectionView.ItemsLayout>
+        
+            
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border
+                                BackgroundColor="#FFE7E5E5"
+                                StrokeShape="Rectangle 20,20,20,20"
+                                StrokeThickness="1"
+                                Padding="5">
+                        <StackLayout>
+                            <Label 
+                                    Grid.Column="1" 
+                                    Text="{Binding roleType}" 
+                                    FontSize="15"
+                                    Margin="0, 10, 0, 10"/>
+                            <Grid ColumnDefinitions="*,*" ColumnSpacing="4">
+                                <Label 
+                                    Text="{Binding username}" 
+                                    FontSize="15"/>
+                                <Label 
+                                    Grid.Column="1" 
+                                    Text="{Binding email}" 
+                                    FontSize="15"/>
+                            </Grid>
+
+
+                        </StackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+
+
+
+
+    </ScrollView>
+</ContentPage>

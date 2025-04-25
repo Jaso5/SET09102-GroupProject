@@ -1,8 +1,6 @@
-using System;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using environmentMonitoring.Database.Data;
 using environmentMonitoring.Services;
 
 namespace environmentMonitoring.ViewModels;
@@ -18,6 +16,8 @@ public partial class ManageRolesViewModel : IQueryAttributable
 
     public ObservableCollection<ViewModels.RoleViewModel> roleList { get; }
     public ICommand NewCommand { get; }
+
+    public ICommand BackCommand { get; }
     public ICommand SelectRoleCommand { get; }
     private readonly RolePermissionService _rpService;
 
@@ -27,8 +27,21 @@ public partial class ManageRolesViewModel : IQueryAttributable
         
         roleList = new ObservableCollection<ViewModels.RoleViewModel>(_rpService.GetRoleList().Select(r => new RoleViewModel(_rpService, r)));
         
+        BackCommand = new AsyncRelayCommand(BackAsync);
         NewCommand = new AsyncRelayCommand(NewRoleAsync);
-        SelectRoleCommand = new AsyncRelayCommand<ViewModels.RoleViewModel>(SelectRoleAsync);
+        SelectRoleCommand = new AsyncRelayCommand<RoleViewModel>(SelectRoleAsync);
+    }
+
+    /*! BackAsync method navigates the user back to the admin panel
+     *  Display and error if there is an issue during navigation
+     */ 
+    private async Task BackAsync()
+    {
+        try {
+            await Shell.Current.GoToAsync(nameof(Views.AdminPanelPage));
+        } catch (Exception) {
+            await Shell.Current.DisplayAlert("Error", "Navigation Error.", "OK");
+        }
     }
 
     /*! NewRoleAsync method navigates to the role page to create a new role
@@ -51,7 +64,7 @@ public partial class ManageRolesViewModel : IQueryAttributable
     {
         if (role != null) {
             try {
-                await Shell.Current.GoToAsync($"{nameof(Views.RolePage)}?load={role.role_Id}");
+                await Shell.Current.GoToAsync($"{nameof(Views.RolePage)}?load={role.roleId}");
             } catch (Exception) {
                 await Shell.Current.DisplayAlert("Error", "Navigation Error.", "OK");
             }
@@ -71,7 +84,7 @@ public partial class ManageRolesViewModel : IQueryAttributable
         if (query.ContainsKey("deleted"))
         {
             string roleId = query["deleted"].ToString();
-            RoleViewModel matchedRole = roleList.Where((r) => r.role_Id == int.Parse(roleId)).FirstOrDefault();
+            RoleViewModel matchedRole = roleList.Where((r) => r.roleId == int.Parse(roleId)).FirstOrDefault();
 
     
             if (matchedRole != null)
@@ -80,7 +93,7 @@ public partial class ManageRolesViewModel : IQueryAttributable
         else if (query.ContainsKey("saved"))
         {
             string roleId = query["saved"].ToString();
-            RoleViewModel matchedRole = roleList.Where((r) => r.role_Id == int.Parse(roleId)).FirstOrDefault();
+            RoleViewModel matchedRole = roleList.Where((r) => r.roleId == int.Parse(roleId)).FirstOrDefault();
 
             if (matchedRole != null)
             {

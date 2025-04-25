@@ -1,17 +1,8 @@
-using System;
-using System;
 using environmentMonitoring.Database.Models;
-using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
-using System.Windows.Input;
-using environmentMonitoring.Database.Data;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 using environmentMonitoring.Services;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
-using System.Diagnostics;
+
 
 namespace environmentMonitoring.ViewModels;
 
@@ -27,7 +18,7 @@ public partial class ManageRolePermissionsViewModel: ObservableObject, IQueryAtt
     
 
     [ObservableProperty]
-    private string role_type;
+    private string roleType;
 
      private readonly RolePermissionService _rpService;
 
@@ -68,7 +59,7 @@ public partial class ManageRolePermissionsViewModel: ObservableObject, IQueryAtt
         foreach (PermissionViewModel permission in PermissionList)
         {
             try {
-                if (CurrentPermissions.Any(cp => cp.permission_Id == permission.permission_Id))
+                if (CurrentPermissions.Any(cp => cp.permissionId == permission.permissionId))
                 {
                     permission.HasPermission = true;
                     permission.NoPermission = false;
@@ -105,7 +96,7 @@ public partial class ManageRolePermissionsViewModel: ObservableObject, IQueryAtt
         {
             try {
                 _role = _rpService.GetRoleById(int.Parse(query["load"].ToString()));
-                Role_type = _role.role_type;
+                RoleType = _role.role_type;
 
                 InitLists();
             } catch (Exception) {

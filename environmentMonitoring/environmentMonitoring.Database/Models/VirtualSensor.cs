@@ -13,7 +13,7 @@ public class VirtualSensor
     
     public string reference { get; set; }
     [Required]
-    public float sensor_type { get; set; }
+    public string sensor_type { get; set; }
     
     public float url { get; set; }
 

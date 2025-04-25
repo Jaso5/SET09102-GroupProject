@@ -1,5 +1,3 @@
-using System;
-using environmentMonitoring.Database.Data;
 using environmentMonitoring.Database.Models;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -28,7 +26,7 @@ public partial class PermissionViewModel : ObservableObject
         _permission = permission;
         this.roleId = roleId;
     }
-    public int permission_Id => _permission.permission_Id;
+    public int permissionId => _permission.permission_Id;
     public string description => _permission.description;
 
     [ObservableProperty]
@@ -46,14 +44,14 @@ public partial class PermissionViewModel : ObservableObject
     [RelayCommand]
     private async Task AddPermission()
     {
-        if (!_rpService.RoleHasPermission(roleId, permission_Id)) {
+        if (!_rpService.RoleHasPermission(roleId, permissionId)) {
             bool add = await Shell.Current.DisplayAlert("Confirm", "Are you sure you want to add this permission?", "Yes", "No");
                 if (!add) return;
                     try {
                         _rpService.AddPermission(new RolePermissions
                         {
                             role_Id = roleId, 
-                            permission_Id = permission_Id
+                            permission_Id = permissionId
                         });
                     } catch (Exception) {
                         await Shell.Current.DisplayAlert("Error", "There was an error while adding the permission.", "OK");
@@ -71,11 +69,11 @@ public partial class PermissionViewModel : ObservableObject
     [RelayCommand]
     private async Task RemovePermission()
     {
-        if (_rpService.RoleHasPermission(roleId, permission_Id)) {
+        if (_rpService.RoleHasPermission(roleId, permissionId)) {
             bool remove = await Shell.Current.DisplayAlert("Confirm", "Are you sure you want to remove this permission?", "Yes", "No");
                 if (!remove) return;
                     try {
-                        var permission = _rpService.GetRolePermissionById(roleId, permission_Id);
+                        var permission = _rpService.GetRolePermissionById(roleId, permissionId);
                         _rpService.RemovePermission(permission);
                     } catch (Exception) {
                         await Shell.Current.DisplayAlert("Error", "There was an error while removing the permission.", "OK");

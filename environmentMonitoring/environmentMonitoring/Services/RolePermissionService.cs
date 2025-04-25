@@ -1,5 +1,3 @@
-using System;
-using environmentMonitoring.ViewModels;
 using environmentMonitoring.Database.Data;
 using environmentMonitoring.Database.Models;
 using Microsoft.EntityFrameworkCore;
@@ -111,6 +109,10 @@ public class RolePermissionService
         }
     }
 
+    /*! GetRolePermissionById method retrieves a single role permission from the joint table in the database
+     *  @throws Exception if there is an issue during retrieval
+     *  @return Returns the retrieved role permission from the DB
+     */
     public RolePermissions GetRolePermissionById(int roleId, int permissionId)
     {
         try {
@@ -166,11 +168,11 @@ public class RolePermissionService
      *  @throws Exception if there is an issue during retrieval
      *  @return Returns a list of current permissions for the specified role
      */
-    public List<RolePermissions> GetRolesCurrentPermissions(int role_Id) {
+    public List<RolePermissions> GetRolesCurrentPermissions(int roleId) {
         try {
             return _context.RolePermissions
             .Include(r => r.Permissions)
-            .Where(r => r.role_Id == role_Id)
+            .Where(r => r.role_Id == roleId)
             .ToList();
         } catch (Exception) {
             throw new Exception("Error retrieving role permissions");
@@ -181,10 +183,10 @@ public class RolePermissionService
      *  @throws Exception if there is an issue during the check
      *  @return Returns true if the role has the permission, false otherwise
      */
-    public bool RoleHasPermission(int roleId, int permission_id)
+    public bool RoleHasPermission(int roleId, int permissionId)
     {   
         try {
-            return _context.RolePermissions.Any(r => r.permission_Id == permission_id && r.role_Id == roleId);
+            return _context.RolePermissions.Any(r => r.permission_Id == permissionId && r.role_Id == roleId);
         } catch (Exception) {
             throw new Exception("Error checking role permissions");
         }

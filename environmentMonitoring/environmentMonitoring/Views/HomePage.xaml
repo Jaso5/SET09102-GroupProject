@@ -5,7 +5,7 @@
              Title="HomePage">
     <VerticalStackLayout>
         <Label 
-            Text="Welcome to .NET MAUI!"
+            Text="Welcome to the Home Page"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
         <Button x:Name="AdminPanelButton"
@@ -14,6 +14,30 @@
             BackgroundColor="#FF10B7D4"
             TextColor="White" 
             HeightRequest="40"
-            Margin="20,0,20,0" />
+            Margin="20,20,20,0" />
+
+        <Button x:Name="AccountButton"
+            Text="Account"
+            Command="{Binding NavigateToAccountPageCommand}"
+            BackgroundColor="#FF10B7D4"
+            TextColor="White" 
+            HeightRequest="40"
+            Margin="20,20,20,0" />
+
+        <Button x:Name="SensorButton"
+            Text="Sensor"
+            Command="{Binding NavigateToSensorPageCommand}"
+            BackgroundColor="#FF10B7D4"
+            TextColor="White" 
+            HeightRequest="40"
+            Margin="20,20,20,0" />
+
+        <Button x:Name="SensorListButton"
+            Text="Sensor List"
+            Command="{Binding NavigateToSensorListPageCommand}"
+            BackgroundColor="#FF10B7D4"
+            TextColor="White" 
+            HeightRequest="40"
+            Margin="20,20,20,0" />
     </VerticalStackLayout>
 </ContentPage>

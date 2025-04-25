@@ -7,7 +7,7 @@
         <ScrollView Margin="20">
             <VerticalStackLayout>
                 
-                <Label Text="{Binding Role_type}" 
+                <Label Text="{Binding RoleType}" 
                     FontSize="20"
                     HorizontalTextAlignment="Center" 
                     Margin="20,0,20,0"/>

@@ -33,9 +33,32 @@
         Title="Role"
         ContentTemplate="{DataTemplate views:RolePage}"
         Route="RolePage" />
+
+    <ShellContent
+        Title="ListUsersForRoleAssignmentPage"
+        ContentTemplate="{DataTemplate views:ListUsersForRoleAssignmentPage}"
+        Route="ListUsersForRoleAssignmentPage" />
         
-        
-    
+    <ShellContent
+        Title="AssignRolePage"
+        ContentTemplate="{DataTemplate views:AssignRolePage}"
+        Route="AssignRolePage" />
+
+    <ShellContent
+        Title="AccountPage"
+        ContentTemplate="{DataTemplate views:AccountPage}"
+        Route="AccountPage" />
+
+    <ShellContent
+        Title="SensorPage"
+        ContentTemplate="{DataTemplate views:SensorPage}"
+        Route="SensorPage" />
+
+    <ShellContent
+    Title="SensorListPage"
+    ContentTemplate="{DataTemplate views:SensorListPage}"
+    Route="SensorListPage" />
+
     <TabBar>
         <Tab>
             <ShellContent
