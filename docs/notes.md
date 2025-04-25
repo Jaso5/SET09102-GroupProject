@@ -10,8 +10,8 @@
 
 - Environmental Scientist
   - James: Manage sensor accounts and configure settings: Add setting menu for each sensor, add fake settings
-  - View and analyse historical environmental data: Graph the data
-  - Jacob: Use a map to view real-time sensor statuses and alerts geographically: Map with sensors on it
+  - Jacob: View and analyse historical environmental data: Graph the data
+  - Use a map to view real-time sensor statuses and alerts geographically: Map with sensors on it
   - Dan: Generate comprehensive reports on environmental trends
 - Operation Manager
   - Jacob: Monitor the operational status of sensors: Add battery level to map
