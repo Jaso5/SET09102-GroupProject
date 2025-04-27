@@ -1,12 +1,15 @@
-using Microsoft.Maui.Storage; // For Preferences
+using environmentMonitoring.ViewModels;
+using Microsoft.Maui.Storage;
+
 
 namespace environmentMonitoring.Views;
 
 public partial class SensorListPage : ContentPage
 {
-    public SensorListPage()
+    public SensorListPage(SensorListViewModel _viewModel)
     {
         InitializeComponent();
+        BindingContext = _viewModel;
     }
 
     // Redirect any user that doesn't have the required permissions to homepage
