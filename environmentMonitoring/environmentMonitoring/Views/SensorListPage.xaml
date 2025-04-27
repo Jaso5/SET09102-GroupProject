@@ -1,18 +1,37 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewModels="clr-namespace:environmentMonitoring.ViewModels"
-             x:Class="environmentMonitoring.Views.SensorListPage"
-             Title="SensorListPage">
+<ContentPage 
+    x:Class="environmentMonitoring.Views.SensorListPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:environmentMonitoring.ViewModels"
+    xmlns:models="clr-namespace:environmentMonitoring.ViewModels"
+    x:DataType="vm:SensorListViewModel">
 
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Back" Command="{Binding BackCommand}"/>
-    </ContentPage.ToolbarItems>
-    
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to Sensor List Page"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <StackLayout>
+        <!-- Loading Indicator -->
+        <ActivityIndicator IsRunning="{Binding IsLoading}" />
+
+        <!-- No data message -->
+        <Label Text="No sensors found" IsVisible="{Binding IsNoData}" HorizontalOptions="Center" />
+
+        <!-- CollectionView for the list of sensors -->
+        <CollectionView ItemsSource="{Binding Sensors}" IsVisible="{Binding IsDataAvailable}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:SensorDisplayModel">
+                    <Frame Margin="10" Padding="10" CornerRadius="10" BackgroundColor="LightGray">
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="{Binding r_sensor_Id}" FontAttributes="Bold" FontSize="Medium" />
+                            <Label Text="{Binding StatusText}" TextColor="Black" FontSize="Small" />
+                            <Button Text="Schedule Maintenance"
+                                    IsVisible="{Binding IsInactive}"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SensorListViewModel}}, Path=ScheduleMaintenanceCommand}"
+                                    CommandParameter="{Binding}" />
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </StackLayout>
 </ContentPage>
+
+
