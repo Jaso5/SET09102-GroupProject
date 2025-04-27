@@ -11,11 +11,12 @@
         Title="Log In"
         ContentTemplate="{DataTemplate views:LogInPage}"
         Route="LogInPage" />
-    
+
     <ShellContent
         Title="Admin panel"
         ContentTemplate="{DataTemplate views:AdminPanelPage}"
         Route="AdminPanelPage" />
+
 
     <ShellContent
         Title="Manage Roles"
@@ -56,6 +57,11 @@
     Title="SensorListPage"
     ContentTemplate="{DataTemplate views:SensorListPage}"
     Route="SensorListPage" />
+
+    <ShellContent
+    Title="ReportPage"
+    ContentTemplate="{DataTemplate views:ReportPage}"
+    Route="ReportPage" />
 
     <TabBar>
         <Tab>

@@ -6,10 +6,10 @@ namespace environmentMonitoring.Views;
 
 public partial class SensorListPage : ContentPage
 {
-    public SensorListPage(SensorListViewModel _viewModel)
+    public SensorListPage(SensorListViewModel viewModel)
     {
         InitializeComponent();
-        BindingContext = _viewModel;
+        BindingContext = viewModel;
     }
 
     // Redirect any user that doesn't have the required permissions to homepage
