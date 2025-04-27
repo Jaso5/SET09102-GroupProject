@@ -36,7 +36,7 @@ public static class MauiProgram
 			builder.Services.AddSingleton<RolePermissionService, RolePermissionService>();
 
 			builder.Services.AddSingleton<UserService, UserService>();
-
+			builder.Services.AddSingleton<PermissionService, PermissionService>();
 
 			builder.Services.AddSingleton<LoginViewModel>();
 			builder.Services.AddTransient<LogInPage>();

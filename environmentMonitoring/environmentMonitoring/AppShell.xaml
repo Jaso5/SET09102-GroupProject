@@ -17,7 +17,6 @@
         ContentTemplate="{DataTemplate views:AdminPanelPage}"
         Route="AdminPanelPage" />
 
-    
 
     <ShellContent
         Title="Manage Roles"
