@@ -17,6 +17,8 @@ public partial class SensorListViewModel : ObservableObject
     [ObservableProperty]
     private ObservableCollection<SensorDisplayModel> sensors = new();
 
+    // Variables that check if the sensor list page is Loading and if page has Data
+
     [ObservableProperty]
     private bool isLoading;
 
@@ -25,6 +27,8 @@ public partial class SensorListViewModel : ObservableObject
 
     [ObservableProperty]
     private bool isDataAvailable;
+
+    // Command to allow the user to set a Maintenance date for sensors
 
     public ICommand ScheduleMaintenanceCommand { get; }
 
@@ -36,6 +40,7 @@ public partial class SensorListViewModel : ObservableObject
         LoadSensors();
     }
 
+    // Load Sensor data from the database
     private async void LoadSensors()
     {
         isLoading = true;
@@ -70,13 +75,29 @@ public partial class SensorListViewModel : ObservableObject
         }
     }
 
+    // Schedule the maintenance date for the inactive sensors
+
     private async Task ScheduleMaintenance(SensorDisplayModel sensor)
     {
-        if (sensor != null)
+        if (sensor != null && sensor.MaintenanceDate.HasValue)
         {
-            await Shell.Current.DisplayAlert("Maintenance", $"Scheduled maintenance for Sensor {sensor.r_sensor_Id}.", "OK");
+            var maintenanceDate = sensor.MaintenanceDate.Value;
+
+            // Perform scheduling logic (you can store the maintenance date in your database if needed)
+
+            await Shell.Current.DisplayAlert("Maintenance",
+                $"Scheduled maintenance for Sensor {sensor.r_sensor_Id} on {maintenanceDate.ToShortDateString()}.",
+                "OK");
+        }
+        else
+        {
+            // If the user hasn't selected a date, show an error message
+            await Shell.Current.DisplayAlert("Error",
+                "Please select a valid maintenance date.",
+                "OK");
         }
     }
+
 }
 
 
