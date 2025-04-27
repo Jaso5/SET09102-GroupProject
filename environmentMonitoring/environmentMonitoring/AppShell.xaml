@@ -7,17 +7,15 @@
     Shell.FlyoutBehavior="Disabled"
     Title="environmentMonitoring">
 
-    
-
-    <ShellContent
-        Title="Admin panel"
-        ContentTemplate="{DataTemplate views:AdminPanelPage}"
-        Route="AdminPanelPage" />
-
     <ShellContent
         Title="Log In"
         ContentTemplate="{DataTemplate views:LogInPage}"
         Route="LogInPage" />
+    
+    <ShellContent
+        Title="Admin panel"
+        ContentTemplate="{DataTemplate views:AdminPanelPage}"
+        Route="AdminPanelPage" />
 
     <ShellContent
         Title="Manage Roles"
