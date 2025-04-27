@@ -60,6 +60,7 @@ public static class MauiProgram
 			builder.Services.AddTransient<SensorPage>();
 
 			builder.Services.AddSingleton<SensorListViewModel>();
+			builder.Services.AddSingleton<SensorDisplayModel>();
 			builder.Services.AddTransient<SensorListPage>();
 
 			builder.Services.AddSingleton<UserViewModel>();
