@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Maui.Controls;
 
 namespace environmentMonitoring.Views
@@ -8,9 +7,21 @@ namespace environmentMonitoring.Views
         public ReportPage(string reportContent)
         {
             InitializeComponent();
-            // Set the content of the label to the report content
-            ReportContentLabel.Text = reportContent;
+
+            // Check if the reportContent is null or empty
+            if (string.IsNullOrEmpty(reportContent))
+            {
+                // Set default content if the report content is null or empty
+                ReportContentLabel.Text = "No report content available.";
+            }
+            else
+            {
+                // Otherwise, display the report content
+                ReportContentLabel.Text = reportContent;
+            }
         }
     }
 }
+
+
 

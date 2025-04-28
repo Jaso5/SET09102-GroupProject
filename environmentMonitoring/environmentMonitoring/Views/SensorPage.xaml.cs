@@ -1,20 +1,26 @@
 using System;
 using System.IO;
 using Microsoft.Maui.Controls;
+using Microsoft.EntityFrameworkCore; 
+using environmentMonitoring.Database.Data; 
+using environmentMonitoring.Database.Models; 
 
 namespace environmentMonitoring.Views
 {
     public partial class SensorPage : ContentPage
     {
+        private readonly EnvironmentAppDbContext _dbContext; // Database context
         string generatedReportPath; // Store the generated report path
 
-        public SensorPage()
+        // Inject the DB context via constructor or use dependency injection
+        public SensorPage(EnvironmentAppDbContext dbContext)
         {
             InitializeComponent();
+            _dbContext = dbContext;
         }
 
         // This method is triggered when the 'Generate Report' button is clicked
-        private void OnGenerateReportClicked(object sender, EventArgs e)
+        private async void OnGenerateReportClicked(object sender, EventArgs e)
         {
             try
             {
@@ -30,8 +36,26 @@ namespace environmentMonitoring.Views
                 // Define the file path for the report
                 generatedReportPath = Path.Combine(folderPath, "EnvironmentalTrendReport.txt");
 
-                // Example content for the report
+                // Fetch actual data from the database (for example, trends from dbo.Reports)
+                var reportsData = await _dbContext.Reports.ToListAsync(); // Fetch all reports
+
+                // If no reports found, display a message
+                if (reportsData == null || reportsData.Count == 0)
+                {
+                    ReportMessageLabel.Text = "No environmental data available to generate the report.";
+                    return;
+                }
+
+                // Generate the content for the report (including trends and other info)
                 string reportContent = "Environmental Trend Report\n\nGenerated on: " + DateTime.Now.ToString();
+                reportContent += "\n\n--- Trend Data ---\n";
+
+                // Loop through fetched reports and add their details to the report content
+                foreach (var report in reportsData)
+                {
+                    reportContent += $"\nTitle: {report.title}\nTrend: {report.trend}\nSensor ID: {report.v_sensor_id}\nBody: {report.body}\n";
+                    reportContent += "-----------------------------------\n";
+                }
 
                 // Write content to the file
                 File.WriteAllText(generatedReportPath, reportContent);
@@ -60,8 +84,16 @@ namespace environmentMonitoring.Views
                     // Read the content of the report
                     string reportContent = File.ReadAllText(generatedReportPath);
 
-                    // Navigate to ReportPage and pass the report content
-                    await Navigation.PushAsync(new ReportPage(reportContent));
+                    // Ensure the content is not null or empty before passing to ReportPage
+                    if (string.IsNullOrEmpty(reportContent))
+                    {
+                        await DisplayAlert("Error", "The report is empty.", "OK");
+                    }
+                    else
+                    {
+                        // Navigate to ReportPage and pass the report content (string)
+                        await Navigation.PushAsync(new ReportPage(reportContent));
+                    }
                 }
                 else
                 {
