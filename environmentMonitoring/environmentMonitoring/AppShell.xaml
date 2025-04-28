@@ -58,6 +58,11 @@
     ContentTemplate="{DataTemplate views:SensorListPage}"
     Route="SensorListPage" />
 
+    <ShellContent
+    Title="ReportPage"
+    ContentTemplate="{DataTemplate views:ReportPage}"
+    Route="ReportPage" />
+
     <TabBar>
         <Tab>
             <ShellContent
