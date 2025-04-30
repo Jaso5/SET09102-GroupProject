@@ -16,7 +16,7 @@
                    Placeholder="Location" />
 
             <Entry x:Name="ModelEntry" 
-                   Placeholder="Model" />
+                   Placeholder="Model or firmware" />
 
             <Entry x:Name="BrandEntry" 
                    Placeholder="Brand" />
