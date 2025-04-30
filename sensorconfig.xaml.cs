@@ -194,6 +194,50 @@ namespace environmentMonitoring
         }
 
         /// <summary>
+        /// Deletes the selected sensor configuration from the database.
+        /// </summary>
+        private async void OnDeleteConfigurationClicked(object sender, EventArgs e)
+        {
+            if (selectedSensor == null)
+            {
+                await DisplayAlert("Error", "Please select a sensor to delete", "OK");
+                return;
+            }
+
+            bool confirm = await DisplayAlert("Confirm Delete", 
+                $"Are you sure you want to delete sensor {selectedSensor.SensorId}?", 
+                "Yes", "No");
+
+            if (!confirm)
+                return;
+
+            try
+            {
+                string dbPath = Helpers.DatabaseHelper.GetDatabasePath();
+                using (var connection = new SqliteConnection($"Data Source={dbPath}"))
+                {
+                    connection.Open();
+                    string deleteQuery = "DELETE FROM SensorConfigurations WHERE Id = @Id";
+
+                    using (var command = new SqliteCommand(deleteQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@Id", selectedSensor.Id);
+                        command.ExecuteNonQuery();
+                    }
+                }
+
+                await DisplayAlert("Success", "Sensor configuration deleted successfully.", "OK");
+                ClearFields();
+                LoadSensors();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error deleting sensor: {ex.Message}");
+                await DisplayAlert("Error", $"Failed to delete sensor: {ex.Message}", "OK");
+            }
+        }
+
+        /// <summary>
         /// Clears all input fields and resets the selected sensor.
         /// </summary>
         private void ClearFields()

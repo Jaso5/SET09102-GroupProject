@@ -26,13 +26,16 @@
 
             <DatePicker x:Name="LastMaintainedDatePicker" />
 
-            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+            <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10">
                 <Button Text="Save" 
                         Grid.Column="0"
                         Clicked="OnSaveConfigurationClicked"/>
                 <Button Text="Update" 
                         Grid.Column="1"
                         Clicked="OnUpdateConfigurationClicked"/>
+                <Button Text="Delete"
+                        Grid.Column="2"
+                        Clicked="OnDeleteConfigurationClicked"/>
             </Grid>
 
             <CollectionView x:Name="SensorsCollection"
