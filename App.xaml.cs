@@ -1,4 +1,6 @@
-﻿using Microsoft.Maui.Controls;
+﻿using Microsoft.Maui;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Hosting;
 
 namespace environmentMonitoring
 {
@@ -7,9 +9,7 @@ namespace environmentMonitoring
         public App()
         {
             InitializeComponent();
-
-            // Set SensorConfigPage as the main page
-            MainPage = new SensorConfigPage();
+            MainPage = new AppShell();
         }
     }
 }

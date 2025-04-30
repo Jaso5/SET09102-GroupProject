@@ -1,14 +1,22 @@
-using Microsoft.UI.Xaml;
+using Microsoft.Maui;
+using Microsoft.Maui.Hosting;
 
-namespace environmentMonitoring.WinUI;
+namespace environmentMonitoring;
 
-public partial class MauiProgram : MauiWinUIApplication
+public static class MauiProgram
 {
-    public MauiProgram()
+    public static MauiApp CreateMauiApp()
     {
-        this.InitializeComponent();
+        var builder = MauiApp.CreateBuilder();
+        builder
+            .UseMauiApp<App>() // Ensure this references your App class
+            .ConfigureFonts(fonts =>
+            {
+                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                fonts.AddFont("CustomFont-Regular.ttf", "CustomFontRegular");
+            });
+
+        return builder.Build();
     }
-
-    protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
-
 }
