@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-		xmlns:sys="clr-namespace:System;assembly=System.Runtime"
-			 x:Class="environmentMonitoring.SensorConfigPage"
+             x:Class="environmentMonitoring.SensorConfigPage"
              Title="Sensor Configuration">
     <ScrollView>
         <StackLayout Padding="20" Spacing="15">
@@ -25,12 +24,32 @@
             <Entry x:Name="FunctionalityEntry" 
                    Placeholder="Functionality" />
 
-            <DatePicker x:Name="LastMaintainedDatePicker" 
-                        Date="{x:Static sys:DateTime.Now}" 
-                        Format="d" />
+            <DatePicker x:Name="LastMaintainedDatePicker" />
 
-            <Button Text="Save Configuration" 
-                    Clicked="OnSaveConfigurationClicked" />
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                <Button Text="Save" 
+                        Grid.Column="0"
+                        Clicked="OnSaveConfigurationClicked"/>
+                <Button Text="Update" 
+                        Grid.Column="1"
+                        Clicked="OnUpdateConfigurationClicked"/>
+            </Grid>
+
+            <CollectionView x:Name="SensorsCollection"
+                          SelectionMode="Single"
+                          SelectionChanged="OnSensorSelected">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Margin="5" Padding="10">
+                            <Grid ColumnDefinitions="*,*,*">
+                                <Label Text="{Binding SensorId}" Grid.Column="0"/>
+                                <Label Text="{Binding Location}" Grid.Column="1"/>
+                                <Label Text="{Binding Functionality}" Grid.Column="2"/>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </StackLayout>
     </ScrollView>
 </ContentPage>
