@@ -1,0 +1,5 @@
+{
+    "ConnectionStrings": {
+        "DevelopmentConnection": "Server=localhost;Database=envMon;User Id=envMonApp;Password=envM0nApp$;TrustServerCertificate=True;Encrypt=True;"
+    }
+}

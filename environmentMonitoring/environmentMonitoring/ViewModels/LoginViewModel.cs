@@ -55,10 +55,11 @@ public partial class LoginViewModel : ObservableObject
             await SecureStorage.SetAsync("userRoleId", _user.role_Id.ToString());
             await SecureStorage.SetAsync("userRole", _user.Role.role_type.ToString());
 
-   
-                
-                
-                await Shell.Current.GoToAsync("///HomePage");  
+            Preferences.Set("role_id", _user.role_Id);
+
+
+
+            await Shell.Current.GoToAsync("///HomePage");  
             
         } catch (Exception) {
             await _diaglogService.ShowAlertAsync("Error", "Login error, please try again", "OK");

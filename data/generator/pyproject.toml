@@ -6,9 +6,9 @@ authors = [
     {name = "Jacob Lewis",email = "jacob@jaso5.com"}
 ]
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.11,<3.13"
 dependencies = [
-    "mariadb (>=1.1.12,<2.0.0)"
+    "pyodbc (>=5.2.0,<6.0.0)"
 ]
 
 [tool.poetry]

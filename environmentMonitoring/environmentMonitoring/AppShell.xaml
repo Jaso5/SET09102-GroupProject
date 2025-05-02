@@ -7,17 +7,16 @@
     Shell.FlyoutBehavior="Disabled"
     Title="environmentMonitoring">
 
-    
+    <ShellContent
+        Title="Log In"
+        ContentTemplate="{DataTemplate views:LogInPage}"
+        Route="LogInPage" />
 
     <ShellContent
         Title="Admin panel"
         ContentTemplate="{DataTemplate views:AdminPanelPage}"
         Route="AdminPanelPage" />
 
-    <ShellContent
-        Title="Log In"
-        ContentTemplate="{DataTemplate views:LogInPage}"
-        Route="LogInPage" />
 
     <ShellContent
         Title="Manage Roles"
@@ -43,7 +42,27 @@
         Title="AssignRolePage"
         ContentTemplate="{DataTemplate views:AssignRolePage}"
         Route="AssignRolePage" />
-        
+
+    <ShellContent
+        Title="AccountPage"
+        ContentTemplate="{DataTemplate views:AccountPage}"
+        Route="AccountPage" />
+
+    <ShellContent
+        Title="SensorPage"
+        ContentTemplate="{DataTemplate views:SensorPage}"
+        Route="SensorPage" />
+
+    <ShellContent
+    Title="SensorListPage"
+    ContentTemplate="{DataTemplate views:SensorListPage}"
+    Route="SensorListPage" />
+
+    <ShellContent
+    Title="ReportPage"
+    ContentTemplate="{DataTemplate views:ReportPage}"
+    Route="ReportPage" />
+
     <TabBar>
         <Tab>
             <ShellContent

@@ -35,14 +35,20 @@ public static class MauiProgram
 
 			builder.Services.AddSingleton<RolePermissionService, RolePermissionService>();
 
-			builder.Services.AddSingleton<UserService, UserService>();
+			builder.Services.AddSingleton<ReportService>();
 
+
+			builder.Services.AddSingleton<UserService, UserService>();
+			builder.Services.AddSingleton<PermissionService, PermissionService>();
 
 			builder.Services.AddSingleton<LoginViewModel>();
 			builder.Services.AddTransient<LogInPage>();
 
 			builder.Services.AddSingleton<HomeViewModel>();
-			builder.Services.AddTransient<HomePage>();	
+			builder.Services.AddTransient<HomePage>();
+
+		    builder.Services.AddSingleton<AccountViewModel>();
+		    builder.Services.AddTransient<AccountPage>();
 
 			builder.Services.AddSingleton<AdminPanelViewModel>();
 			builder.Services.AddTransient<AdminPanelPage>();
@@ -52,6 +58,15 @@ public static class MauiProgram
 
 			builder.Services.AddSingleton<RoleViewModel>();
 			builder.Services.AddTransient<RolePage>();
+
+		    builder.Services.AddSingleton<SensorViewModel>();
+			builder.Services.AddTransient<SensorPage>();
+			
+			builder.Services.AddTransient<ReportPage>();
+
+			builder.Services.AddSingleton<SensorListViewModel>();
+			builder.Services.AddSingleton<SensorDisplayModel>();
+			builder.Services.AddTransient<SensorListPage>();
 
 			builder.Services.AddSingleton<UserViewModel>();
 			builder.Services.AddSingleton<ListUsersForRoleAssignmentViewModel>();
@@ -65,8 +80,10 @@ public static class MauiProgram
 			builder.Services.AddSingleton<PermissionViewModel>();
 			builder.Services.AddTransient<ManageRolePermissionsPage>();
 
+			builder.Services.AddSingleton<SensorDataService, SensorDataService>();
+
 #if DEBUG
-		builder.Logging.AddDebug();
+        builder.Logging.AddDebug();
 #endif
 
 		return builder.Build();
