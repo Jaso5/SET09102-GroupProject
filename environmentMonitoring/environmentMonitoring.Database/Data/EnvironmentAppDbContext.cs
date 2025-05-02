@@ -23,7 +23,8 @@ public class EnvironmentAppDbContext : DbContext
             .Build();
         
         optionsBuilder.UseSqlServer(
-            config.GetConnectionString("DevelopmentConnection")
+            config.GetConnectionString("DevelopmentConnection"),
+            m => m.MigrationsAssembly("environmentMonitoring.Migrations")
         );
     }
 
