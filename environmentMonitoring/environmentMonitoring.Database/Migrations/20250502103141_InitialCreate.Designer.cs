@@ -12,7 +12,7 @@ using environmentMonitoring.Database.Data;
 namespace environmentMonitoring.Database.Migrations
 {
     [DbContext(typeof(EnvironmentAppDbContext))]
-    [Migration("20250420001319_InitialCreate")]
+    [Migration("20250502103141_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -522,11 +522,13 @@ namespace environmentMonitoring.Database.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("sensor_type")
-                        .HasColumnType("real");
+                    b.Property<string>("sensor_type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("url")
-                        .HasColumnType("real");
+                    b.Property<string>("url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("v_sensor_Id");
 

@@ -15,7 +15,7 @@ public class VirtualSensor
     [Required]
     public string sensor_type { get; set; }
     
-    public float url { get; set; }
+    public string url { get; set; }
 
     public int r_sensor_Id { get; set; }
     [ForeignKey("r_sensor_Id")]
@@ -28,5 +28,4 @@ public class VirtualSensor
     public List<Readings> Readings { get; set; }  = new List<Readings>();
 
     public List<Reports> Reports { get; set; }  = new List<Reports>();
-    
 }
