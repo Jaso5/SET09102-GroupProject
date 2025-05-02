@@ -14,5 +14,6 @@
             Text="Welcome to Sensor Page"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+        <Label x:Name="Coords"></Label>
     </VerticalStackLayout>
 </ContentPage>

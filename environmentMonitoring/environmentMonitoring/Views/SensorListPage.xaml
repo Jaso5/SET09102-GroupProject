@@ -9,10 +9,10 @@
         <ToolbarItem Text="Back" Command="{Binding BackCommand}"/>
     </ContentPage.ToolbarItems>
     
-    <VerticalStackLayout>
+    <VerticalStackLayout x:Name="Body">
         <Label 
-            Text="Welcome to Sensor List Page"
+            Text="Sensors"
             VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+            HorizontalOptions="Center"/>
     </VerticalStackLayout>
 </ContentPage>

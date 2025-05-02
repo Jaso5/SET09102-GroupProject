@@ -1,9 +1,18 @@
+using environmentMonitoring.Database.Data;
+using environmentMonitoring.PartialViews;
+using environmentMonitoring.ViewModels;
+
 namespace environmentMonitoring.Views;
 
 public partial class SensorListPage : ContentPage
 {
-	public SensorListPage()
+
+	public SensorListPage(SensorListViewModel vm)
 	{
-		InitializeComponent();
-	}
+		this.BindingContext = vm;
+        InitializeComponent();
+
+		vm.RealSensors()
+			.ForEach(rs => Body.Add(new SensorListItem(rs)));
+    }
 }
