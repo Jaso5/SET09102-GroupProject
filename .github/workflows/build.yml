@@ -85,7 +85,7 @@ jobs:
        - name: Test
          env:
            ConnectionStrings_TestConnection: ${{ secrets.TestConnection_CONNECTION_STRING }}  
-         run: dotnet test ./environmentMonitoring/environmentMonitoring.sln net8.0-android
+         run: dotnet test ./environmentMonitoring/environmentMonitoring.sln --framework net8.0-android
 
        - name: End Sonar Analysis
          env:
