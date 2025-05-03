@@ -3,13 +3,75 @@
     x:Class="environmentMonitoring.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:environmentMonitoring"
+    xmlns:views="clr-namespace:environmentMonitoring.Views"
     Shell.FlyoutBehavior="Disabled"
     Title="environmentMonitoring">
 
     <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        Title="Log In"
+        ContentTemplate="{DataTemplate views:LogInPage}"
+        Route="LogInPage" />
+
+    <ShellContent
+        Title="Admin panel"
+        ContentTemplate="{DataTemplate views:AdminPanelPage}"
+        Route="AdminPanelPage" />
+
+
+    <ShellContent
+        Title="Manage Roles"
+        ContentTemplate="{DataTemplate views:ManageRolesPage}"
+        Route="ManageRolesPage" />
+
+    <ShellContent
+        Title="Manage Roles Permissions"
+        ContentTemplate="{DataTemplate views:ManageRolePermissionsPage}"
+        Route="ManageRolePermissionsPage" />
+
+    <ShellContent
+        Title="Role"
+        ContentTemplate="{DataTemplate views:RolePage}"
+        Route="RolePage" />
+
+    <ShellContent
+        Title="ListUsersForRoleAssignmentPage"
+        ContentTemplate="{DataTemplate views:ListUsersForRoleAssignmentPage}"
+        Route="ListUsersForRoleAssignmentPage" />
+        
+    <ShellContent
+        Title="AssignRolePage"
+        ContentTemplate="{DataTemplate views:AssignRolePage}"
+        Route="AssignRolePage" />
+
+    <ShellContent
+        Title="AccountPage"
+        ContentTemplate="{DataTemplate views:AccountPage}"
+        Route="AccountPage" />
+
+    <ShellContent
+        Title="SensorPage"
+        ContentTemplate="{DataTemplate views:SensorPage}"
+        Route="SensorPage" />
+
+    <ShellContent
+    Title="SensorListPage"
+    ContentTemplate="{DataTemplate views:SensorListPage}"
+    Route="SensorListPage" />
+
+    <ShellContent
+    Title="ReportPage"
+    ContentTemplate="{DataTemplate views:ReportPage}"
+    Route="ReportPage" />
+
+    <TabBar>
+        <Tab>
+            <ShellContent
+            Title="Home Page"
+            ContentTemplate="{DataTemplate views:HomePage}"
+            Route="HomePage" />
+        </Tab>
+        
+    </TabBar>
 
 </Shell>
+

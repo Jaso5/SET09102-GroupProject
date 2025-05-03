@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:environmentMonitoring.ViewModels"
+             x:Class="environmentMonitoring.Views.RolePage"
+             Title="Enter or update role name">
+    <VerticalStackLayout>
+        <Entry x:Name="roleNameEntry"
+                Placeholder="Enter role name"
+                Text="{Binding roleType}"
+                FontSize="22"
+                Margin="20,0,20,0"
+                FontAutoScalingEnabled="True"
+                HeightRequest="100" />
+    
+        <Grid ColumnDefinitions="*,*" ColumnSpacing="4">
+            <Button Text="Save"
+                BackgroundColor="#FF10B7D4"
+                TextColor="White" 
+                HeightRequest="40"
+                Margin="20,0,20,0"
+                Command="{Binding SaveCommand}"/>
+    
+            <Button Grid.Column="1"
+                Text="Delete"
+                Command="{Binding DeleteCommand}"
+                BackgroundColor="#FF10B7D4"
+                TextColor="White" 
+                HeightRequest="40"
+                Margin="20,0,20,0"/>   
+        </Grid>
+
+        <Button 
+            x:Name="PermissionsNavigationButton"
+            Text="Permissions"
+            Command="{Binding NavigateToPermissionsCommand}"
+            BackgroundColor="#FF10B7D4"
+            TextColor="White" 
+            HeightRequest="40"
+            Margin="20,20,20,0" />
+    </VerticalStackLayout>
+</ContentPage>
