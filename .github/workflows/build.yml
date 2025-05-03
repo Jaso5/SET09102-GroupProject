@@ -28,10 +28,10 @@ jobs:
            dotnet-version: 8.0
      
        - name: Restore workloads
-         run: dotnet workload restore ./SET09102-GroupProject/environmentMonitoring/environmentMonitoring/environmentMonitoring.csproj
+         run: dotnet workload restore ./environmentMonitoring/environmentMonitoring/environmentMonitoring.csproj
        
        - name: Restore dependencies
-         run: dotnet restore ./SET09102-GroupProject/environmentMonitoring/environmentMonitoring/environmentMonitoring.csproj
+         run: dotnet restore ./environmentMonitoring/environmentMonitoring/environmentMonitoring.csproj
 
       # Command-line tools from .
        - name: Install Tools
