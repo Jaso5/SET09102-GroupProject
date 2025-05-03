@@ -32,7 +32,7 @@ jobs:
       - name: Upload static files as artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: html
+          path: html # Ensure this matches your Doxygen output directory
 
   deploy:
     needs: generate
@@ -52,4 +52,5 @@ jobs:
         uses: actions/deploy-pages@v4
 
       - name: Output Page URL
-        run: echo "GitHub Pages URL: ${{ steps.deployment.outputs.page_url }}"
+        run: |
+          echo "GitHub Pages URL: ${{ steps.deployment.outputs.page_url }}"
