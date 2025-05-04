@@ -3,7 +3,8 @@ using environmentMonitoring.Database.Data;
 using environmentMonitoring.Views;
 using environmentMonitoring.ViewModels;
 using environmentMonitoring.Services;
-
+using LiveChartsCore.SkiaSharpView.Maui;
+using SkiaSharp.Views.Maui.Controls.Hosting;
 
 namespace environmentMonitoring;
 
@@ -13,6 +14,8 @@ public static class MauiProgram
 	{
 		var builder = MauiApp.CreateBuilder();
 		builder
+			.UseSkiaSharp()
+			.UseLiveCharts()
 			.UseMauiApp<App>()
 			.ConfigureFonts(fonts =>
 			{
