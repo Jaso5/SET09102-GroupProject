@@ -10,7 +10,7 @@
     </ContentPage.ToolbarItems>
     
     <VerticalStackLayout x:Name="Body">
-        <VerticalStackLayout x:Name="SensorsList" BackgroundColor="Transparent" BorderColor="Transparent"/>
+        <VerticalStackLayout x:Name="SensorsList"/>
 
         <!-- Button to create the report -->
         <Button 
