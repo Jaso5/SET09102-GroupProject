@@ -14,6 +14,34 @@ public class EnvironmentAppDbContext : DbContext
 
      protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
      {
+        var connectionString = Environment.GetEnvironmentVariable($"ConnectionStrings__{"DevelopmentConnection"}");
+
+         if (string.IsNullOrEmpty(connectionString))
+         {
+             var assembly = Assembly.GetExecutingAssembly();
+             using var stream = assembly.GetManifestResourceStream("environmentMonitoring.Database.appsettings.json");
+
+             if (stream != null)
+             {
+                 var config = new ConfigurationBuilder()
+                     .AddJsonStream(stream)
+                     .Build();
+
+                 connectionString = config.GetConnectionString("DevelopmentConnection");
+             }
+         }
+
+         if (string.IsNullOrEmpty(connectionString))
+         {
+             throw new InvalidOperationException("Database connection string is not configured.");
+         }
+
+         optionsBuilder.UseSqlServer(
+             connectionString,
+             m => m.MigrationsAssembly("environmentMonitoring.Migrations"));
+
+
+    /*
         var a = Assembly.GetExecutingAssembly();
         var resources = a.GetManifestResourceNames();
         using var stream = a.GetManifestResourceStream("environmentMonitoring.Database.appsettings.json");
@@ -26,6 +54,7 @@ public class EnvironmentAppDbContext : DbContext
             config.GetConnectionString("DevelopmentConnection"),
             m => m.MigrationsAssembly("environmentMonitoring.Migrations")
         );
+    */
     }
 
     public DbSet<User> Users { get; set; }

@@ -1,0 +1,56 @@
+name: Documentation
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    permissions:
+      pages: write
+      id-token: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Doxygen
+        run: sudo apt-get install doxygen -y
+
+      - name: Generate Doxyfile
+        run: doxygen -g
+
+#      - name: Modify Doxyfile (Optional)
+#        run: sed -i 's|INPUT = .*|INPUT = ./src|' Doxyfile # Modify this line if your source files are in a different folder
+
+      - name: Generate Doxygen Documentation
+        run: doxygen .
+
+      - name: Upload static files as artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: html # Ensure this matches your Doxygen output directory
+
+  deploy:
+    needs: generate
+    runs-on: ubuntu-latest
+
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Output Page URL
+        run: |
+          echo "GitHub Pages URL: ${{ steps.deployment.outputs.page_url }}"
