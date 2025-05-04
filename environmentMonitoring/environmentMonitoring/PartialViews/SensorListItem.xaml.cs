@@ -18,7 +18,7 @@ public partial class SensorListItem : ContentView
         this.NavButton.Command = new AsyncRelayCommand(this.NavToSensorPage);
 
         Category.Text = rs.VirtualSensor.First().catergory;
-        Units.Text = String.Join(", ", rs.VirtualSensor.Select(vs => vs.Quantity.unit));
+        Units.Text = String.Join(", ", rs.VirtualSensor.Select(vs => vs.Quantity.symbol));
 	}
 
     [RelayCommand]

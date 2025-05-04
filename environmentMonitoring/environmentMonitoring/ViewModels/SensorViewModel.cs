@@ -7,7 +7,7 @@ namespace environmentMonitoring.ViewModels;
 public partial class SensorViewModel
 {
     public ICommand BackCommand { get; }
-    public RealSensor rs { get; set; }
+    public RealSensor? rs { get; set; }
 
     public SensorViewModel()
     {
@@ -16,5 +16,4 @@ public partial class SensorViewModel
 
     [RelayCommand]
     private async Task NavBack() => await Shell.Current.GoToAsync("..");
-
 }

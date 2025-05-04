@@ -16,8 +16,8 @@
 
             <Frame Grid.RowSpan="2" Grid.ColumnSpan="2" BackgroundColor="Transparent" BorderColor="#9880e5"></Frame>
             
-            <Label x:Name="Category" Grid.Row="0" Grid.Column="0" FontSize="Header" HorizontalOptions="Center"></Label>
-            <Label x:Name="Units" Grid.Row="1" Grid.Column="0" FontSize="Subtitle" HorizontalOptions="Center"></Label>
+            <Label x:Name="Category" Grid.Row="0" Grid.Column="0" FontSize="Title" HorizontalOptions="Center" VerticalOptions="Center"></Label>
+            <Label x:Name="Units" Grid.Row="1" Grid.Column="0" FontSize="Subtitle" HorizontalOptions="Center" VerticalOptions="Center"></Label>
             <Button
                 x:Name="NavButton"
                 Grid.RowSpan="2" Grid.Column="1"
