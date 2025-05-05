@@ -1,3 +1,4 @@
+using CommunityToolkit.Mvvm.Input;
 using environmentMonitoring.Database.Data;
 using environmentMonitoring.Database.Models;
 using LiveChartsCore;
@@ -8,9 +9,9 @@ namespace environmentMonitoring.PartialViews;
 
 public partial class VirtualSensorView : ContentView
 {
+
     private readonly VirtualSensor vs;
     private readonly EnvironmentAppDbContext dbctx;
-    //private readonly List<Readings> readings;
 
     public VirtualSensorView(VirtualSensor vs, EnvironmentAppDbContext dbctx)
     {
@@ -18,6 +19,7 @@ public partial class VirtualSensorView : ContentView
         this.dbctx = dbctx;
         InitializeComponent();
 
+        this.VSSettings.Command = new AsyncRelayCommand(this.NavToSettings);
         Quantity.Text = vs.Quantity.quantity;
 
         var data = ReadingsToSeries(getReadings(vs.v_sensor_Id));
@@ -51,5 +53,17 @@ public partial class VirtualSensorView : ContentView
         };
 
         return series;
+    }
+
+    [RelayCommand]
+    private async Task NavToSettings()
+    {
+        await Shell.Current.GoToAsync(
+            nameof(Views.VirtualSensorSettings),
+            new Dictionary<string, object>
+                {
+                    { "virtualSensor", this.vs }
+                }
+            );
     }
 }

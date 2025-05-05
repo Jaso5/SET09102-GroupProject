@@ -27,6 +27,7 @@
                 Grid.Row="1"/>
 
             <Button
+                x:Name="VSSettings"
                 ImageSource="cog.png"
                 Grid.Column="1"/>
         </Grid>

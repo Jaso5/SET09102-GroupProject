@@ -14,7 +14,6 @@ public partial class SensorListItem : ContentView
 	{
         this.rs = rs;
 		InitializeComponent();
-        //this.ToSensorPage = new AsyncRelayCommand(NavToSensorPage);
         this.NavButton.Command = new AsyncRelayCommand(this.NavToSensorPage);
 
         Category.Text = rs.VirtualSensor.First().catergory;
