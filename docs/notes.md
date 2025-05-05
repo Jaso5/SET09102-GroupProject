@@ -11,16 +11,18 @@
 - Environmental Scientist
   - James: Manage sensor accounts and configure settings: Add setting menu for each sensor, add fake settings
   - Jacob: View and analyse historical environmental data: Graph the data
-  - Use a map to view real-time sensor statuses and alerts geographically: Map with sensors on it
   - Dan: Generate comprehensive reports on environmental trends
+  - Kane: Use a map to view real-time sensor statuses and alerts geographically
 - Operation Manager
   - Jacob: Monitor the operational status of sensors: Add battery level to map
   - Dan: Schedule maintenance and ensure timely checks: Battery low alerts
   - James: Address and report sensor malfunctions or anomalies:  Add inspection date + reminders to each sensor
+  - Kane: Verify the accuracy and integrity of collected data
 - Administrator
   - James: Manage user access and roles within the application: Database accounts for each user
   - Dan: Maintain high levels of system security and data protection: Minimum required permissions on database
   - Jacob: Oversee data storage and implement backup strategies: Backup button which copies database file
+  - Kane: Update sensor configurations and firmware
 
 ## Timescale
 

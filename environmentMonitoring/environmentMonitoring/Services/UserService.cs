@@ -67,7 +67,6 @@ public class UserService: IReadDataService, IUpdateDataService, IValidationServi
         }
     }
 
-
     public async Task<User?> CredentialsCheck(String email, string password)
     {
          var user = await _context.Users

@@ -3,26 +3,29 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="environmentMonitoring.PartialViews.VirtualSensorView"
              xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui">
-    <VerticalStackLayout>
-        <Grid>
+    <VerticalStackLayout Margin="20">
+        <Grid x:Name="Body">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition Height="auto"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="auto"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Label 
+            <Label
                 x:Name="Quantity"
                 FontSize="Subtitle"
                 VerticalOptions="Center" 
                 HorizontalOptions="Center"/>
+
             <lvc:CartesianChart
+                x:Name="Chart"
                 ZoomMode="X"
-                Grid.Row="1"
-                Grid.ColumnSpan="2"/>
+                MinimumHeightRequest="400"
+                Grid.Row="1"/>
+
             <Button
                 ImageSource="cog.png"
                 Grid.Column="1"/>

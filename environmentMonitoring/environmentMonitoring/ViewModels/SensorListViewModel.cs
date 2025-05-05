@@ -2,7 +2,6 @@ using CommunityToolkit.Mvvm.Input;
 using environmentMonitoring.Database.Data;
 using environmentMonitoring.Database.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace environmentMonitoring.ViewModels;

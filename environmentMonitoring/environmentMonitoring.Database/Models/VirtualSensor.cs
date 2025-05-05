@@ -28,5 +28,4 @@ public class VirtualSensor
     public List<Readings> Readings { get; set; }  = new List<Readings>();
 
     public List<Reports> Reports { get; set; }  = new List<Reports>();
-    
 }

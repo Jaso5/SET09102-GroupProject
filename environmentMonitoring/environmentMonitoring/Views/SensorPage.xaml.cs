@@ -26,7 +26,7 @@ public partial class SensorPage : ContentPage, IQueryAttributable
 
         // Take all Virtual Sensors and convert them to the corresponding view
         vm.rs.VirtualSensor
-            .Select(vs => new VirtualSensorView(vs))
+            .Select(vs => new VirtualSensorView(vs, _dbContext))
             .ToList()
             .ForEach(vsv => SensorsList.Add(vsv));
     }
