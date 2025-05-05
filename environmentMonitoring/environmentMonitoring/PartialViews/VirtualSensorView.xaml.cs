@@ -9,7 +9,6 @@ namespace environmentMonitoring.PartialViews;
 
 public partial class VirtualSensorView : ContentView
 {
-
     private readonly VirtualSensor vs;
     private readonly EnvironmentAppDbContext dbctx;
 
@@ -34,6 +33,11 @@ public partial class VirtualSensorView : ContentView
         };
     }
 
+    /// <summary>
+    /// Gets all readings from a sensor of given id
+    /// </summary>
+    /// <param name="id">Id of sensor</param>
+    /// <returns></returns>
     private List<Readings> getReadings(int id)
     {
         return (from reading in dbctx.Readings
@@ -41,6 +45,11 @@ public partial class VirtualSensorView : ContentView
                 select reading).ToList();
     }
 
+    /// <summary>
+    /// Convert a list of readings to a DateTimePoint based ISeries for Livecharts
+    /// </summary>
+    /// <param name="readings">List of readings to be converted</param>
+    /// <returns></returns>
     private ISeries[] ReadingsToSeries(List<Readings> readings)
     {
         var series = new ISeries[]
@@ -55,6 +64,10 @@ public partial class VirtualSensorView : ContentView
         return series;
     }
 
+    /// <summary>
+    /// Navigate to the settings page for the current virtualSensor
+    /// </summary>
+    /// <returns></returns>
     [RelayCommand]
     private async Task NavToSettings()
     {

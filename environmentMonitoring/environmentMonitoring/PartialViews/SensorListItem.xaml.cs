@@ -8,7 +8,6 @@ namespace environmentMonitoring.PartialViews;
 public partial class SensorListItem : ContentView
 {
     private RealSensor rs;
-    //public ICommand ToSensorPage { get; }
 
     public SensorListItem(RealSensor rs)
 	{
@@ -16,10 +15,15 @@ public partial class SensorListItem : ContentView
 		InitializeComponent();
         this.NavButton.Command = new AsyncRelayCommand(this.NavToSensorPage);
 
+        // Populate info from the VirtualSensor into the fields
         Category.Text = rs.VirtualSensor.First().catergory;
         Units.Text = String.Join(", ", rs.VirtualSensor.Select(vs => vs.Quantity.symbol));
 	}
 
+    /// <summary>
+    /// Navigate to the sensor page, passing the current RealSensor
+    /// </summary>
+    /// <returns></returns>
     [RelayCommand]
     private async Task NavToSensorPage()
     {

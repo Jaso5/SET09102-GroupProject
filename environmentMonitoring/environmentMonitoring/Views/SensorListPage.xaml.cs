@@ -11,6 +11,7 @@ public partial class SensorListPage : ContentPage
 		this.BindingContext = vm;
         InitializeComponent();
 
+        // Represent all RealSensors as a SensorListItem PartialView
 		vm.RealSensors()
 			.ForEach(rs => Body.Add(new SensorListItem(rs)));
     }

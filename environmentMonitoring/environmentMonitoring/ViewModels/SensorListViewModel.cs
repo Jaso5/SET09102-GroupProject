@@ -24,13 +24,12 @@ public partial class SensorListViewModel
     private async Task NavigateToHomePage() => await Shell.Current.GoToAsync(nameof(Views.HomePage));
 
     /// <summary>
-    /// Return
+    /// Returns the list of RealSensors from the database
     /// </summary>
     /// <returns></returns>
     internal List<RealSensor> RealSensors() => dbctx
         .RealSensors
         .Include(rs => rs.VirtualSensor)
         .ThenInclude(vs => vs.Quantity)
-        //.Include(rs => rs.VirtualSensor.Select(vs => vs.Readings))
         .ToList();
 }
