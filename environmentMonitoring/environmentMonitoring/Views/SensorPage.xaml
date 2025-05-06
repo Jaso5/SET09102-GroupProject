@@ -8,32 +8,32 @@
         <ToolbarItem Text="Back" Command="{Binding BackCommand}"/>
     </ContentPage.ToolbarItems>
 
-    <VerticalStackLayout Padding="20">
-        <Label 
-            Text="Welcome to Sensor Page"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+    <ScrollView
+        VerticalScrollBarVisibility="Always">
+        <VerticalStackLayout x:Name="Body">
+            <VerticalStackLayout x:Name="SensorsList"/>
 
-        <!-- Button to create the report -->
-        <Button 
+            <!-- Button to create the report -->
+            <Button 
             Text="Generate Environmental Report" 
             Clicked="OnGenerateReportClicked"
             HorizontalOptions="Center" />
 
-        <!-- Label to display report generation status -->
-        <Label x:Name="ReportMessageLabel"
+            <!-- Label to display report generation status -->
+            <Label x:Name="ReportMessageLabel"
                Text=""
                HorizontalOptions="Center"
                VerticalOptions="CenterAndExpand" />
 
-        <!-- Button to open the report (appears after generation) -->
-        <Button 
+            <!-- Button to open the report (appears after generation) -->
+            <Button 
             x:Name="OpenReportButton"
             Text="Open Report" 
             Clicked="OnOpenReportClicked"
             IsVisible="False"
             HorizontalOptions="Center" />
-    </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
 
 

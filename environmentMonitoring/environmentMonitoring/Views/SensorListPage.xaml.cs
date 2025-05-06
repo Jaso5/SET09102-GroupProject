@@ -1,15 +1,19 @@
+using environmentMonitoring.Database.Data;
+using environmentMonitoring.PartialViews;
 using environmentMonitoring.ViewModels;
-using Microsoft.Maui.Storage;
-
 
 namespace environmentMonitoring.Views;
 
 public partial class SensorListPage : ContentPage
 {
-    public SensorListPage(SensorListViewModel viewModel)
-    {
+	public SensorListPage(SensorListViewModel vm)
+	{
+		this.BindingContext = vm;
         InitializeComponent();
-        BindingContext = viewModel;
+
+        // Represent all RealSensors as a SensorListItem PartialView
+		vm.RealSensors()
+			.ForEach(rs => Body.Add(new SensorListItem(rs)));
     }
 
     // Redirect any user that doesn't have the required permissions to homepage

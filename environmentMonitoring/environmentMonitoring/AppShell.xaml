@@ -70,8 +70,6 @@
             ContentTemplate="{DataTemplate views:HomePage}"
             Route="HomePage" />
         </Tab>
-        
     </TabBar>
-
 </Shell>
 
