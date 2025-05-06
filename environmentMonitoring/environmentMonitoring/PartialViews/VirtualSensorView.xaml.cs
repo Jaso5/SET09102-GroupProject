@@ -21,7 +21,7 @@ public partial class VirtualSensorView : ContentView
         this.VSSettings.Command = new AsyncRelayCommand(this.NavToSettings);
         Quantity.Text = vs.Quantity.quantity;
 
-        var data = ReadingsToSeries(getReadings(vs.v_sensor_Id));
+        var data = ReadingsToSeries(getReadings(vs.v_sensor_Id), vs.Quantity.quantity);
         Chart.Series = data;
         Chart.XAxes = new List<Axis>
         {
@@ -50,14 +50,14 @@ public partial class VirtualSensorView : ContentView
     /// </summary>
     /// <param name="readings">List of readings to be converted</param>
     /// <returns></returns>
-    private ISeries[] ReadingsToSeries(List<Readings> readings)
+    public static ISeries[] ReadingsToSeries(List<Readings> readings, string name)
     {
         var series = new ISeries[]
         {
             new LineSeries<DateTimePoint>
             {
                 Values = readings.Select(r => new DateTimePoint(r.timestamp, r.value)).ToList(),
-                Name = vs.Quantity.quantity,
+                Name = name,
             }
         };
 
