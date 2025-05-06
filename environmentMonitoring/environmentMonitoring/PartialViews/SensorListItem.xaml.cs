@@ -18,7 +18,25 @@ public partial class SensorListItem : ContentView
         // Populate info from the VirtualSensor into the fields
         Category.Text = rs.VirtualSensor.First().catergory;
         Units.Text = String.Join(", ", rs.VirtualSensor.Select(vs => vs.Quantity.symbol));
-	}
+
+        // Set battery level icon
+        float batteryLevel = this.rs.status;
+
+        if (batteryLevel > 0.6f)
+        {
+            BatteryIcon.Source = "batteryfull.png";
+        } else if (batteryLevel > 0.4f)
+        {
+            BatteryIcon.Source = "batterymedium.png";
+        } else if (batteryLevel > 0.1f)
+        {
+            BatteryIcon.Source = "batterylow.png";
+        } else
+        {
+            BatteryIcon.Source = "batteryempty.png";
+        }
+
+    }
 
     /// <summary>
     /// Navigate to the sensor page, passing the current RealSensor
