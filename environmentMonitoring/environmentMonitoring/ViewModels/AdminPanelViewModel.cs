@@ -1,4 +1,7 @@
 using CommunityToolkit.Mvvm.Input;
+using environmentMonitoring.Database.Data;
+using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 using System.Windows.Input;
 
 namespace environmentMonitoring.ViewModels;
@@ -11,10 +14,14 @@ public partial class AdminPanelViewModel
 {
     public ICommand BackCommand { get; }
 
-    public AdminPanelViewModel()
+    public string BackupName { get; set;}
+
+    private readonly EnvironmentAppDbContext dbctx;
+
+    public AdminPanelViewModel(EnvironmentAppDbContext dbctx)
     {
-        
         BackCommand = new AsyncRelayCommand(NavigateToHomePage);
+        this.dbctx = dbctx;
     }
 
     [RelayCommand]
@@ -35,5 +42,22 @@ public partial class AdminPanelViewModel
     private async Task NavigateToHomePage()
     {     
         await Shell.Current.GoToAsync("///HomePage");
+    }
+
+    [RelayCommand]
+    public async Task BackupDatabase()
+    {
+        // Sql injection? How do you fit a query into a syringe?
+        // We can't use sanitised inputs because for some reason it fails to actually substitute in the value.
+        dbctx.Database.ExecuteSqlRaw($"BACKUP DATABASE EnvMon TO DISK = 'backup/{this.BackupName}';");
+    }
+
+    [RelayCommand]
+    public async Task RestoreDatabase()
+    {
+
+        // This fails as we need to disconnect our session and reconnect from the master database. Ultimately this should only happen in emergencies
+        // so using Azure Data Studio or any other query runner is acceptable.
+        dbctx.Database.ExecuteSqlRaw($"RESTORE DATABASE EnvMon FROM DISK = 'backup/{this.BackupName}';");
     }
 }

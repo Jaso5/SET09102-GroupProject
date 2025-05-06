@@ -9,7 +9,7 @@
         <ToolbarItem Text="Back" Command="{Binding BackCommand}"/>
     </ContentPage.ToolbarItems>
 
-    <VerticalStackLayout>
+    <VerticalStackLayout Margin="10">
         <Button x:Name="ManageRolesButton"
             Text="Manage Roles"
             Command="{Binding NavigateToManageRolesCommand}"
@@ -25,5 +25,62 @@
             TextColor="White" 
             HeightRequest="40"
             Margin="20,20,20,0" />
+
+        <Frame BackgroundColor="Transparent" BorderColor="#FF10B7D4" Margin="20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                
+                <Label
+                    Grid.Row="0"
+                    Grid.ColumnSpan="2"
+                    FontSize="Title"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                >Database Backup/Restore</Label>
+
+                <!--Editor for the backup name-->
+                <Label Grid.Row="1" FontSize="Subtitle" VerticalOptions="Center" HorizontalOptions="Center">Backup Name:</Label>
+                <Editor
+                    x:Name="BackupNameEditor"
+                    Text="{Binding BackupName}"
+                    MaxLength="20"
+                    IsSpellCheckEnabled="False"
+                    Placeholder="Backup Name"
+                    Grid.Row="1"
+                    Grid.Column="1"/>
+
+                <Button
+                    x:Name="BackupDatabaseButton"
+                    Text="Backup Database"
+                    BackgroundColor="#FF10B7D4"
+                    TextColor="White"
+                    HeightRequest="40"
+                    Margin="20,20,20,0"
+                    Grid.Row="2"
+                    Command="{Binding BackupDatabaseCommand}"/>
+
+                <Button
+                    x:Name="RestoreDatabaseButton"
+                    Text="Restore Database"
+                    BackgroundColor="DarkGrey"
+                    TextColor="White"
+                    HeightRequest="40"
+                    Margin="20,20,20,0"
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Command="{Binding _RestoreDatabaseCommand}"/>
+
+            </Grid>
+        </Frame>
+        
+
     </VerticalStackLayout>
 </ContentPage>
