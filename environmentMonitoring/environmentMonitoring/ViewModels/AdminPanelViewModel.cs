@@ -49,7 +49,7 @@ public partial class AdminPanelViewModel
     {
         // Sql injection? How do you fit a query into a syringe?
         // We can't use sanitised inputs because for some reason it fails to actually substitute in the value.
-        dbctx.Database.ExecuteSqlRaw($"BACKUP DATABASE EnvMon TO DISK = 'backup/{this.BackupName}';");
+        await dbctx.Database.ExecuteSqlRawAsync($"BACKUP DATABASE EnvMon TO DISK = 'backup/{this.BackupName}';");
     }
 
     [RelayCommand]
@@ -58,6 +58,6 @@ public partial class AdminPanelViewModel
 
         // This fails as we need to disconnect our session and reconnect from the master database. Ultimately this should only happen in emergencies
         // so using Azure Data Studio or any other query runner is acceptable.
-        dbctx.Database.ExecuteSqlRaw($"RESTORE DATABASE EnvMon FROM DISK = 'backup/{this.BackupName}';");
+        await dbctx.Database.ExecuteSqlRawAsync($"RESTORE DATABASE EnvMon FROM DISK = 'backup/{this.BackupName}';");
     }
 }
