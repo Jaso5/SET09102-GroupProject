@@ -55,7 +55,6 @@ public partial class AdminPanelViewModel
     [RelayCommand]
     public async Task RestoreDatabase()
     {
-
         // This fails as we need to disconnect our session and reconnect from the master database. Ultimately this should only happen in emergencies
         // so using Azure Data Studio or any other query runner is acceptable.
         await dbctx.Database.ExecuteSqlRawAsync($"RESTORE DATABASE EnvMon FROM DISK = 'backup/{this.BackupName}';");

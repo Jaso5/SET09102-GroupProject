@@ -67,6 +67,7 @@
                     Grid.Row="2"
                     Command="{Binding BackupDatabaseCommand}"/>
 
+                <!--This is broken, so for now I'm just greying it out-->
                 <Button
                     x:Name="RestoreDatabaseButton"
                     Text="Restore Database"
