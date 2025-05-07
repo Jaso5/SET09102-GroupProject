@@ -7,35 +7,14 @@
     xmlns:models="clr-namespace:environmentMonitoring.ViewModels"
     x:DataType="vm:SensorListViewModel">
 
-    <CollectionView ItemsSource="{Binding Sensors}">
-        <CollectionView.ItemTemplate>
-            <DataTemplate x:DataType="models:SensorDisplayModel">
-                <Frame Margin="10" Padding="10" CornerRadius="10" BackgroundColor="LightGray">
-                    <VerticalStackLayout Spacing="5">
-                        <Label Text="{Binding r_sensor_Id}" 
-                               FontAttributes="Bold" 
-                               FontSize="Medium" />
-
-                        <Label Text="{Binding StatusText}" 
-                               TextColor="Black" 
-                               FontSize="Small" />
-
-                        <!-- DatePicker for selecting maintenance date -->
-                        <DatePicker IsVisible="{Binding IsInactive}" 
-                                    Date="{Binding MaintenanceDate}" 
-                                    MinimumDate="{Binding MaintenanceMinDate}" />
-
-                        <Button Text="Schedule Maintenance"
-                                IsVisible="{Binding IsInactive}"
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SensorListViewModel}}, Path=ScheduleMaintenanceCommand}"
-                                CommandParameter="{Binding}" />
-                    </VerticalStackLayout>
-                </Frame>
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
-    </CollectionView>
-
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Back" Command="{Binding BackCommand}"/>
+    </ContentPage.ToolbarItems>
+    
+    <VerticalStackLayout x:Name="Body">
+        <Label 
+            Text="Sensors"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center"/>
+    </VerticalStackLayout>
 </ContentPage>
-
-
-

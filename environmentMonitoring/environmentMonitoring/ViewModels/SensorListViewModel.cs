@@ -1,103 +1,35 @@
-using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using environmentMonitoring.Database.Data;
 using environmentMonitoring.Database.Models;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace environmentMonitoring.ViewModels;
 
-public partial class SensorListViewModel : ObservableObject
+public partial class SensorListViewModel
 {
-    private readonly EnvironmentAppDbContext _dbContext;
+    public ICommand BackCommand { get; }
+    private EnvironmentAppDbContext dbctx;
 
-    [ObservableProperty]
-    private ObservableCollection<SensorDisplayModel> sensors = new();
-
-    // Variables that check if the sensor list page is Loading and if page has Data
-
-    [ObservableProperty]
-    private bool isLoading;
-
-    [ObservableProperty]
-    private bool isNoData;
-
-    [ObservableProperty]
-    private bool isDataAvailable;
-
-    // Command to allow the user to set a Maintenance date for sensors
-
-    public ICommand ScheduleMaintenanceCommand { get; }
-
-    public SensorListViewModel(EnvironmentAppDbContext dbContext)
+    public SensorListViewModel(EnvironmentAppDbContext dbctx)
     {
-        _dbContext = dbContext;
-        ScheduleMaintenanceCommand = new AsyncRelayCommand<SensorDisplayModel>(ScheduleMaintenance);
+        this.dbctx = dbctx;
 
-        LoadSensors();
+        dbctx.VirtualSensors.ToList();
+
+        BackCommand = new AsyncRelayCommand(NavigateToHomePage);
     }
 
-    // Load Sensor data from the database
-    private async void LoadSensors()
-    {
-        isLoading = true;
-        isDataAvailable = false;
-        isNoData = false;
+    [RelayCommand]
+    private async Task NavigateToHomePage() => await Shell.Current.GoToAsync(nameof(Views.HomePage));
 
-        try
-        {
-            var realSensors = await _dbContext.RealSensors.ToListAsync();
-            Sensors.Clear();
-
-            if (realSensors.Any())
-            {
-                foreach (var sensor in realSensors)
-                {
-                    Sensors.Add(new SensorDisplayModel(sensor));
-                }
-                IsDataAvailable = true;
-            }
-            else
-            {
-                IsNoData = true;
-            }
-        }
-        catch (Exception ex)
-        {
-            // Handle any errors (e.g., display an alert or log)
-        }
-        finally
-        {
-            IsLoading = false;
-        }
-    }
-
-    // Schedule the maintenance date for the inactive sensors
-
-    private async Task ScheduleMaintenance(SensorDisplayModel sensor)
-    {
-        if (sensor != null && sensor.MaintenanceDate.HasValue)
-        {
-            var maintenanceDate = sensor.MaintenanceDate.Value;
-
-            // Perform scheduling logic (you can store the maintenance date in your database if needed)
-
-            await Shell.Current.DisplayAlert("Maintenance",
-                $"Scheduled maintenance for Sensor {sensor.r_sensor_Id} on {maintenanceDate.ToShortDateString()}.",
-                "OK");
-        }
-        else
-        {
-            // If the user hasn't selected a date, show an error message
-            await Shell.Current.DisplayAlert("Error",
-                "Please select a valid maintenance date.",
-                "OK");
-        }
-    }
-
+    /// <summary>
+    /// Returns the list of RealSensors from the database
+    /// </summary>
+    /// <returns></returns>
+    internal List<RealSensor> RealSensors() => dbctx
+        .RealSensors
+        .Include(rs => rs.VirtualSensor)
+        .ThenInclude(vs => vs.Quantity)
+        .ToList();
 }
-
-
