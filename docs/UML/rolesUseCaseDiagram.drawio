@@ -1,0 +1,42 @@
+<mxfile host="65bd71144e">
+    <diagram id="8x2dsheDDRQwzcFfYiOY" name="Page-1">
+        <mxGraphModel dx="335" dy="1375" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="Manage Roles Sytem" style="swimlane;startSize=23;" parent="1" vertex="1">
+                    <mxGeometry x="250" y="40" width="420" height="530" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="create Role" style="ellipse;whiteSpace=wrap;html=1;" parent="2" vertex="1">
+                    <mxGeometry x="150" y="90" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="Edit Role" style="ellipse;whiteSpace=wrap;html=1;" parent="2" vertex="1">
+                    <mxGeometry x="150" y="180" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="Manage Role Permissions" style="ellipse;whiteSpace=wrap;html=1;" parent="2" vertex="1">
+                    <mxGeometry x="150" y="280" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="Assign User Roles" style="ellipse;whiteSpace=wrap;html=1;" parent="2" vertex="1">
+                    <mxGeometry x="150" y="380" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="3" target="5" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="3" target="6" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="3" target="7" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="3" target="8" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <object label="Administrator" id="3">
+                    <mxCell style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontFamily=Helvetica;fontStyle=0" parent="1" vertex="1">
+                        <mxGeometry x="110" y="270" width="40" height="90" as="geometry"/>
+                    </mxCell>
+                </object>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
