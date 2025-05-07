@@ -16,7 +16,6 @@ public partial class LoginViewModel : ObservableObject
     private User? _user;
     private readonly IDiaglogService _diaglogService;
     private readonly IValidationService _validationService;
-    private readonly IUserSessionService _userSessionService;
 
 
     [ObservableProperty]
@@ -26,9 +25,8 @@ public partial class LoginViewModel : ObservableObject
     public string? password;
     
 
-    public LoginViewModel(IDiaglogService diaglogService, IValidationService validationService, IUserSessionService userSessionService)
+    public LoginViewModel(IDiaglogService diaglogService, IValidationService validationService)
     {
-        _userSessionService = userSessionService;
         _validationService = validationService;
         _diaglogService = diaglogService;
     }
