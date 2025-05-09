@@ -20,7 +20,6 @@ public partial class SensorViewModel
 
     [RelayCommand]
     private async Task CreateIncidentReport() {
-        Debug.WriteLine(rs.r_sensor_Id);
          try {
             await Shell.Current.GoToAsync($"{nameof(Views.IncidentReportEditPage)}?new={rs.r_sensor_Id}");
         } catch (Exception) {

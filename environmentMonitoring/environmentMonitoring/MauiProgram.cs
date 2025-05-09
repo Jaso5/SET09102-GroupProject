@@ -91,6 +91,9 @@ public static class MauiProgram
 		builder.Services.AddSingleton<IncidentReportEditViewModel>();
 		builder.Services.AddTransient<IncidentReportEditPage>();
 
+		builder.Services.AddSingleton<IncidentReportListViewModel>();
+		builder.Services.AddTransient<IncidentReportListPage>();
+
 		builder.Services.AddSingleton<SensorDataService, SensorDataService>();
 
 		builder.Services.AddTransient<VirtualSensorSettings>();

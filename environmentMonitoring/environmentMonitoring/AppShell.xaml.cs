@@ -22,5 +22,6 @@ public partial class AppShell : Shell
 		Routing.RegisterRoute("VirtualSensorSettings", typeof(VirtualSensorSettings));
 		Routing.RegisterRoute("IncidentReportPage", typeof(IncidentReportPage));
 		Routing.RegisterRoute("IncidentReportEditPage", typeof(IncidentReportEditPage));
+		Routing.RegisterRoute("IncidentReportListPage", typeof(IncidentReportListPage));
 	}
 }

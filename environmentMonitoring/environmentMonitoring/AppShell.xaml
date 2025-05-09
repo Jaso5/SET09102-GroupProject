@@ -72,6 +72,11 @@
     Title="IncidentReportEditPage"
     ContentTemplate="{DataTemplate views:IncidentReportEditPage}"
     Route="IncidentReportEditPage" />
+
+    <ShellContent
+    Title="IncidentReportListPage"
+    ContentTemplate="{DataTemplate views:IncidentReportListPage}"
+    Route="IncidentReportListPage" />
    
 
     <TabBar>

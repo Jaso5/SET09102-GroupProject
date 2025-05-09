@@ -3,10 +3,11 @@ using environmentMonitoring.Database.Models;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using environmentMonitoring.Services;
+using System.Diagnostics;
 
 namespace environmentMonitoring.ViewModels;
 
-public class IncidentReportEditViewModel: ObservableObject, IQueryAttributable
+public partial class IncidentReportEditViewModel: ObservableObject, IQueryAttributable
 {
     private IncidentReports _incidentReport;
 
@@ -134,6 +135,7 @@ public class IncidentReportEditViewModel: ObservableObject, IQueryAttributable
 
         if (query.ContainsKey("new"))
         {
+            _incidentReport = new IncidentReports();
             _incidentReport.r_sensor_Id = int.Parse(query["new"].ToString());
             _incidentReport.reportDate = DateTime.Now;
         }
@@ -165,6 +167,39 @@ public class IncidentReportEditViewModel: ObservableObject, IQueryAttributable
         OnPropertyChanged(nameof(incidentDescription));
         OnPropertyChanged(nameof(incidentNextSteps));
         OnPropertyChanged(nameof(incidentResolution));
+    }
+
+    [RelayCommand]
+    private async Task SaveIncidentReport() {
+        if (string.IsNullOrWhiteSpace(incidentType) || string.IsNullOrWhiteSpace(incidentStatus) || string.IsNullOrWhiteSpace(incidentDescription) || string.IsNullOrWhiteSpace(incidentNextSteps)) {
+            await Shell.Current.DisplayAlert("Required Fields", "Status, Incident Type, Description, Proposed Action", "OK");
+            return;
+        }
+
+        try {
+            if(_incidentReport.incident_Id == 0)
+            {
+                _incidentReport.lastUpdatedDate = DateTime.Now;
+                _repService.CreateIncidentReport(_incidentReport);
+                await Shell.Current.DisplayAlert("Successful", "Incident Report Saved", "Ok");
+            }
+            else
+            {
+                _incidentReport.lastUpdatedDate = DateTime.Now;
+                _repService.UpdateIncidentReport(_incidentReport);
+                await Shell.Current.DisplayAlert("Successful", "Incident Report Updated", "Ok");
+            }
+        } catch (Exception) {
+            await Shell.Current.DisplayAlert("Error", "Unable to save incident report", "Ok");
+        }
+
+        try {
+            await Shell.Current.GoToAsync("..");
+        } catch (Exception) {
+            await Shell.Current.DisplayAlert("Error", "Report saved successfully, error during navigation", "Ok");
+        }
+        
+        return;
     }
 
 }
