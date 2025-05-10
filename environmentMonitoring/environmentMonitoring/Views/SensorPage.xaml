@@ -1,10 +1,13 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:environmentMonitoring.ViewModels"
              x:Class="environmentMonitoring.Views.SensorPage"
              Title="Sensor">
 
-   
+    <ContentPage.Behaviors>
+        <mct:EventToCommandBehavior EventName="Appearing" Command="{Binding RefreshPropertiesCommand}" />
+    </ContentPage.Behaviors>
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Back" Command="{Binding BackCommand}"/>
@@ -13,6 +16,21 @@
     <ScrollView
         VerticalScrollBarVisibility="Always">
         <VerticalStackLayout x:Name="Body">
+            <StackLayout>
+                    <HorizontalStackLayout HorizontalOptions="Start">
+                        <Label 
+                        Text="Sensor ID: "
+                        FontSize="15"
+                        VerticalOptions="Center"
+                        Margin="20,0,0,0" />
+                        
+                        <Label 
+                        Text="{Binding sensorId}"
+                        FontSize="15"
+                        VerticalOptions="Center"
+                        Margin="20,0,0,0" />
+                </HorizontalStackLayout>
+         </StackLayout>
             <VerticalStackLayout x:Name="SensorsList"/>
 
             <!-- Button to create the report -->
