@@ -14,7 +14,7 @@
   - Dan: Generate comprehensive reports on environmental trends
   - Kane: Use a map to view real-time sensor statuses and alerts geographically
 - Operation Manager
-  - Jacob: Monitor the operational status of sensors: Add battery level to map
+  - Jacob: Monitor the operational status of sensors: Add battery level to list
   - Dan: Schedule maintenance and ensure timely checks: Battery low alerts
   - James: Address and report sensor malfunctions or anomalies:  Add inspection date + reminders to each sensor
   - Kane: Verify the accuracy and integrity of collected data
