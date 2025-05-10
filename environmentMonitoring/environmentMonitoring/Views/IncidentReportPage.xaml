@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:environmentMonitoring.ViewModels"
+             x:Class="environmentMonitoring.Views.IncidentReportPage"
+             Title="Incident Report Page">
+    <VerticalStackLayout>
+        <HorizontalStackLayout HorizontalOptions="Start">
+                    <Label 
+                    Text="Sensor ID: "
+                    FontSize="15"
+                    VerticalOptions="Center"
+                    Margin="20,10,0,0" />
+                    
+                    <Label 
+                    Text="{Binding sensorId}"
+                    FontSize="15"
+                    VerticalOptions="Center"
+                    Margin="20,10,0,0" />
+            
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout HorizontalOptions="Start">
+                    <Label 
+                    Text="Report Created: "
+                    FontSize="15"
+                    VerticalOptions="Center"
+                    Margin="20,10,0,0" />
+                    
+                    <Label
+                    Text="{Binding reportDateTime}"
+                    FontSize="15"
+                    VerticalOptions="Center"
+                    Margin="20,10,0,0" />
+            
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout HorizontalOptions="Start">
+                    <Label 
+                    Text="Report Last Updated: "
+                    FontSize="15"
+                    VerticalOptions="Center"
+                    Margin="20,10,0,0" />
+                    
+                    <Label
+                    Text="{Binding reportLastUpdateDateTime}"
+                    FontSize="15"
+                    VerticalOptions="Center"
+                    Margin="20,10,0,0" />
+            
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout HorizontalOptions="Start">
+                    <Label 
+                    Text="Incident Status: "
+                    FontSize="15"
+                    VerticalOptions="Center"
+                    Margin="20,10,0,0" />
+                    
+                    <Label
+                    Text="{Binding incidentStatus}"
+                    FontSize="15"
+                    VerticalOptions="Center"
+                    Margin="20,10,0,0" />
+            
+                </HorizontalStackLayout>
+
+            <Label 
+                Text="Incident Type"
+                FontSize="20"
+                VerticalOptions="Center" 
+                Margin="20,10,20,0" />
+
+            <Label
+                Text="{Binding incidentType}"
+                FontSize="18"
+                Margin="20,10,20,0" />
+
+            <Label 
+                Text="Description"
+                FontSize="20"
+                VerticalOptions="Center" 
+                Margin="20,10,20,0" />
+
+            <Label
+                Text="{Binding incidentDescription}"
+                FontSize="18"
+                Margin="20,10,20,0" />
+
+            <Label 
+                Text="Proposed Action"
+                FontSize="20"
+                VerticalOptions="Center" 
+                Margin="20,10,20,0"/>
+
+            <Label
+                Text="{Binding incidentNextSteps}"
+                FontSize="18"
+                Margin="20,10,20,0" />
+
+            <Label 
+                Text="Resolution Details"
+                FontSize="20"
+                VerticalOptions="Center" 
+                Margin="20,10,20,0" />
+
+            <Label
+                Text="{Binding incidentResolution}"
+                FontSize="18"
+                Margin="20,10,20,0" />
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="4">
+                <Button 
+                    x:Name="EditIncidentReportButton"
+                    Text="Edit"
+                    Command="{Binding EditIncidentReportCommand}"
+                    TextColor="White" 
+                    HeightRequest="40"
+                    WidthRequest="250"
+                    Margin="20,20,20,0" />
+
+                <Button Grid.Column="1"
+                    x:Name="DeleteIncidentReportButton"
+                    Text="Delete"
+                    Command="{Binding DeleteIncidentReportCommand}"
+                    TextColor="White" 
+                    HeightRequest="40"
+                    WidthRequest="250"
+                    Margin="20,20,20,0" />
+            </Grid>
+            
+    </VerticalStackLayout>
+</ContentPage>

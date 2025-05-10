@@ -5,6 +5,7 @@ using environmentMonitoring.ViewModels;
 using environmentMonitoring.Services;
 using LiveChartsCore.SkiaSharpView.Maui;
 using SkiaSharp.Views.Maui.Controls.Hosting;
+using CommunityToolkit.Maui;
 
 namespace environmentMonitoring;
 
@@ -17,6 +18,7 @@ public static class MauiProgram
 			.UseSkiaSharp()
 			.UseLiveCharts()
 			.UseMauiApp<App>()
+			.UseMauiCommunityToolkit()
 			.ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -25,6 +27,8 @@ public static class MauiProgram
 
 		builder.Services.AddDbContext<EnvironmentAppDbContext>();
 		builder.Services.AddSingleton<IDiaglogService, DiaglogService>();
+
+		builder.Services.AddSingleton<IncidentReportService, IncidentReportService>();
 
 		builder.Services.AddSingleton<IReadDataService, UserService>();
 		builder.Services.AddSingleton<IUpdateDataService, UserService>();
@@ -82,6 +86,15 @@ public static class MauiProgram
 		builder.Services.AddSingleton<ManageRolePermissionsViewModel>();
 		builder.Services.AddSingleton<PermissionViewModel>();
 		builder.Services.AddTransient<ManageRolePermissionsPage>();
+
+		builder.Services.AddSingleton<IncidentReportViewModel>();
+		builder.Services.AddTransient<IncidentReportPage>();
+
+		builder.Services.AddSingleton<IncidentReportEditViewModel>();
+		builder.Services.AddTransient<IncidentReportEditPage>();
+
+		builder.Services.AddSingleton<IncidentReportListViewModel>();
+		builder.Services.AddTransient<IncidentReportListPage>();
 
 		builder.Services.AddSingleton<SensorDataService, SensorDataService>();
 

@@ -57,7 +57,7 @@ public partial class PermissionViewModel : ObservableObject
                         await Shell.Current.DisplayAlert("Error", "There was an error while adding the permission.", "OK");
                         return;
                     }
-                    await Shell.Current.GoToAsync($"{nameof(Views.ManageRolePermissionsPage)}?load={roleId}");
+                    await Shell.Current.GoToAsync($"///ManageRolePermissionsPage?load={roleId}");
         }
         
     }
@@ -79,7 +79,7 @@ public partial class PermissionViewModel : ObservableObject
                         await Shell.Current.DisplayAlert("Error", "There was an error while removing the permission.", "OK");
                         return;
                     }       
-                    await Shell.Current.GoToAsync($"{nameof(Views.ManageRolePermissionsPage)}?load={roleId}");
+                    await Shell.Current.GoToAsync($"///ManageRolePermissionsPage?load={roleId}");
         }
         
     }

@@ -17,13 +17,15 @@ public class IncidentReports
     [Required]
     public string status { get; set; }
     [Required]
-    public DateTime? date { get; set; }
+    public DateTime? reportDate { get; set; }
+
+    public DateTime? lastUpdatedDate { get; set; }
 
     public string? description { get; set; }
 
     public string? next_steps { get; set; }
 
-
+    public string? resolution { get; set; }
 
     // foreign keys
     public int? reading_Id { get; set; }
