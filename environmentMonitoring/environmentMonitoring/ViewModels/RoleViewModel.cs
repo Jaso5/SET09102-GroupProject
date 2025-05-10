@@ -76,6 +76,10 @@ public partial class RoleViewModel: ObservableObject, IQueryAttributable
                         {
                             _rpService.CreateRole(_role);
                         }
+                        else
+                        {
+                            _rpService.UpdateRole(_role);
+                        }
                         await Shell.Current.GoToAsync($"..?saved={_role.role_Id}");
                     } catch (Exception)
                     {

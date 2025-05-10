@@ -107,6 +107,32 @@ namespace environmentMonitoring.ViewModels
                 await Shell.Current.DisplayAlert("Access Denied", "You do not have permission to access the Sensor List Page.", "OK");
             }
         }
+
+        // Navigation to Incident Report List Page
+        [RelayCommand]
+        private async Task NavigateToIncidentReportListPage()
+        {
+            int roleIdFromStorage = int.Parse(await SecureStorage.GetAsync("userRoleId"));
+
+            // Check permission 12 for Incident Report List Page
+            bool hasPermissions = await _permissionService.HasPermissionAsync(12, roleIdFromStorage);
+
+            if (hasPermissions)
+            {
+                try
+                {
+                    await Shell.Current.GoToAsync("///IncidentReportListPage");
+                }
+                catch (Exception)
+                {
+                    await Shell.Current.DisplayAlert("Error", "Error during navigation", "OK");
+                }
+            }
+            else
+            {
+                await Shell.Current.DisplayAlert("Access Denied", "You do not have permission to access the this Page.", "OK");
+            }
+        }
     }
 }
 

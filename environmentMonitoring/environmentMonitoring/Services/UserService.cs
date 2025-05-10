@@ -10,10 +10,6 @@ namespace environmentMonitoring.Services;
      *  to retrieving and updating users information.
      */
 
-/*! UserService is responsible for handling user specific services, from validation 
-     *  to retrieving and updating users information.
-     */
-
 public class UserService: IReadDataService, IUpdateDataService, IValidationService
 {
 
@@ -67,6 +63,11 @@ public class UserService: IReadDataService, IUpdateDataService, IValidationServi
         }
     }
 
+    /*! CredentialsCheck method checks a users log in information 
+     *  retrieves a user from the database, as well as his role
+     *  @throws Exception if there is an issue during retrieval
+     *  @return Returns a list of all users
+     */
     public async Task<User?> CredentialsCheck(String email, string password)
     {
          var user = await _context.Users

@@ -16,6 +16,13 @@
     <ScrollView
         VerticalScrollBarVisibility="Always">
         <VerticalStackLayout x:Name="Body">
+            
+            <Button 
+            x:Name="CreateIncidentReport"
+            Text="Create Incident Report" 
+            Command="{Binding CreateIncidentReportCommand}"
+            HorizontalOptions="End" />
+            
             <StackLayout>
                     <HorizontalStackLayout HorizontalOptions="Start">
                         <Label 

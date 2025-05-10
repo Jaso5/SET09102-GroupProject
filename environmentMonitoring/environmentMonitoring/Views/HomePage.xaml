@@ -39,5 +39,13 @@
             TextColor="White" 
             HeightRequest="40"
             Margin="20,20,20,0" />
+
+        <Button x:Name="IncidentReportListButton"
+            Text="Incident Reports"
+            Command="{Binding NavigateToIncidentReportListPageCommand}"
+            BackgroundColor="#FF10B7D4"
+            TextColor="White" 
+            HeightRequest="40"
+            Margin="20,20,20,0" />
     </VerticalStackLayout>
 </ContentPage>

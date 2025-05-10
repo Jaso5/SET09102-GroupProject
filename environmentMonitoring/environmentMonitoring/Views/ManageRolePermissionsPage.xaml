@@ -4,6 +4,11 @@
              xmlns:viewModels="clr-namespace:environmentMonitoring.ViewModels"
              x:Class="environmentMonitoring.Views.ManageRolePermissionsPage"
              Title="Manage Roles Permissions">
+        
+        <ContentPage.ToolbarItems>
+            <ToolbarItem Text="Role List" Command="{Binding RoleListCommand}"/>
+        </ContentPage.ToolbarItems>
+        
         <ScrollView Margin="20">
             <VerticalStackLayout>
                 

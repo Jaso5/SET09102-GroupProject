@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:environmentMonitoring.ViewModels"
+             x:Class="environmentMonitoring.Views.IncidentReportEditPage"
+             Title="Incident Report">
+    <ScrollView Margin="20">
+        <VerticalStackLayout>
+
+                <HorizontalStackLayout HorizontalOptions="Start">
+                    <Label 
+                    Text="Sensor ID: "
+                    FontSize="15"
+                    VerticalOptions="Center"
+                    Margin="20,10,0,0" />
+                    
+                    <Label 
+                    Text="{Binding sensorId}"
+                    FontSize="15"
+                    VerticalOptions="Center"
+                    Margin="20,10,0,0" />
+            
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout HorizontalOptions="Start">
+                    <Label 
+                    Text="Report Created: "
+                    FontSize="15"
+                    VerticalOptions="Center"
+                    Margin="20,10,0,0" />
+                    
+                    <Label
+                    Text="{Binding reportDateTime}"
+                    FontSize="15"
+                    VerticalOptions="Center"
+                    Margin="20,10,0,0" />
+            
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout HorizontalOptions="Start">
+                    <Label 
+                    Text="Report Last Updated: "
+                    FontSize="15"
+                    VerticalOptions="Center"
+                    Margin="20,10,0,0" />
+                    
+                    <Label
+                    Text="{Binding reportLastUpdateDateTime}"
+                    FontSize="15"
+                    VerticalOptions="Center"
+                    Margin="20,10,0,0" />
+            
+                </HorizontalStackLayout>
+
+                <Picker x:Name="picker"
+                    Title="Report Status"
+                    Margin="20,10,20,0"
+                    SelectedItem="{Binding incidentStatus}">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Open</x:String>
+                            <x:String>In Progress</x:String>
+                            <x:String>Closed</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+
+            <Label 
+                Text="Incident Type"
+                FontSize="20"
+                VerticalOptions="Center" 
+                Margin="20,10,20,0" />
+
+            <Entry x:Name="incidentTypeEntry"
+                    Placeholder="Enter the type of incident.."
+                    Text="{Binding incidentType}"
+                    FontSize="20"
+                    Margin="20,10,20,0"
+                    FontAutoScalingEnabled="True"
+                    HeightRequest="50" />
+
+            <Label 
+                Text="Description"
+                FontSize="20"
+                VerticalOptions="Center" 
+                Margin="20,10,20,0" />
+
+            <Editor x:Name="incidentDescriptionEditor"
+                    Placeholder="Describe the incident"
+                    Text="{Binding incidentDescription}"
+                    FontSize="20"
+                    Margin="20,10,20,0"
+                    HeightRequest="100" />
+
+            <Label 
+                Text="Proposed Action"
+                FontSize="20"
+                VerticalOptions="Center" 
+                Margin="20,10,20,0"/>
+
+            <Editor x:Name="incidentNextStepsEditor"
+                    Placeholder="Proposed Action.."
+                    Text="{Binding incidentNextSteps}"
+                    FontSize="20"
+                    Margin="20,10,20,0"
+                    HeightRequest="100" />
+
+            <Label 
+                Text="Resolution Details"
+                FontSize="20"
+                VerticalOptions="Center" 
+                Margin="20,10,20,0" />
+
+            <Editor x:Name="incidentResolutionEditor"
+                    Placeholder="How the issue was resolved..."
+                    Text="{Binding incidentResolution}"
+                    FontSize="20"
+                    Margin="20,10,20,0"
+                    HeightRequest="100" />
+
+            <Button x:Name="SaveIncidentReportButton"
+                Text="Save Incident Report"
+                Command="{Binding SaveIncidentReportCommand}"
+                TextColor="White" 
+                HeightRequest="40"
+                WidthRequest="250"
+                Margin="20,20,20,0" />
+
+            
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
