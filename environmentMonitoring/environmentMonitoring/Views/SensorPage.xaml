@@ -2,7 +2,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:environmentMonitoring.ViewModels"
              x:Class="environmentMonitoring.Views.SensorPage"
-             Title="SensorPage">
+             Title="Sensor">
+
+   
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Back" Command="{Binding BackCommand}"/>
