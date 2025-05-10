@@ -9,7 +9,7 @@
 ## Tasks
 
 - Environmental Scientist
-  - James: Manage sensor accounts and configure settings: Add setting menu for each sensor, add fake settings
+  - James: Locate and navigate to sensors in the field for maintenance or inspection purposes.
   - Jacob: View and analyse historical environmental data: Graph the data
   - Dan: Generate comprehensive reports on environmental trends
   - Kane: Use a map to view real-time sensor statuses and alerts geographically
