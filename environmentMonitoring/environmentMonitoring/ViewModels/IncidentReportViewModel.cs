@@ -4,6 +4,11 @@ using CommunityToolkit.Mvvm.Input;
 using environmentMonitoring.Database.Models;
 using environmentMonitoring.Services;
 
+/*! IncidentReportViewModel handles the logic for displaying the report to the user
+     *  
+     *  
+     */
+
 namespace environmentMonitoring.ViewModels;
 
 public partial class IncidentReportViewModel:ObservableObject, IQueryAttributable
@@ -30,6 +35,10 @@ public partial class IncidentReportViewModel:ObservableObject, IQueryAttributabl
     public string? incidentNextSteps => _incidentReport.next_steps;
     public string? incidentResolution => _incidentReport.resolution;
 
+    /*! EditIncidentReport method navigated the user to the IncidentReportEditPage
+     *  Passes report ID as query parameter 
+     *  Displays error message if navigation fails after saving a report
+     */
     [RelayCommand]
     private async Task EditIncidentReport() 
     {
@@ -40,6 +49,10 @@ public partial class IncidentReportViewModel:ObservableObject, IQueryAttributabl
         }
     }
 
+    /*! SaveIncidentReport method deletes the current report 
+     *  Displays error message if theres an error when trying to delete the report
+     *  Displays error message if navigation fails after deleting report a report
+     */
     [RelayCommand]
     private async Task DeleteIncidentReport() 
     {
@@ -80,6 +93,8 @@ public partial class IncidentReportViewModel:ObservableObject, IQueryAttributabl
         RefreshProperties();
     }
 
+    /*! RefreshProperties refreshes the information in the report when called 
+     */
      private void RefreshProperties()
     {
         OnPropertyChanged(nameof(sensorId));

@@ -6,7 +6,7 @@
              Title="Admin Panel">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Back" Command="{Binding BackCommand}"/>
+        <ToolbarItem Text="Home" Command="{Binding BackCommand}"/>
     </ContentPage.ToolbarItems>
 
     <VerticalStackLayout>

@@ -7,7 +7,7 @@
              NavigatedTo="ContentPage_NavigatedTo">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Back" Command="{Binding BackCommand}"/>
+        <ToolbarItem Text="Admin Panel" Command="{Binding BackCommand}"/>
         <ToolbarItem Text="Add Role" Command="{Binding NewCommand}"/>
     </ContentPage.ToolbarItems>
 

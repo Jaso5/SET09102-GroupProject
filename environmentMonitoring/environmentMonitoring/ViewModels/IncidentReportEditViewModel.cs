@@ -7,6 +7,11 @@ using System.Diagnostics;
 
 namespace environmentMonitoring.ViewModels;
 
+/*! IncidentReportEditViewModel
+     * Handles the logic for editing 
+     *  Keeps the list up to date, and allows the user to select a specific report
+     */
+
 public partial class IncidentReportEditViewModel: ObservableObject, IQueryAttributable
 {
     private IncidentReports _incidentReport;
@@ -123,13 +128,13 @@ public partial class IncidentReportEditViewModel: ObservableObject, IQueryAttrib
         _repService = incidentReportService;
         _incidentReport = new IncidentReports();
     }
-/*
-    public IncidentReportEditViewModel(IncidentReportService incidentReportService, IncidentReports incidentReport) {
-        _repService = incidentReportService;
-        _incidentReport = incidentReport;
-    }
-*/
 
+    /*! IQueryAttributable.ApplyQueryAttributes method retrieves the query parameter passed during navigation
+     *  If parameter is new, a new incident report is created
+     *  If parameter is load, an existing report is loaded
+     *  Displays error message if there is an issue when attempting to retrieve the role
+     *  @param A dictionary containing the ID of the role to be retrieved
+     */ 
     void IQueryAttributable.ApplyQueryAttributes(IDictionary<string, object> query)
     {
 
@@ -169,6 +174,10 @@ public partial class IncidentReportEditViewModel: ObservableObject, IQueryAttrib
         OnPropertyChanged(nameof(incidentResolution));
     }
 
+    /*! SaveIncidentReport method saves a new report or updates an existing one
+     *  Displays different messages to the user depending if saving is either successful or not 
+     *  Displays error message if navigation fails after saving a report
+     */
     [RelayCommand]
     private async Task SaveIncidentReport() {
         if (string.IsNullOrWhiteSpace(incidentType) || string.IsNullOrWhiteSpace(incidentStatus) || string.IsNullOrWhiteSpace(incidentDescription) || string.IsNullOrWhiteSpace(incidentNextSteps)) {

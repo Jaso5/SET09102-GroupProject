@@ -11,6 +11,7 @@
     <ScrollView
         VerticalScrollBarVisibility="Always">
         <VerticalStackLayout x:Name="Body">
+            
             <Button 
             x:Name="CreateIncidentReport"
             Text="Create Incident Report" 

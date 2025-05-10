@@ -5,6 +5,9 @@ using environmentMonitoring.Database.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace environmentMonitoring.Services;
+/*! Incident report service handles CRUD operations for incident reports
+*
+*/
 
 public class IncidentReportService
 {

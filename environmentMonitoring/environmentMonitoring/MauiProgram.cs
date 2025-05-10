@@ -5,6 +5,7 @@ using environmentMonitoring.ViewModels;
 using environmentMonitoring.Services;
 using LiveChartsCore.SkiaSharpView.Maui;
 using SkiaSharp.Views.Maui.Controls.Hosting;
+using CommunityToolkit.Maui;
 
 namespace environmentMonitoring;
 
@@ -17,6 +18,7 @@ public static class MauiProgram
 			.UseSkiaSharp()
 			.UseLiveCharts()
 			.UseMauiApp<App>()
+			.UseMauiCommunityToolkit()
 			.ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

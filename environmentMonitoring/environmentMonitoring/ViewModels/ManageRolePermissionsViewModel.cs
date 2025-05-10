@@ -2,6 +2,7 @@ using environmentMonitoring.Database.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using environmentMonitoring.Services;
 using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.Input;
 
 
 namespace environmentMonitoring.ViewModels;
@@ -105,5 +106,16 @@ public partial class ManageRolePermissionsViewModel: ObservableObject, IQueryAtt
             }
             
         }
+    }
+
+    [RelayCommand]
+    private async Task RoleList() {
+
+        try {
+            await Shell.Current.GoToAsync("///ManageRolesPage");
+        } catch (Exception) {
+            await Shell.Current.DisplayAlert("Error", "During Navigation", "OK");
+        }
+        
     }
 }

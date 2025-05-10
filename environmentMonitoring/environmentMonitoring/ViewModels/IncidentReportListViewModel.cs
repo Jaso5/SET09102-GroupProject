@@ -8,6 +8,11 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace environmentMonitoring.ViewModels;
 
+/*! IncidentReportListViewModel 
+     * Handles the logic for displaying the list of reports to the user
+     *  Keeps the list up to date, and allows the user to select a specific report
+     */
+
 public partial class IncidentReportListViewModel
 {
     private readonly IncidentReportService? _repService;
@@ -24,7 +29,10 @@ public partial class IncidentReportListViewModel
     }
 
 
-
+    /*! SelectIncidentReportAsync allows the user to select an incident report
+     * User is then navigated to the incident report for viewing
+     *  @param Takes an IncidentReportViewModel as a parameter
+     */
     private async Task SelectIncidentReportAsync(IncidentReportViewModel incidentReport)
     {
         if (incidentReport != null) {
@@ -46,9 +54,11 @@ public partial class IncidentReportListViewModel
         }
     }
 
-
-
-    public async Task ReloadList()
+    /*! ReloadList reloads the list of incident reports from the database o page appearing
+     *  The command is bound to the on appearing EventToCommandBehavior on the IncidentReportListPage.xaml
+     */
+    [RelayCommand]
+    private async Task ReloadList()
     {
         incidentReportList.Clear();
 

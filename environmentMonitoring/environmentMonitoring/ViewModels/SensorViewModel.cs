@@ -18,6 +18,10 @@ public partial class SensorViewModel
     [RelayCommand]
     private async Task NavBack() => await Shell.Current.GoToAsync("..");
 
+    /*! CreateIncidentReport command navigates the user to the incident report page
+     *  Passes the sensor ID as a query parameter during navigation
+     *  Displays error message if theres an issue during navigation
+     */
     [RelayCommand]
     private async Task CreateIncidentReport() {
          try {
