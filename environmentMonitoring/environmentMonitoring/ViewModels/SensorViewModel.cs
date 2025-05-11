@@ -3,24 +3,28 @@ using environmentMonitoring.Database.Models;
 using System.Diagnostics;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
+using environmentMonitoring.Services;
 
 namespace environmentMonitoring.ViewModels;
 
 public partial class SensorViewModel:ObservableObject
 {
     public ICommand BackCommand { get; }
+
+    private readonly INavigateToSensor _sensorNav;
     public RealSensor? rs { get; set; }
 
     public int? sensorId => rs?.r_sensor_Id;
 
-    public float? longitude => rs?.lon;
-    public float? latitude => rs?.lat;
+    public double? longitude => rs?.lon;
+    public double? latitude => rs?.lat;
 
 
 
-    public SensorViewModel()
+    public SensorViewModel(INavigateToSensor sensorNav)
     {
         BackCommand = new AsyncRelayCommand(NavBack);
+        _sensorNav = sensorNav;
     }
 
     [RelayCommand]
@@ -39,24 +43,14 @@ public partial class SensorViewModel:ObservableObject
         }
     }
 
-    /*! NavigateToSensor command navigates opens either google maps app, or a browser
+    /*! NavigateToSensor command makes use of the INavigateToSensor interface to open either google maps app, or a browser
      *  Uses the sensor longitude and latitude, to plot a route from the current location
      *  Displays error message if theres an issue attempting to open the browser, or google maps app
      */
     [RelayCommand]
     private async Task NavigateToSensor() {
          try {
-            Uri uri = new Uri("https://www.google.com/maps/dir/?api=1&destination="+latitude +"+"+ longitude+"&travelmode=driving");
-            BrowserLaunchOptions options = new BrowserLaunchOptions()
-            {
-                LaunchMode = BrowserLaunchMode.SystemPreferred,
-                TitleMode = BrowserTitleMode.Show,
-                PreferredToolbarColor = Colors.Violet,
-                PreferredControlColor = Colors.SandyBrown
-            };
-
-            await Browser.Default.OpenAsync(uri, options);
-
+            _sensorNav.NavigateToSensor(longitude, latitude);
         } catch (Exception) {
             await Shell.Current.DisplayAlert("Error", "Couldn't load sensor navigation", "OK");
         }
