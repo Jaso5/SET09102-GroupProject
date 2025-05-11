@@ -23,8 +23,8 @@ jobs:
       - name: Generate Doxyfile
         run: doxygen -g
 
-#      - name: Modify Doxyfile (Optional)
-#        run: sed -i 's|INPUT = .*|INPUT = ./src|' Doxyfile # Modify this line if your source files are in a different folder
+      - name: Modify Doxyfile (Optional)
+        run: sed -i 's|INPUT = .*|INPUT = ./src|' Doxyfile
 
       - name: Generate Doxygen Documentation
         run: doxygen .
@@ -32,7 +32,7 @@ jobs:
       - name: Upload static files as artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: html # Ensure this matches your Doxygen output directory
+          path: html
 
   deploy:
     needs: generate
