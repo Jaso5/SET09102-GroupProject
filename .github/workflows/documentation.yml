@@ -21,12 +21,12 @@ jobs:
         run: sudo apt-get install doxygen -y
 
       - name: Generate Doxygen Documentation
-        run: doxygen ../Doxyfile
+        run: doxygen Doxyfile
 
       - name: Upload static files as artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: html
+          path: html/html
 
   deploy:
     needs: generate
