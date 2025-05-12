@@ -97,6 +97,7 @@ public static class MauiProgram
 		builder.Services.AddTransient<IncidentReportListPage>();
 
 		builder.Services.AddSingleton<SensorDataService, SensorDataService>();
+		builder.Services.AddSingleton<INavigateToSensor, GoogleMapsNavigation>();
 
 		builder.Services.AddTransient<VirtualSensorSettings>();
 
