@@ -20,12 +20,6 @@ jobs:
       - name: Install Doxygen
         run: sudo apt-get install doxygen -y
 
-      - name: Generate Doxyfile
-        run: doxygen -g
-
-      - name: Modify Doxyfile (Optional)
-        run: sed -i 's|INPUT = .*|INPUT = ./src|' Doxyfile
-
       - name: Generate Doxygen Documentation
         run: doxygen .
 
