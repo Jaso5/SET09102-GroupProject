@@ -1,8 +1,13 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:environmentMonitoring.ViewModels"
              x:Class="environmentMonitoring.Views.SensorPage"
-             Title="SensorPage">
+             Title="Sensor Page">
+
+    <ContentPage.Behaviors>
+        <mct:EventToCommandBehavior EventName="Appearing" Command="{Binding RefreshPropertiesCommand}" />
+    </ContentPage.Behaviors>
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Back" Command="{Binding BackCommand}"/>
@@ -11,13 +16,42 @@
     <ScrollView
         VerticalScrollBarVisibility="Always">
         <VerticalStackLayout x:Name="Body">
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="4">
+                <VerticalStackLayout>
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Label 
+                    Text="Sensor ID: "
+                    FontSize="15"
+                    VerticalOptions="Center"
+                    Margin="20,10,0,0" />
+                        
+                    <Label 
+                    Text="{Binding sensorId}"
+                    FontSize="15"
+                    VerticalOptions="Center"
+                    Margin="20,10,0,0" />
+                </HorizontalStackLayout>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout HorizontalOptions="Center" Grid.Column="1">
+                    <Button 
+                    x:Name="CreateIncidentReport"
+                    Text="Create Incident Report"
+                    Margin="20,10,0,0" 
+                    Command="{Binding CreateIncidentReportCommand}"
+                    HorizontalOptions="End" />
+
+                    <Button 
+                    x:Name="NavigateToSensor"
+                    Text="Navigate To Sensor"
+                    Margin="20,10,0,0" 
+                    Command="{Binding NavigateToSensorCommand}"
+                    HorizontalOptions="End" />
+                </VerticalStackLayout>
             
-            <Button 
-            x:Name="CreateIncidentReport"
-            Text="Create Incident Report" 
-            Command="{Binding CreateIncidentReportCommand}"
-            HorizontalOptions="End" />
-            
+            </Grid>
+
             <VerticalStackLayout x:Name="SensorsList"/>
 
             <!-- Button to create the report -->
